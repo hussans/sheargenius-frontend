@@ -1,9 +1,10 @@
 import React from 'react'
 
-const page = () => {
+const register = () => {
+    
   return (
     <div> register </div>
   )
 }
 
-export default page
+export default register
