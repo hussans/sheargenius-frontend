@@ -11,14 +11,15 @@ import {
 import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
-
+import Navbar from "@/components/ui/navbar";
 export default function Home() {
 // npx shadcn@latest add sidebar
 // npx shadcn@latest add card
 
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className="flex flex-col">
+      <Navbar/>
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
         <div className="flex flex-row">
           <div className="w-[16rem]">
