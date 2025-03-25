@@ -1,0 +1,480 @@
+{
+    "haircuts": [
+        {
+            "id": 1,
+            "name": "Blowouts",
+            "description": "A blowout is a style where the hair is blow-dried with volume on top, creating a smooth, textured look with a bit of height, and the sides are typically tapered or faded for a clean finish..",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/blowOuts1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/blowOuts2.jpg",
+            "video": "https://www.youtube.com/shorts/efgyVJkzYYI",
+            "howTo": {
+                "step1": "Wash and towel dry, start with freshly washed hair, towel dry to remove excess moisture.",
+                "step2": "Apply a lightweight mousse or volumizing gel to damp hair for hold and volume.",
+                "step3": "Use a round brush to lift the hair at the roots while blow-drying with a high heat setting to add volume and smoothness.",
+                "step4": "Use a light hairspray or pomade for hold and texture, shaping the hair to desired height and shape."
+            }
+        },
+        {
+            "id": 2,
+            "name": "Bowl Cut",
+            "description": "A bowl cut is a short, blunt hairstyle where the hair is cut evenly around the head, creating a rounded shape that resembles an inverted bowl.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/bowlCut1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/bowlCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=t6uj_5Zfztw",
+            "howTo": {
+                "step1": "Divide the hair into top and bottom sections, securing the top with clips.",
+                "step2": "Trim the bottom section evenly around the head, creating a straight line just above the ears.",
+                "step3": "Release the top section and trim it to match the length of the bottom, ensuring an even bowl shape.",
+                "step4": "Check for evenness, blend any harsh lines, and clean up the edges for a sharp, defined look."
+            }
+        },
+        {
+            "id": 3,
+            "name": "Braids",
+            "description": "Braids are a hairstyle where hair is divided into sections and interwoven in a pattern, typically creating a woven, structured look that can range from simple to intricate designs.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/braids1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/braids2.jpg",
+            "video": "https://www.youtube.com/watch?v=F7fs3oODiac",
+            "howTo": {
+                "step1": "Separate the hair into three equal sections, securing any loose strands.",
+                "step2": "Cross the right section over the middle, then the left section over the new middle section.",
+                "step3": "Repeat the process, alternating sides, until you reach the ends of the hair.",
+                "step4": "Tie the end with a hair elastic to hold the braid in place, and adjust for tightness or looseness as desired."
+            }
+        },
+        {
+            "id": 4,
+            "name": "Burst Fade",
+            "description": "The burst fade is a haircut where the hair gradually fades from short to skin around the sides and back, creating a rounded, bursting shape that accentuates the natural hairline.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/burstfade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/burstFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=WQoi_lqWY6g",
+            "howTo": {
+                "step1": "Begin by trimming the top to the desired length, ensuring it’s even and styled how you want it.",
+                "step2": "Use clippers to create a clean line around the ear, starting from the temple area and curving down toward the back of the neck.",
+                "step3": "Gradually blend the hair from the shorter length near the bottom to the longer length on top, using different clipper guard sizes.",
+                "step4": "Blend the fade into the top section for a smooth transition, and clean up the neckline and sideburns for a sharp finish."
+            }
+        },
+        {
+            "id": 5,
+            "name": "Burst Taper Fade",
+            "description": "The burst taper fade is a haircut where the hair gradually fades from short to skin around the sides and back, creating a rounded, tapered effect that enhances the natural shape of the hairline, typically leaving more length at the top.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/burstTaperFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/burstTaperFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=EwOf2LnvXAMg",
+            "howTo": {
+                "step1": "Begin by trimming the top to the desired length, ensuring its even and styled how you want it.",
+                "step2": "Use clippers to create a clean line around the ear, starting from the temple area and curving down toward the back of the neck.",
+                "step3": "Gradually blend the hair from the shorter length near the bottom to the longer length on top, using different clipper guard sizes.",
+                "step4": "Blend the fade into the top section for a smooth transition, and clean up the neckline and sideburns for a sharp finish."
+            }
+        },
+        {
+            "id": 6,
+            "name": "Buzz Cut",
+            "description": "A buzz cut is a short, uniform hairstyle where the hair is clipped close to the scalp using clippers, creating a clean, even look all around the head.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/buzzCut1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/buzzCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=JBdOn-hgMzU",
+            "howTo": {
+                "step1": "Select the desired length for the buzz cut, typically starting with a shorter guard.",
+                "step2": "Use clippers to evenly cut the hair on the sides and back, moving in upward strokes.",
+                "step3": "Switch to the same or slightly longer clipper guard and cut the hair on the top, ensuring an even length all over.",
+                "step4": "Check for any uneven spots, tidy up the edges around the ears and neckline, and remove any loose hair."
+            }
+        },
+        {
+            "id": 7,
+            "name": "Caesar Cut",
+            "description": "The Caesar haircut is a short, textured style where the hair is cut to a uniform length with a straight, horizontal fringe or bangs that are combed forward.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/caesarCut1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/caesarCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=vHqmilb4cUU",
+            "howTo": {
+                "step1": "Trim the hair on top to a uniform length, typically around 1-2 inches, using clippers or scissors.",
+                "step2": "Create a straight, horizontal fringe by cutting the front section of hair to a short, even length that falls just above the forehead.",
+                "step3": " Use clippers with a shorter guard to trim the sides and back, blending them into the top for a clean, tapered look.",
+                "step4": " Comb the top forward, using a small amount of product for texture and to hold the fringe in place."
+            }
+        },
+        {
+            "id": 8,
+            "name": "Comb Over",
+            "description": "The comb over haircut is a classic style where the hair is cut short on the sides and back, while the longer top section is combed to one side for a sleek, polished look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/combOver1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/comeOver2.jpg",
+            "video": "https://www.youtube.com/watch?v=o0qDKrnSUWA",
+            "howTo": {
+                "step1": "Use clippers to trim the sides and back short, typically with a fade or taper, leaving the top longer.",
+                "step2": "Trim the top to the desired length, usually leaving it around 3-4 inches for styling.",
+                "step3": "Use a comb to create a deep side part, aligning it with the natural growth pattern of the hair.",
+                "step4": "Comb the top section over to one side, applying a small amount of product for hold and texture, and finish with a light hairspray if needed."
+            }
+        },
+        {
+            "id": 9,
+            "name": "Cornrows",
+            "description": "Cornrows are a traditional hairstyle where the hair is braided closely to the scalp in neat, straight rows, creating a raised, structured pattern.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/cornRows1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/cornRows2.jpg",
+            "video": "https://www.youtube.com/watch?v=WDAdVOOUQ_4",
+            "howTo": {
+                "step1": "Wash and detangle the hair, then apply a leave-in conditioner or styling gel to smooth it.",
+                "step2": "Divide the hair into small, even sections using a comb, securing each section with clips or hair ties.",
+                "step3": "Begin at the front, taking a small portion of hair and dividing it into three strands, then braid tightly along the scalp, adding hair to each section as you go.",
+                "step4": "Continue braiding to the end of each row, then secure the ends with small hair elastics, repeating the process across the entire head."
+            }
+        },
+        {
+            "id": 10,
+            "name": "Crew Cut",
+            "description": "The crew cut is a short, clean haircut where the hair on top is cut slightly longer than the sides, with the sides and back tapered for a neat, low-maintenance look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/crewCut1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/crewCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=ig5o-yQC8Vo",
+            "howTo": {
+                "step1": "Use clippers with a longer guard to trim the hair on top to a uniform length, typically around 1-2 inches.",
+                "step2": "Switch to a shorter guard and use clippers to gradually fade the sides and back, blending it into the top.",
+                "step3": "Clean up the edges around the neckline and sideburns with clippers or a trimmer for a sharp finish.",
+                "step4": "Ensure the top is even and the fade is smooth, making any adjustments as needed for a clean, balanced look."
+            }
+        },
+        {
+            "id": 11,
+            "name": "Crop Fade",
+            "description": "The crop fade is a modern hairstyle where the hair on top is cut short and textured, while the sides and back are faded for a sharp, clean contrast.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/cropFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/cropFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=on3XyTmy5Oc",
+            "howTo": {
+                "step1": "Trim the hair on top to a short, textured length, usually around 1-2 inches, using scissors or clippers.",
+                "step2": "Use clippers with a shorter guard to gradually fade the sides and back, blending the fade into the top.",
+                "step3": "Shape the neckline and clean up the sideburns for a defined, sharp edge.",
+                "step4": "Apply a lightweight product to the top for texture and volume, and use your fingers or a comb to style it for a natural finish."
+            }
+        },
+        {
+            "id": 12,
+            "name": "Dread Locs",
+            "description": "Dreadlocks, or dreadlocs, are a hairstyle where the hair is intentionally matted and twisted into rope-like strands, forming thick, uniform locks that can vary in size and length.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/dreadlocs1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/dreadlocs2.jpg",
+            "video": "https://www.youtube.com/watch?v=ioshL5cJOmc",
+            "howTo": {
+                "step1": "Wash and detangle the hair, ensuring its clean and free of product buildup.",
+                "step2": "Divide the hair into small, even sections using a comb, securing each with clips or rubber bands.",
+                "step3": "Take each section of hair and twist it tightly, either by the palm rolling method or backcombing, until it begins to form a lock.",
+                "step4": "Regularly palm roll or retwist the roots to keep the locs tight, and moisturize the hair to prevent dryness as they mature."
+            }
+        },
+        {
+            "id": 13,
+            "name": "Drop Fade",
+            "description": "The drop fade is a hairstyle where the fade gradually drops down behind the ear, creating a curved, rounded shape that follows the natural hairline around the sides and back.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/dropfade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/dropfade2.jpg",
+            "video": "https://www.youtube.com/watch?v=bZo-U-I9P1U",
+            "howTo": {
+                "step1": "Cut the hair on top to the desired length, usually leaving it longer for contrast with the fade.",
+                "step2": "Use clippers to begin the fade around the sides and back, ensuring the fade drops down behind the ear in a curved shape.",
+                "step3": "Gradually blend the fade from the shorter length near the bottom to the longer length at the top, using different clipper guard sizes.",
+                "step4": "Shape the neckline, sideburns, and around the ears for a clean, defined finish."
+            }
+        },
+        {
+            "id": 14,
+            "name": "Fauxhawk",
+            "description": "The fauxhawk is a bold hairstyle where the hair is styled to stand up and point toward the center of the head, mimicking a mohawk but with the sides left shorter and not shaved.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/fauxhawk1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/fauxhawk2.jpg",
+            "video": "https://www.youtube.com/watch?v=SmvDMiD4FSo",
+            "howTo": {
+                "step1": "Trim the sides short using clippers, leaving the hair on top significantly longer.",
+                "step2": "Use a comb to part the hair in the middle or slightly off-center, then cut the top into a pointed shape, tapering toward the back.",
+                "step3": " Apply a strong-hold gel or pomade to the longer top section and use your fingers or a comb to lift and spike the hair toward the center.",
+                "step4": " Use hairspray to set the style in place, ensuring the fauxhawk stays lifted and defined throughout the day."
+            }
+        },
+        {
+            "id": 15,
+            "name": "Pompadour",
+            "description": "The pompadour is a classic hairstyle where the hair is styled high and voluminous at the front, with the sides kept short or slicked back, creating a bold, retro-inspired look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/Pompadour1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/pompadour2.jpg",
+            "video": "https://www.youtube.com/watch?v=n1cw9HSppHg",
+            "howTo": {
+                "step1": "Wash and towel dry your hair, applying a volumizing mousse or styling product for hold.",
+                "step2": "Use a round brush to lift the hair at the front while blow-drying, creating volume and directing it backward.",
+                "step3": " Apply a strong-hold pomade or gel, then comb the front section upward and slightly backward, keeping the sides neat or slicked back.",
+                "step4": "Use hairspray to hold the style in place, ensuring the volume at the front stays intact throughout the day."
+            }
+        },
+        {
+            "id": 16,
+            "name": "Undercut Fade",
+            "description": "The undercut fade is a hairstyle where the hair on top is left longer while the sides and back are shaved or faded down to the skin, creating a stark contrast between the two lengths.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/UndercutFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/undercutFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=b0l_XSbLMm4",
+            "howTo": {
+                "step1": "Leave the hair on top longer, trimming it to the desired length, while keeping it uniform.",
+                "step2": "Use clippers with a shorter guard to fade the hair on the sides and back, starting from longer at the top and gradually fading down to the skin.",
+                "step3": "Define the line between the top and the faded sides, ensuring a clean, sharp contrast.",
+                "step4": "Shape the neckline, sideburns, and around the ears for a neat and polished finish."
+            }
+        },
+        {
+            "id": 17,
+            "name": "Flat Top",
+            "description": "The flat top haircut is a style where the hair on top is cut to a uniform length and styled to stand upright, creating a flat, squared-off appearance, while the sides are kept short or faded.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/flatTop1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/flatTop2.jpg",
+            "video": "https://www.youtube.com/watch?v=zyPjTIBknBI",
+            "howTo": {
+                "step1": "Use clippers to cut the sides and back short, either faded or tapered, leaving the top longer.",
+                "step2": "Use clippers or scissors to trim the hair on top to a uniform length, typically around 1-2 inches, ensuring evenness across the entire area.",
+                "step3": "Use a comb to lift the hair and a clipper or scissor-over-comb technique to ensure the hair is cut flat and squared off on top.",
+                "step4": "Shape the neckline, sideburns, and around the ears for a sharp, clean finish."
+            }
+        },
+        {
+            "id": 18,
+            "name": "French Crop",
+            "description": "The French crop is a short, stylish haircut where the hair on top is cropped short and textured, with a blunt fringe at the front and the sides faded or tapered.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/frenchCrop1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/frenchCrop2.jpg",
+            "video": "https://www.youtube.com/watch?v=9wRGNdbBDrw",
+            "howTo": {
+                "step1": "Trim the hair on top to a short, even length, typically around 1-2 inches, using clippers or scissors.",
+                "step2": "Cut the front section of hair into a blunt fringe, ensuring it is straight across and sits just above the forehead.",
+                "step3": "Use clippers to fade the sides and back, blending them into the top for a clean, tapered look.",
+                "step4": "Shape the neckline, sideburns, and around the ears for a sharp, defined finish."
+            }
+        },
+        {
+            "id": 19,
+            "name": "Fringe Cut",
+            "description": "The fringe cut is a hairstyle where the front section of the hair is cut into a short, blunt fringe or bangs that hang over the forehead, with the rest of the hair styled to complement the look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/fringeCuts1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/fringeCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=NawYkTyVYXU",
+            "howTo": {
+                "step1": "Cut the hair on top to the desired length, typically leaving it slightly longer than the fringe area.",
+                "step2": "Create a straight, blunt fringe by trimming the front section of hair to fall just above the forehead.",
+                "step3": "Use clippers or scissors to trim and blend the sides, tapering them to match the length of the top.",
+                "step4": "Use a lightweight styling product to add texture to the top and fringe, and comb the fringe forward to create the desired shape."
+            }
+        },
+        {
+            "id": 20,
+            "name": "Hardpart Fade",
+            "description": "The hard part fade haircut features a distinct, shaved line that separates the longer hair on top from the faded sides, creating a sharp, clean look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/hardPartFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/hardPartFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=v0ptf5SP6tU",
+            "howTo": {
+                "step1": "Wash and dry the hair, then comb it into the desired style, determining where the hard part will be.",
+                "step2": "Use a trimmer or razor to shave a clean line on the side of the head where you want the part to be. Make sure the line is sharp and even.",
+                "step3": "Start with a longer guard and gradually switch to shorter guards on the clippers as you fade down the sides, blending the hair into the shorter length at the bottom.",
+                "step4": "Cut the hair on top to your desired length, ensuring it blends smoothly with the faded sides, then clean up any stray hairs for a polished finish."
+            }
+        },
+        {
+            "id": 21,
+            "name": "High Skin Fade",
+            "description": "A high skin fade haircut features a sharp fade that starts high on the sides and blends down to the skin, creating a clean, contrastive look between the longer hair on top and the shaved sides.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/highSkinFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/highSkinFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=Sgh0L7iyMZ0",
+            "howTo": {
+                "step1": "Wash and dry the hair, then comb it into place to determine the length and style for the top.",
+                "step2": "Use clippers with a short guard (like a #2 or #3) to define the starting point of the fade high on the sides, typically around the temple area.",
+                "step3": " Gradually switch to shorter guards as you move down the sides, blending the hair seamlessly into the skin at the bottom for a smooth fade transition.",
+                "step4": "Trim the hair on top to the desired length and blend it with the fade, then clean up the edges and neckline for a sharp, polished finish."
+            }
+        },
+        {
+            "id": 22,
+            "name": "Low Skin Fade",
+            "description": "A low skin fade haircut features a subtle fade that starts just above the ear and gradually blends down to the skin, offering a clean and sharp look with a more gradual transition from the longer hair on top.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/lowSkinFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/lowSkinFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=8fkkrFyjVCY",
+            "howTo": {
+                "step1": "Wash and dry the hair, then comb it into place, determining the length and style for the top.",
+                "step2": "Use clippers with a longer guard (like a #3 or #4) to define the fade line just above the ear, creating a clean starting point.",
+                "step3": "Switch to progressively shorter guards as you work your way down the sides, blending the hair smoothly into the skin at the bottom.",
+                "step4": "Trim the hair on top to the desired length and blend it with the fade, then clean up the edges and neckline for a sharp, polished finish."
+            }
+        },
+        {
+            "id": 23,
+            "name": "Manbun",
+            "description": "A manbun hairstyle features long hair gathered and tied into a bun at the back or top of the head, offering a casual yet stylish look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/manBun1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/manBun2.jpg",
+            "video": "https://www.youtube.com/watch?v=f30w0jcp7Gs",
+            "howTo": {
+                "step1": "Start with clean, damp or dry hair and comb it through to remove any tangles.",
+                "step2": "Pull all your hair back into a high or low ponytail, depending on where you want the bun.",
+                "step3": "Twist the ponytail around itself to form a bun, then wrap it around the base and secure it with an elastic band.",
+                "step4": "Tuck in any loose strands for a clean look or leave them slightly messy for a more relaxed style."
+            }
+        },
+        {
+            "id": 24,
+            "name": "Mid Skin Fade",
+            "description": "A mid skin fade hairstyle features a fade that starts around the middle of the sides of the head, blending smoothly from shorter hair at the bottom to the longer hair on top, with the sides fading down to the skin.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/midSkinFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/midSkinFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=_RYiKtgNkdM",
+            "howTo": {
+                "step1": "Wash and dry the hair, then comb it into place, determining the length for the top.",
+                "step2": "Use clippers with a mid-length guard (like a #2 or #3) to define the fade line around the middle of the sides, setting the starting point for the fade.",
+                "step3": "Gradually switch to shorter guards as you work your way down the sides, blending smoothly into the skin at the bottom.",
+                "step4": "Trim the top hair to your desired length, blend it into the fade, and clean up the edges for a sharp finish."
+            }
+        },
+        {
+            "id": 25,
+            "name": "Mohawk",
+            "description": "A mohawk hairstyle features shaved sides with a strip of longer hair running down the center of the head, creating a bold, edgy look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/mohawk1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/mohawk2.jpg",
+            "video": "https://www.youtube.com/watch?v=md9ikRzYbVY",
+            "howTo": {
+                "step1": "Start with clean, dry hair and comb it through to remove tangles, deciding on the length for the top.",
+                "step2": "Use clippers to shave the sides of the head completely or to a very short length, leaving a strip of hair down the center.",
+                "step3": "Cut the remaining hair in the center to your desired length, making sure its evenly shaped and styled.",
+                "step4": " Use styling gel or pomade to spike or shape the central strip of hair, and adjust for a sharp, defined look."
+            }
+        },
+        {
+            "id": 26,
+            "name": "Mullet",
+            "description": "A mullet hairstyle features short hair at the front and sides with longer hair at the back, creating a distinctive business in the front, party in the back look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/mullet1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/mullet2.jpg",
+            "video": "https://www.youtube.com/watch?v=Kgv1qkiVTgk",
+            "howTo": {
+                "step1": "Start with clean, dry hair and comb it to remove any tangles.",
+                "step2": "Use clippers or scissors to trim the hair on the front and sides to a short, even length, usually around a #2 or #3 guard.",
+                "step3": "Leave the hair at the back significantly longer, and cut it to your desired length, blending it slightly with the sides.",
+                "step4": "Style the front with a comb or fingers for a more structured look, and use hair gel or pomade to add texture and volume to the back for that iconic mullet shape."
+            }
+        },
+        {
+            "id": 27,
+            "name": "Pompadour Fade",
+            "description": "A pompadour fade hairstyle features voluminous hair styled backward and upward on top, with the sides gradually fading from short to skin, creating a sharp contrast between the top and sides.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/pompadourFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/pompadourFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=hgfEbS-PN4U",
+            "howTo": {
+                "step1": "Start with clean, damp hair, then apply a styling product like mousse or pomade to add volume and texture.",
+                "step2": "Use clippers to fade the sides, starting with a longer guard at the top and gradually switching to shorter guards as you move down to the skin.",
+                "step3": "Blow-dry the top hair backward while lifting it for volume, then use a comb and pomade to shape the pompadour, creating height and a smooth backward flow.",
+                "step4": " Fine-tune the shape, ensure the fade blends well, and apply a finishing product for hold and shine."
+            }
+        },
+        {
+            "id": 28,
+            "name": "Quiff",
+            "description": "A quiff hairstyle features hair styled upward and backward at the front, creating volume and a sleek, textured look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/quiff1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/quiff2.jpg",
+            "video": "https://www.youtube.com/watch?v=HcayGkJVP58",
+            "howTo": {
+                "step1": "Start with clean, damp hair and apply a volumizing product like mousse or a light styling cream to add texture.",
+                "step2": "Blow-dry the front section of your hair upwards and backward, using a round brush to lift and shape the quiff.",
+                "step3": "Apply a small amount of pomade, wax, or gel to the hair, then use your fingers or a comb to shape and define the quiff.",
+                "step4": "Adjust the height and shape of the quiff as desired, and use hairspray to set the style in place for lasting hold."
+            }
+        },
+        {
+            "id": 29,
+            "name": "Short Layered",
+            "description": "A short layered hairstyle features hair cut at varying lengths to add texture and volume, creating a more dynamic and structured look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/shortlayered1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/shortLayered2.jpg",
+            "video": "https://www.youtube.com/watch?v=PItExCRipjM",
+            "howTo": {
+                "step1": "Start with clean, damp hair and comb it through to remove tangles.",
+                "step2": "Divide the hair into sections, using clips to separate the top, sides, and back for easier cutting.",
+                "step3": "Begin cutting from the back, using scissors to create shorter layers at the nape and gradually lengthening them as you move toward the front, ensuring a smooth blend.",
+                "step4": " Dry and style the hair with a blow dryer and texturizing product, using your fingers or a comb to enhance the layers and add volume."
+            }
+        },
+        {
+            "id": 30,
+            "name": "Side Part",
+            "description": "A side part hairstyle features a deep or subtle parting on one side of the head, with the hair styled to one side for a clean, structured look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/sidePart1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/sidePart2.jpg",
+            "video": "https://www.youtube.com/watch?v=OBP271BZ-qw",
+            "howTo": {
+                "step1": "Start with clean, damp hair and apply a light styling product or mousse for texture.",
+                "step2": "Use a comb to create a deep or subtle part on one side of the head, depending on your preference.",
+                "step3": "Comb the hair on each side of the part, ensuring the hair on one side falls naturally and the other side stays neatly in place.",
+                "step4": "Apply a small amount of pomade, gel, or hairspray to hold the style in place and add shine for a polished look."
+            }
+        },
+        {
+            "id": 31,
+            "name": "Slickback",
+            "description": "A slickback hairstyle features hair combed backward and styled with a smooth, polished finish, often with the help of pomade or gel for a sleek, refined look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/slickBack1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/slickBack2.jpg",
+            "video": "https://www.youtube.com/watch?v=ljZ6RFffnts",
+            "howTo": {
+                "step1": "Start with clean, damp hair and apply a generous amount of pomade, gel, or styling cream for hold and shine.",
+                "step2": "Use a fine-tooth comb to evenly distribute the product and comb the hair straight back from the forehead.",
+                "step3": "Ensure the hair is sleek and smooth by adjusting the sides and top, creating a sharp, clean look.",
+                "step4": "Use hairspray for extra hold, if desired, to keep the style in place throughout the day."
+            }
+        },
+        {
+            "id": 32,
+            "name": "Taper Cut",
+            "description": "A taper cut hairstyle features hair gradually shortening from the top down to the sides and back, creating a smooth, blended transition for a clean, polished look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/taperCut1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/taperCut2.jpg",
+            "video": "https://www.youtube.com/watch?v=8VRVEOoNGi8",
+            "howTo": {
+                "step1": "Start with clean, dry hair and comb it through to remove any tangles.",
+                "step2": "Trim the hair on top to the desired length, ensuring it's even and blends well with the sides.",
+                "step3": "Use clippers with a longer guard at the top of the sides and gradually switch to shorter guards as you move down toward the neckline for a smooth fade.",
+                "step4": "Blend the top into the tapered sides, refine any lines, and clean up the edges and neckline for a sharp, polished finish."
+            }
+        },
+        {
+            "id": 33,
+            "name": "Taper Fade",
+            "description": "A taper fade hairstyle features a gradual fade that starts at the temples and neck, blending from short hair at the bottom to longer hair on top for a clean, smooth transition.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/taperFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/taperFade2.jpg",
+            "video": "https://www.youtube.com/shorts/x1HvInoEMNk",
+            "howTo": {
+                "step1": "Start with clean, dry hair and comb it through to remove tangles, determining the length for the top.",
+                "step2": "Use clippers with a longer guard to define the starting point of the fade at the temples and around the ears.",
+                "step3": "Gradually switch to shorter guards as you move down the sides, blending the fade smoothly toward the neckline.",
+                "step4": "Trim the hair on top to your desired length, blending it into the fade, then clean up the edges and neckline for a sharp, finished look."
+            }
+        },
+        {
+            "id": 34,
+            "name": "Temp Fade",
+            "description": "A temp fade hairstyle features a fade that starts around the temples and blends downward, typically with the hair at the top left longer, creating a sharp, clean look.",
+            "photo1": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/tempFade1.jpg",
+            "photo2": "https://sheargeniusblob.blob.core.windows.net/haircutsblob/tempFade2.jpg",
+            "video": "https://www.youtube.com/watch?v=pg_gNw8hfHw",
+            "howTo": {
+                "step1": "Start with clean, dry hair and comb it through to remove tangles, leaving the top longer if desired.",
+                "step2": "Use clippers with a shorter guard to create the fade around the temples, starting just above the ear.",
+                "step3": "Gradually switch to shorter guards as you move downward, blending the fade smoothly into the shorter hair at the neckline.",
+                "step4": "Trim the top to the desired length, blend it with the fade, and clean up the edges for a sharp, polished look."
+            }
+        }
+    ]
+}
