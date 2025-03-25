@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const navbar = () => {
+const Navbar = () => {
     
   return (
     <nav className="bg-white text-black text-sm font-[NeueMontreal-Medium] border-b-2">
@@ -32,4 +32,4 @@ const navbar = () => {
   )
 }
 
-export default navbar
+export default Navbar
