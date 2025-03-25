@@ -1,6 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: NeueMontreal-Light;
+  src: url(/fonts/NeueMontreal-Light.otf);
+}
+
+@font-face {
+  font-family: NeueMontreal-Regular;
+  src: url(/fonts/NeueMontreal-Regular.otf);
+}
+
+@font-face {
+  font-family: NeueMontreal-Medium;
+  src: url(/fonts/NeueMontreal-Medium.otf);
+}
+
+@font-face {
+  font-family: NeueMontreal-Bold;
+  src: url(/fonts/NeueMontreal-Bold.otf);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
