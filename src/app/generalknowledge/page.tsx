@@ -11,6 +11,7 @@ import {
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/navbar";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 export default function Home() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
@@ -18,7 +19,7 @@ export default function Home() {
   return (
     <SidebarProvider className="flex flex-col">
       <Navbar />
-      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
             <div className="fixed">
@@ -318,43 +319,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="bg-black py-6 px-12 text-white font-[NeueMontreal-Medium]">
-        <Link href="#">
-          <p className="mb-8 cursor-pointer hover:text-slate-600">
-            <u>Back to Top</u>
-          </p></Link>
-          <div className="flex flex-row">
-            <div className="flex justify-evenly">
-              <div>
-                <p className="mb-3">
-                  <b>HOME</b>
-                </p>
-                <div className="flex flex-col gap-1">
-                  <p>TOP POSTS</p>
-                  <p>LOCAL BARBERS</p>
-                  <p>CREATE ACCOUNT</p>
-                  <p>BARBER ESSENTIALS</p>
-                  <p>BARBERSHOP ETIQUETTE</p>
-                  <p>CLIPPERS CRASH COURSE</p>
-                </div>
-              </div>
-              <div>
-                <p className="mb-3">
-                  <b>EXPLORE</b>
-                </p>
-                <div className="flex flex-col gap-1">
-                  <p>FADES</p>
-                  <p>SKINFADES</p>
-                  <p>STYLES</p>
-                  <p>GENERAL KNOWLEDGE</p>
-                </div>
-              </div>
-              <div></div>
-            </div>
-            <div className="flex justify-end"></div>
-          </div>
-        
-      </footer>
     </SidebarProvider>
   );
 }
