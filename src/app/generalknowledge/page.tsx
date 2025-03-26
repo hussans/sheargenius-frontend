@@ -318,11 +318,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="bg-black py-6 px-12 text-white">
-        <Link href="#clipper-crash-course">
+      <footer className="bg-black py-6 px-12 text-white font-[NeueMontreal-Medium]">
+        <Link href="#">
           <p className="mb-8 cursor-pointer hover:text-slate-600">
             <u>Back to Top</u>
-          </p>
+          </p></Link>
           <div className="flex flex-row">
             <div className="flex justify-evenly">
               <div>
@@ -353,7 +353,7 @@ export default function Home() {
             </div>
             <div className="flex justify-end"></div>
           </div>
-        </Link>
+        
       </footer>
     </SidebarProvider>
   );
