@@ -57,16 +57,15 @@ const register = () => {
                         <div className="flex flex-col mt-1">
                         <div className="flex flex-col">
                             <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Role </p>
-                            {/* <input className="bg-[#F5F5F5] rounded-md p-2" type="text" placeholder="User / Barber" /> */}
                             <div className="relative">
                                 <div 
                                 onClick={toggleDropDown}
                                 className="bg-[#f5f5f5] flex justify-between items-center rounded-md px-4 py-2 cursor-pointer text-[#7c7d86]"> 
                                     {selectedRole}
-                                    <img className="w-[25px] m-0 p-0" src="./icons/dropdown.png" alt="Drop Down Icon" />
+                                    <img className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen ? "rotate-180" : "rotate-0"}`} src="./icons/dropdown.png" alt="Drop Down Icon" />
                                 </div>
                                 {isDropDownOpen && (
-                                <div className="rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md">
+                                <div className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${isDropDownOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                                     <div 
                                     onClick={() => selectRole("User")}
                                     className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"> 
