@@ -8,25 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/navbar";
+import Link from "next/link";
 export default function Home() {
-// npx shadcn@latest add sidebar
-// npx shadcn@latest add card
-
+  // npx shadcn@latest add sidebar
+  // npx shadcn@latest add card
 
   return (
     <SidebarProvider className="flex flex-col">
-      <Navbar/>
+      <Navbar />
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
         <div className="flex flex-row">
           <div className="w-[16rem]">
-
-          <div className="fixed">
-            <QuickLinks />
-          </div>
+            <div className="fixed">
+              <QuickLinks />
+            </div>
           </div>
           <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
             <Card className="flex flex-row justify-between p-4">
@@ -305,13 +302,13 @@ export default function Home() {
                           className="p-[.15rem] h-6 bg-indigo-900 rounded-[50%]"
                         />
                       </a>
-                      <a href="#">
+                      <Link href="#">
                         <img
                           src="/gmailicon.png"
                           alt="gmail"
                           className="p-1 h-6 rounded-xs"
                         />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
@@ -321,6 +318,43 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <footer className="bg-black py-6 px-12 text-white">
+        <Link href="#clipper-crash-course">
+          <p className="mb-8 cursor-pointer hover:text-slate-600">
+            <u>Back to Top</u>
+          </p>
+          <div className="flex flex-row">
+            <div className="flex justify-evenly">
+              <div>
+                <p className="mb-3">
+                  <b>HOME</b>
+                </p>
+                <div className="flex flex-col gap-1">
+                  <p>TOP POSTS</p>
+                  <p>LOCAL BARBERS</p>
+                  <p>CREATE ACCOUNT</p>
+                  <p>BARBER ESSENTIALS</p>
+                  <p>BARBERSHOP ETIQUETTE</p>
+                  <p>CLIPPERS CRASH COURSE</p>
+                </div>
+              </div>
+              <div>
+                <p className="mb-3">
+                  <b>EXPLORE</b>
+                </p>
+                <div className="flex flex-col gap-1">
+                  <p>FADES</p>
+                  <p>SKINFADES</p>
+                  <p>STYLES</p>
+                  <p>GENERAL KNOWLEDGE</p>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <div className="flex justify-end"></div>
+          </div>
+        </Link>
+      </footer>
     </SidebarProvider>
   );
 }
