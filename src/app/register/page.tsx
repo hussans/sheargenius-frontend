@@ -1,7 +1,20 @@
+"use client"
+
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 const register = () => {
+    const [isDropDownOpen, setDropDownOpen] = useState(false);
+    const [selectedRole, setSelectedRole] = useState("User / Barber");
+
+    const toggleDropDown = () => {
+        setDropDownOpen(!isDropDownOpen);
+    }
+
+    const selectRole = (role: string) => {
+        setSelectedRole(role);
+        setDropDownOpen(false);
+    }
 
     return (
         <div className="bg-white flex">
@@ -34,11 +47,33 @@ const register = () => {
                         <div className="flex flex-col mt-1">
                         <div className="flex flex-col">
                             <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Role </p>
-                            <input className="bg-[#F5F5F5] rounded-md p-2" type="text" placeholder="User / Barber" />
+                            {/* <input className="bg-[#F5F5F5] rounded-md p-2" type="text" placeholder="User / Barber" /> */}
+                            <div className="relative">
+                                <div 
+                                onClick={toggleDropDown}
+                                className="bg-[#f5f5f5] flex justify-between items-center rounded-md px-4 py-2 cursor-pointer text-[#7c7d86]"> 
+                                    {selectedRole}
+                                    <img className="w-[25px] m-0 p-0" src="./icons/dropdown.png" alt="Drop Down Icon" />
+                                </div>
+                                {isDropDownOpen && (
+                                <div className="rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md">
+                                    <div 
+                                    onClick={() => selectRole("User")}
+                                    className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"> 
+                                        User 
+                                    </div>
+                                    <div
+                                    onClick={() => selectRole("Barber")} 
+                                    className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"> 
+                                        Barber 
+                                    </div>
+                                </div>
+                                )}
+                            </div>
                         </div>
                         <div className="flex flex-col mt-1">
                             <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Years of Experience </p>
-                            <input className="bg-[#F5F5F5] rounded-md p-2" type="text" placeholder="3 Years" />
+                            <input className="bg-[#F5F5F5] rounded-md px-4 py-2" type="text" placeholder="3 Years" />
                         </div>
                         </div>
                         <div className="flex flex-col mt-1 text-center">
