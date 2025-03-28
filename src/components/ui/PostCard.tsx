@@ -3,7 +3,7 @@ import React from "react";
 const PostCard = () => {
   return (
     <div className="w-full h-[500px] rounded-lg relative overflow-hidden">
-      <div className="bg-gray-400 text-white h-[410px] flex justify-center">
+      <div className="bg-gray-300 text-white h-[410px] flex justify-center">
         {" "}
         Image{" "}
       </div>

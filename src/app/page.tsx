@@ -1,3 +1,4 @@
+import ProfileCard from "@/components/ProfileCard";
 import Navbar from "@/components/ui/navbar";
 import PostCard from "@/components/ui/PostCard";
 import Link from "next/link";
@@ -28,7 +29,7 @@ export default function Home() {
             <PostCard />
           </div>
           <div className="mt-10">
-            <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg"> VIEW ALL POSTS </button>
+            <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 transition-all duration-75"> VIEW ALL POSTS </button>
           </div>
         </div>
         <div className="mt-24">
@@ -37,7 +38,23 @@ export default function Home() {
             <p className="font-[NeueMontreal-Medium] text-sm"> Curated by the community, for the community </p>
           </div>
           <div className="mt-10">
-
+            <div className="grid grid-cols-3 gap-3">
+              <ProfileCard />
+              <ProfileCard />
+              <ProfileCard />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="mt-44">
+        <div className="bg-black w-full h-[850px] py-20 px-10 grid grid-cols-2">
+          <div>
+            <div>
+              <p className="font-[NeueMontreal-Medium] text-white text-3xl"> Looking to being a career in barbering? Or seeking inspiration to try something new? </p>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <img className="h-[700px]" src="./registerpopup-image.jpg" alt="" />
           </div>
         </div>
       </section>
