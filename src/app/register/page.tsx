@@ -1,6 +1,9 @@
 "use client"
 
+import { createAccount } from '@/utils/DataServices';
+import { INewUser } from '@/utils/Interfaces';
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 const register = () => {
@@ -11,7 +14,23 @@ const register = () => {
     const[name,setName] = useState<string>("")
     const[username,setUsername] = useState<string>("")
     const[exp,setExp] = useState<string>("")
-
+    const router = useRouter()
+    
+    const[newUser, setNewUser] = useState<INewUser>({
+        id: 0,
+        username: '',
+        accountType: '',
+        name: '',
+        bio: '',
+        email: '',
+        shopName: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        pfp: '',
+        isDeleted: false
+    })
     const toggleDropDown = () => {
         setDropDownOpen(!isDropDownOpen);
     }
@@ -22,8 +41,31 @@ const register = () => {
     }
 
     //   async?
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
+    let userData = {
+        username: username,
+        password: password
+      }
+    let newEditedUser = {
+        id:0,
+        username:username,
+        accountType:selectedRole,
+        name:name,
+        bio:`${exp} years of experience.`,
+        email:email,
+        shopName: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        pfp: '',
+        isDeleted: false
+    }
+    setNewUser(newEditedUser)
     console.log("create account attempted")
+    let result = await createAccount(userData)
+    result ? console.log("Account Created") : alert("Username already exists...")
+    router.push("/explore")
 }
 
     return (
