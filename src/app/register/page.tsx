@@ -65,7 +65,7 @@ const register = () => {
     console.log("create account attempted")
     let result = await createAccount(userData)
     result ? console.log("Account Created") : alert("Username already exists...")
-    router.push("/explore")
+    router.push("/")
 }
 
     return (

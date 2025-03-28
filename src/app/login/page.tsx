@@ -29,7 +29,7 @@ const login = () => {
           localStorage.setItem("Token", token.token)
           console.log(token.token)
           await getLoggedInUserData(username)
-          router.push("/explore")
+          router.push("/")
         }else{
           alert("Login was unsuccessful, invalid useranme or password")
         }
