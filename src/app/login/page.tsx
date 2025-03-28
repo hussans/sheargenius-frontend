@@ -1,14 +1,33 @@
 "use client";
+import { getLoggedInUserData, Login } from '@/utils/DataServices';
+import { IToken } from '@/utils/Interfaces';
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 const login = () => {
-  const[email,setEmail] = useState<string>("")
+  const[username,setUsername] = useState<string>("")
   const[password,setPassword] = useState<string>("")
+  const router = useRouter()
 
   // async?
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
       console.log("login attempted")
+      let userData = {
+        username: username,
+        password: password
+      }
+     const token:IToken = await Login(userData)
+      if(token != null){
+        if(typeof window != null){
+          localStorage.setItem("Token", token.token)
+          console.log(token.token)
+          await getLoggedInUserData(username)
+          router.push("/explore")
+        }else{
+          alert("Login was unsuccessful, invalid useranme or password")
+        }
+      }
   }
   return (
     <div className="bg-white flex">
@@ -23,12 +42,12 @@ const login = () => {
         <div className="flex flex-col mt-20">
           <div className="flex flex-col gap-3">
             <div className="flex flex-col">
-              <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Email </p>
-              <input className="bg-[#F5F5F5] rounded-md p-4" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required/>
+              <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Username </p>
+              <input className="bg-[#F5F5F5] rounded-md p-4" type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} required/>
             </div>
             <div className="flex flex-col">
               <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Password </p>
-              <input className="bg-[#F5F5F5] rounded-md p-4" type="text" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
+              <input className="bg-[#F5F5F5] rounded-md p-4" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <div className="flex flex-col mt-8 text-center">
               <button className="bg-[#1500FF] text-white py-4 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer" onClick={handleSubmit}>
