@@ -7,26 +7,24 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import {
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/PostCard";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/navbar";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 export default function Home() {
-// npx shadcn@latest add sidebar
-// npx shadcn@latest add card
-
+  // npx shadcn@latest add sidebar
+  // npx shadcn@latest add card
 
   return (
     <SidebarProvider className="flex flex-col">
-      <Navbar/>
-      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <Navbar />
+      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
-
-          <div className="fixed">
-            <QuickLinks />
-          </div>
+            <div className="fixed">
+              <QuickLinks />
+            </div>
           </div>
           <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
             <Card className="flex flex-row justify-between p-4">
@@ -305,13 +303,13 @@ export default function Home() {
                           className="p-[.15rem] h-6 bg-indigo-900 rounded-[50%]"
                         />
                       </a>
-                      <a href="#">
+                      <Link href="#">
                         <img
                           src="/gmailicon.png"
                           alt="gmail"
                           className="p-1 h-6 rounded-xs"
                         />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
