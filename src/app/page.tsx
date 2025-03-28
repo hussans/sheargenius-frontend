@@ -1,4 +1,5 @@
 import ProfileCard from "@/components/ProfileCard";
+import CreateAccPopup from "@/components/ui/RegisterForm";
 import Navbar from "@/components/ui/navbar";
 import PostCard from "@/components/ui/PostCard";
 import Link from "next/link";
@@ -47,16 +48,7 @@ export default function Home() {
         </div>
       </section>
       <section className="mt-44">
-        <div className="bg-black w-full h-[850px] py-20 px-10 grid grid-cols-2">
-          <div>
-            <div>
-              <p className="font-[NeueMontreal-Medium] text-white text-3xl"> Looking to being a career in barbering? Or seeking inspiration to try something new? </p>
-            </div>
-          </div>
-          <div className="flex justify-end">
-            <img className="h-[700px]" src="./registerpopup-image.jpg" alt="" />
-          </div>
-        </div>
+        <CreateAccPopup />
       </section>
     </div>
   );
