@@ -35,7 +35,7 @@ const ProfileCard = () => {
         <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
       </div>
       <div className="mt-5">
-        <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 transition-all duration-75">
+        <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
           {" "}
           View Profile{" "}
         </button>

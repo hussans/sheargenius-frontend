@@ -30,7 +30,7 @@ export default function Home() {
             <PostCard />
           </div>
           <div className="mt-10">
-            <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 transition-all duration-75"> VIEW ALL POSTS </button>
+            <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"> VIEW ALL POSTS </button>
           </div>
         </div>
         <div className="mt-24">

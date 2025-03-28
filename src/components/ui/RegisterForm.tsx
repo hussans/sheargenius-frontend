@@ -24,7 +24,7 @@ const RegisterForm = () => {
             placeholder="email"
           />
           <Link href={"./register"}>
-            <button className="bg-[#1500FF] font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white hover:bg-white hover:text-black active:bg-[#1500FF] active:text-white transition-all duration-75">
+            <button className="bg-[#1500FF] font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white hover:bg-white hover:text-black active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-75">
               Create Account
             </button>
           </Link>
