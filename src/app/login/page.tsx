@@ -10,6 +10,12 @@ const login = () => {
   const[password,setPassword] = useState<string>("")
   const router = useRouter()
 
+//   "use client";
+// import { loggedInData } from '@/utils/DataServices'
+// import React from 'react'
+
+// const page = () => {
+//   console.log(loggedInData())
   // async?
   const handleSubmit = async() => {
       console.log("login attempted")
