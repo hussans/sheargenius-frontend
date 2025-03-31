@@ -15,23 +15,6 @@ const register = () => {
     const[username,setUsername] = useState<string>("")
     const[exp,setExp] = useState<string>("")
     const router = useRouter()
-    
-    const[newUser, setNewUser] = useState<INewUser>({
-        id: 0,
-        username: '',
-        password: '',
-        accountType: '',
-        name: '',
-        bio: '',
-        email: '',
-        shopName: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        pfp: '',
-        isDeleted: false
-    })
 
     const toggleDropDown = () => {
         setDropDownOpen(!isDropDownOpen);
@@ -43,42 +26,27 @@ const register = () => {
     }
 
   const handleSubmit = async() => {
-    // let userData = {
-    //     username: username,
-    //     password: password
-    //   }
-    let newEditedUser = {
-        id:0,
-        username:username,
-        password:password,
-        accountType:selectedRole,
-        name:name,
-        bio:`${exp} years of experience.`,
-        email:email,
-        shopName: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        pfp: '',
-        isDeleted: false
+    let newEditedUser:INewUser = {
+        Id:0,
+        Username:username,
+        Password:password,
+        AccountType:selectedRole,
+        Name:name,
+        Bio:`${exp} year(s) of experience.`,
+        Email:email,
+        ShopName: '',
+        Address: '',
+        City: '',
+        State: '',
+        ZIP: '',
+        Pfp: '',
+        IsDeleted: false
     }
-    setExp("2")
-    console.log(exp)
-    setNewUser(newEditedUser)
-    console.log("create account attempted")
-    let result = await createAccount(newUser)
+    console.log(newEditedUser)
+    let result = await createAccount(newEditedUser)
     result ? console.log("Account Created") : alert("Username already exists...")
-    await getLoggedInUserData(username)
+    await getLoggedInUserData(newEditedUser.Username)
     router.push("/")
-    // let result = await createAccount(newEditedUser);
-    // if (result) {
-    //   console.log("Account Created");
-    //   await getLoggedInUserData(username);
-    //   router.push("/");
-    // } else {
-    //   alert("Username already exists...");
-    // }
 }
 
     return (

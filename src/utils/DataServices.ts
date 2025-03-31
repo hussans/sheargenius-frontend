@@ -1,10 +1,10 @@
-import { INewUser, IUserData, IUserInfo } from "./Interfaces";
+import { INewUser, IPostItems, IUserData, IUserInfo, IUserProfileInfo } from "./Interfaces";
 
 const url =
   "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
-// this variable will be used in our getBlog by user id fetch when we set them up
+// this variable will be used in our getPost by user id fetch when we set them up
 
-let userData: INewUser;
+let userData: IUserProfileInfo;
 
 // Create account fetch
 export const createAccount = async (user: INewUser) => {
@@ -79,3 +79,83 @@ export const checkToken = () => {
   }
   return result;
 };
+
+// --------------POST ENDPOINTS----------------
+
+export const getAllPosts = async (token:string) => {
+  const res = await fetch(`${url}Post/GetAllPosts`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization" : "Bearer " + token,
+     }
+  });
+  if(!res.ok){
+    const errorData = await res.json()
+    const message = errorData.message
+    console.log(message)
+    return []
+  }
+
+  const data = await res.json()
+  return data
+}
+
+export const getPostItemsByUserId = async(userId:number,token:string) => {
+  const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization" : "Bearer " + token,
+     }
+  });
+  if(!res.ok){
+    const errorData = await res.json()
+    const message = errorData.message
+    console.log(message)
+    return []
+  }
+
+  const data = await res.json()
+  return data
+}
+
+export const addPostItem = async(post:IPostItems, token:string) => {
+  const res = await fetch(`${url}Post/AddPost`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body:JSON.stringify(post)
+  });
+  if(!res.ok){
+    const errorData = await res.json()
+    const message = errorData.message
+    console.log(message)
+    return false
+  }
+  const data = await res.json()
+  //returns true and successfully added post to backend
+  return data.success
+}
+
+export const updatePostItem = async (post:IPostItems, token:string) => {
+  const res = await fetch(`${url}Post/EditPost`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body:JSON.stringify(post)
+  });
+  if(!res.ok){
+    const errorData = await res.json()
+    const message = errorData.message
+    console.log(message)
+    return false
+  }
+  const data = await res.json()
+  //returns true and successfully added post to backend
+  return data.success
+}

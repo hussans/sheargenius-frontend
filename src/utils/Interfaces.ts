@@ -1,10 +1,12 @@
 export interface IUserProfileInfo{
     Id:string;
     Username:string;
+    Salt:string;
+    Hash:string;
     AccountType:string;
     Name:string;
     Bio:string;
-    username:string;
+    Email:string;
     ShopName:string;
     Address:string;
     City:string;
@@ -40,20 +42,20 @@ export interface IUserInfo {
 }
 
 export interface INewUser{
-    id: number;
-    username: string;
-    password:string;
-    accountType: string;
-    name: string;
-    bio: string;
-    email: string;
-    shopName: string;
-    address: string;
-    city: string;
-    state: string;
-    zip: string;
-    pfp: string;
-    isDeleted: boolean;
+    Id: number;
+    Username: string;
+    Password:string;
+    AccountType: string;
+    Name: string;
+    Bio: string;
+    Email: string;
+    ShopName: string;
+    Address: string;
+    City: string;
+    State: string;
+    ZIP: string;
+    Pfp: string;
+    IsDeleted: boolean;
 }
 
 export interface IUserData {
