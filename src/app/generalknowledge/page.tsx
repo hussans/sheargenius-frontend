@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/PostCard";
+} from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/navbar";
 import Link from "next/link";

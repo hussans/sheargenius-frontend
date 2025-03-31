@@ -1,6 +1,6 @@
 "use client"
 
-import { createAccount } from '@/utils/DataServices';
+import { createAccount, getLoggedInUserData } from '@/utils/DataServices';
 import { INewUser } from '@/utils/Interfaces';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -19,6 +19,7 @@ const register = () => {
     const[newUser, setNewUser] = useState<INewUser>({
         id: 0,
         username: '',
+        password: '',
         accountType: '',
         name: '',
         bio: '',
@@ -31,6 +32,7 @@ const register = () => {
         pfp: '',
         isDeleted: false
     })
+
     const toggleDropDown = () => {
         setDropDownOpen(!isDropDownOpen);
     }
@@ -40,15 +42,15 @@ const register = () => {
         setDropDownOpen(false);
     }
 
-    //   async?
   const handleSubmit = async() => {
-    let userData = {
-        username: username,
-        password: password
-      }
+    // let userData = {
+    //     username: username,
+    //     password: password
+    //   }
     let newEditedUser = {
         id:0,
         username:username,
+        password:password,
         accountType:selectedRole,
         name:name,
         bio:`${exp} years of experience.`,
@@ -61,11 +63,22 @@ const register = () => {
         pfp: '',
         isDeleted: false
     }
+    setExp("2")
+    console.log(exp)
     setNewUser(newEditedUser)
     console.log("create account attempted")
-    let result = await createAccount(userData)
+    let result = await createAccount(newUser)
     result ? console.log("Account Created") : alert("Username already exists...")
+    await getLoggedInUserData(username)
     router.push("/")
+    // let result = await createAccount(newEditedUser);
+    // if (result) {
+    //   console.log("Account Created");
+    //   await getLoggedInUserData(username);
+    //   router.push("/");
+    // } else {
+    //   alert("Username already exists...");
+    // }
 }
 
     return (
@@ -94,7 +107,7 @@ const register = () => {
                         </div>
                         <div className="flex flex-col">
                             <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Password </p>
-                            <input className="bg-[#F5F5F5] rounded-md p-4" type="text" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                            <input className="bg-[#F5F5F5] rounded-md p-4" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                         <div className="flex flex-col mt-1">
                         <div className="flex flex-col">

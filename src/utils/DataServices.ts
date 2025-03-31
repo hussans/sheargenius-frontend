@@ -1,13 +1,13 @@
-import { IUserData, IUserInfo } from "./Interfaces";
+import { INewUser, IUserData, IUserInfo } from "./Interfaces";
 
 const url =
   "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getBlog by user id fetch when we set them up
 
-let userData: IUserData;
+let userData: INewUser;
 
 // Create account fetch
-export const createAccount = async (user: IUserInfo) => {
+export const createAccount = async (user: INewUser) => {
   const res = await fetch(`${url}User/CreateUser`, {
     method: "POST",
     headers: {

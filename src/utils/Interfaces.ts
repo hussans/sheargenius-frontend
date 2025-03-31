@@ -41,17 +41,18 @@ export interface IUserInfo {
 
 export interface INewUser{
     id: number;
-    username?: string;
-    accountType?: string;
-    name?: string;
-    bio?: string;
-    email?: string;
-    shopName?: string;
-    address?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    pfp?: string;
+    username: string;
+    password:string;
+    accountType: string;
+    name: string;
+    bio: string;
+    email: string;
+    shopName: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    pfp: string;
     isDeleted: boolean;
 }
 
