@@ -1,7 +1,12 @@
-import { INewUser, IPostItems, IUserData, IUserInfo, IUserProfileInfo } from "./Interfaces";
+import {
+  INewUser,
+  IPostItems,
+  IUserData,
+  IUserInfo,
+  IUserProfileInfo,
+} from "./Interfaces";
 
-const url =
-  "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
+const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
 
 let userData: IUserProfileInfo;
@@ -63,13 +68,11 @@ export const getLoggedInUserData = async (username: string) => {
 };
 
 //get the user's data
-
 export const loggedInData = () => {
   return userData;
 };
 
 //we are checking if the token is in our storage (see if were logged in)
-
 export const checkToken = () => {
   let result = false;
 
@@ -80,82 +83,108 @@ export const checkToken = () => {
   return result;
 };
 
+//format the days date when creating new User
+export function getFormattedDate(): string {
+  const today = new Date();
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month = months[today.getMonth()];
+  const day = today.getDate();
+  const year = today.getFullYear();
+
+  return `${month} ${day}, ${year}`;
+}
+
 // --------------POST ENDPOINTS----------------
 
-export const getAllPosts = async (token:string) => {
+export const getAllPosts = async (token: string) => {
   const res = await fetch(`${url}Post/GetAllPosts`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization" : "Bearer " + token,
-     }
+      Authorization: "Bearer " + token,
+    },
   });
-  if(!res.ok){
-    const errorData = await res.json()
-    const message = errorData.message
-    console.log(message)
-    return []
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
   }
 
-  const data = await res.json()
-  return data
-}
+  const data = await res.json();
+  return data;
+};
 
-export const getPostItemsByUserId = async(userId:number,token:string) => {
+export const getPostItemsByUserId = async (userId: number, token: string) => {
   const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization" : "Bearer " + token,
-     }
+      Authorization: "Bearer " + token,
+    },
   });
-  if(!res.ok){
-    const errorData = await res.json()
-    const message = errorData.message
-    console.log(message)
-    return []
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
   }
 
-  const data = await res.json()
-  return data
-}
+  const data = await res.json();
+  return data;
+};
 
-export const addPostItem = async(post:IPostItems, token:string) => {
+export const addPostItem = async (post: IPostItems, token: string) => {
   const res = await fetch(`${url}Post/AddPost`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-    body:JSON.stringify(post)
+    body: JSON.stringify(post),
   });
-  if(!res.ok){
-    const errorData = await res.json()
-    const message = errorData.message
-    console.log(message)
-    return false
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return false;
   }
-  const data = await res.json()
+  const data = await res.json();
   //returns true and successfully added post to backend
-  return data.success
-}
+  return data.success;
+};
 
-export const updatePostItem = async (post:IPostItems, token:string) => {
+export const updatePostItem = async (post: IPostItems, token: string) => {
   const res = await fetch(`${url}Post/EditPost`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: "Bearer " + token,
     },
-    body:JSON.stringify(post)
+    body: JSON.stringify(post),
   });
-  if(!res.ok){
-    const errorData = await res.json()
-    const message = errorData.message
-    console.log(message)
-    return false
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return false;
   }
-  const data = await res.json()
+  const data = await res.json();
   //returns true and successfully added post to backend
-  return data.success
-}
+  return data.success;
+};
