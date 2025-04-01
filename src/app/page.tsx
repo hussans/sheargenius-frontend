@@ -1,8 +1,9 @@
 import ProfileCard from "@/components/ProfileCard";
 import CreateAccPopup from "@/components/ui/RegisterForm";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/ui/Navbar";
 import PostCard from "@/components/ui/PostCard";
 import Link from "next/link";
+import Footer from "@/components/ui/Footer";
 
 export default function Home() {
 
@@ -91,6 +92,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <footer className="mt-25">
+        <Footer />
+      </footer>
+
     </div>
   );
 }
