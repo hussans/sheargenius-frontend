@@ -1,5 +1,5 @@
 "use client";
-import { getLoggedInUserData, Login } from '@/utils/DataServices';
+import { getLoggedInUserData, loggedInData, Login } from '@/utils/DataServices';
 import { IToken } from '@/utils/Interfaces';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -29,7 +29,11 @@ const login = () => {
           localStorage.setItem("Token", token.token)
           console.log(token.token)
           await getLoggedInUserData(username)
-          router.push("/")
+          // const userInfo = loggedInData()
+          // console.log(JSON.stringify(userInfo))
+          sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()))
+          // console.log(sessionStorage.getItem("AccountInfo"))
+          router.push("/user-profile")
         }else{
           alert("Login was unsuccessful, invalid useranme or password")
         }

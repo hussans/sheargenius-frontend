@@ -48,30 +48,31 @@ const register = () => {
 
   const handleSubmit = async () => {
     let newEditedUser: INewUser = {
-      Id: 0,
-      Username: username,
-      Password: password,
-      AccountType: selectedRole,
-      Name: name,
-      Date: getFormattedDate(),
-      Rating: 0,
-      RatingCount: 0,
-      Followers: [],
-      Following: [],
-      FollowerCount: 0,
-      FollowingCount: 0,
-      SecurityQuestion: securityQuestion,
-      SecurityAnswer: securityAnswer.toLowerCase(),
-      Bio: `${exp} year(s) of experience.`,
-      Email: email,
-      ShopName: barbershopName,
-      Address: address,
-      City: city,
-      State: state,
-      ZIP: zip,
-      Pfp: "/icons/user-white.png",
-      IsDeleted: false,
-    };
+      id: 0,
+      username: username,
+      password: password,
+      accountType: selectedRole,
+      name: name,
+      date: getFormattedDate(),
+      rating: 0,
+      ratingCount: 0,
+      followers: [],
+      following: [],
+      followerCount: 0,
+      followingCount: 0,
+      securityQuestion: securityQuestion,
+      securityAnswer: securityAnswer.toLowerCase(),
+      bio: `${exp} year(s) of experience.`,
+      email: email,
+      shopName: barbershopName,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      pfp: "/icons/user-white.png",
+      isDeleted: false,
+  };
+  
     console.log(newEditedUser);
     let result = await createAccount(newEditedUser);
     if (result) {
@@ -81,7 +82,7 @@ const register = () => {
         alert("Username already exists...");
         console.log(newEditedUser)  
     }
-    await getLoggedInUserData(newEditedUser.Username);
+    await getLoggedInUserData(newEditedUser.username);
   };
 
   return (

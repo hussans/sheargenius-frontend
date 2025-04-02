@@ -1,25 +1,32 @@
+import { loggedInData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import React from "react";
+import React, { useEffect } from "react";
 
-const UserProfileCard = (userInfo: IUserProfileInfo) => {
+const UserProfileCard = (data:IUserProfileInfo) => {
+  // const data = loggedInData();
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, []);
+
   return (
     <div>
-      <section className="mx-5 font-[NeueMontreal-Medium]">
+      <section className="font-[NeueMontreal-Medium]">
         <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
           <div className="w-[70%] flex flex-col gap-2">
-            <div className="flex h-[125px]">
+            <div className="flex gap-7 h-[125px]">
               <img
-                src={userInfo.Pfp}
-                alt={`${userInfo.Username} profile pic`}
-                className="w-12"
+                src={data.pfp}
+                alt={`${data.username} profile pic`}
+                className="w-28 h-28"
               />
               <div className="flex flex-col gap-3">
-                <h4 className="text-slate-500">Joined: {userInfo.Date}</h4>
+                <h4 className="text-slate-500 text-sm">Joined: {data.date}</h4>
                 <div className="flex gap-5">
-                  <h2>{userInfo.Username}</h2>
+                  <h2 className="text-3xl">{data.username}</h2>
                   <div
                     className={
-                      userInfo.AccountType == "Barber" ? "flex gap-1" : "hidden"
+                      data.accountType == "Barber" ? "flex gap-1" : "hidden"
                     }
                   >
                     <img
@@ -50,14 +57,14 @@ const UserProfileCard = (userInfo: IUserProfileInfo) => {
                   </div>
                 </div>
                 <div className="flex gap-12">
-                  <h3>{userInfo.FollowerCount} Followers</h3>
-                  <h3>{userInfo.FollowingCount} Followers</h3>
+                  <h3>{data.followerCount} Followers</h3>
+                  <h3>{data.followingCount} Followers</h3>
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <h3>{userInfo.Bio}</h3>
+              <h3>{data.bio}</h3>
             </div>
           </div>
           <div className="w-[30%] flex flex-col gap-2">
@@ -69,9 +76,21 @@ const UserProfileCard = (userInfo: IUserProfileInfo) => {
                 My Schedule
               </button>
             </div>
-            <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
+            <div
+              className={
+                data.accountType == "Barber"
+                  ? "flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]"
+                  : "hidden"
+              }
+            >
               <h3>Location</h3>
-              <h3>{userInfo.Bio}</h3>
+              <h2>{data.shopName}</h2>
+              <h2>{data.address}</h2>
+              <div className="flex gap-2">
+                <h2>{data.city},</h2>
+                <h2>{data.state}</h2>
+                <h2>{data.zip}</h2>
+              </div>
             </div>
           </div>
         </div>
