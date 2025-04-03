@@ -1,7 +1,6 @@
 import {
   INewUser,
   IPostItems,
-  IUserData,
   IUserInfo,
   IUserProfileInfo,
 } from "./Interfaces";
@@ -32,6 +31,27 @@ export const createAccount = async (user: INewUser) => {
   const data = await res.json();
   return data.success;
 };
+
+// Edit account fetch
+export const editAccount = async (newUser: IUserProfileInfo) => {
+  const res = await fetch(`${url}User/EditAccount`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+   // if our response is not ok, we will run this block
+   if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.json();
+  return data.success;
+}
 
 //Login fetch
 export const Login = async (user: IUserInfo) => {

@@ -6,12 +6,17 @@ import UserProfileCard from "@/components/UserProfileCard";
 import { Button } from "@/components/ui/button";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import PostCard from "@/components/ui/PostCard";
+// import { useRouter } from "next/navigation";
 
 const page = () => {
-  // const userData = loggedInData()
-  // console.log(loggedInData())
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
+
+  // const router = useRouter();
+  
+  // account checking
+  // if(!checkToken) router.push("/login")
+ 
 
   const accountData: IUserProfileInfo = JSON.parse(
     sessionStorage.getItem("AccountInfo") || "{}"

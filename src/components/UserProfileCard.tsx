@@ -1,24 +1,21 @@
-import { loggedInData } from "@/utils/DataServices";
+// import { loggedInData } from "@/utils/DataServices";
+import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import { PaginationButton } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const UserProfileCard = (data: IUserProfileInfo) => {
-  // const data = loggedInData();
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, []);
   const [isDropDownOpen, setDropDownOpen] = useState(false);
-  const [isDropDownOpen2, setDropDownOpen2] = useState(false);
+  // const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [edit, setEdit] = useState(false);
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
   };
-  const toggleDropDown2 = () => {
-    setDropDownOpen2(!isDropDownOpen2);
-  };
-  const [username, setUsername] = useState(data.username);
+  // const toggleDropDown2 = () => {
+  //   setDropDownOpen2(!isDropDownOpen2);
+  // };
+  // const [username, setUsername] = useState(data.username);
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email);
   const [accountType, setAccountType] = useState(data.accountType);
@@ -29,12 +26,14 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   const [zip, setZip] = useState(data.zip);
   const [bio, setBio] = useState(data.bio);
 
+  const router = useRouter();
+
   const enableEdit = () => {
     setEdit(true);
     setDropDownOpen(false);
   };
 
-  const  setType= (role: string) => {
+  const setType = (role: string) => {
     setAccountType(role);
     setDropDownOpen(false);
   };
@@ -44,12 +43,52 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     // reset input fields
   };
 
+  const saveEdits = async () => {
+    let newEditedUser: IUserProfileInfo = {
+      id: 0,
+      username: data.username,
+      salt: data.salt,
+      hash: data.hash,
+      date: data.date,
+      accountType: accountType,
+      name: name,
+      rating: data.rating,
+      ratingCount: data.ratingCount,
+      followers: data.followers,
+      following: data.following,
+      followerCount: data.followerCount,
+      followingCount: data.followingCount,
+      securityQuestion: data.securityQuestion,
+      securityAnswer: data.securityAnswer,
+      bio: bio,
+      email: email,
+      shopName: shopName,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      pfp: data.pfp,
+      isDeleted: data.isDeleted,
+    };
+    // console.log(newEditedUser);
+    let result = await editAccount(newEditedUser);
+    if (result) {
+      console.log("Editing Success");
+      sessionStorage.setItem("AccountInfo",JSON.stringify(newEditedUser))
+      router.push("/user-profile")
+      cancelEdit()
+    } else {
+      alert("Editing Failed");
+    }
+    await getLoggedInUserData(data.username);
+  };
+
   return (
     <section className="font-[NeueMontreal-Medium]">
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
           <button
-            className="w-fit text-slate-500 hover:text-black text-2xl px-3"
+            className="w-fit cursor-pointer text-slate-500 hover:text-black text-2xl px-3"
             onClick={cancelEdit}
           >
             X
@@ -77,11 +116,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   Username{" "}
                 </p>
                 <input
-                  className="bg-white p-2 rounded-sm"
+                  className="bg-[#f0ebeb] p-2 rounded-sm"
                   type="text"
                   placeholder="Username"
                   value={data.username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  disabled
                 />
               </div>
               <div className="flex flex-col">
@@ -93,7 +132,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   className="bg-white p-2 rounded-sm"
                   type="text"
                   placeholder="Name"
-                  value={data.name}
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -104,9 +143,9 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                 </p>
                 <input
                   className="bg-white p-2 rounded-sm"
-                  type="text"
+                  type="email"
                   placeholder="Email"
-                  value={data.email}
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -153,6 +192,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   )}
                 </div>
               </div>
+              <div>
+                <p className="font-[NeueMontreal-Medium] text-sm pb-1 hover:text-slate-500 cursor-pointer">
+                  <Link href={"/forgot-password"}>Change your Password</Link>
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -161,51 +205,51 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               <textarea
                 className="bg-white p-2 rounded-sm h-full"
                 placeholder="Bio Here..."
-                value={data.bio}
+                value={bio}
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>
             <div className="flex flex-col">
-              {data.accountType == "Barber" ? (
+              {data.accountType == "Barber"||accountType == "Barber" ? (
                 <div className="flex flex-col gap-1">
                   <p className="font-[NeueMontreal-Medium] text-sm pb-1">
                     {" "}
                     Location{" "}
                   </p>
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-5">
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
                       placeholder="Barbershop Name"
-                      value={data.shopName}
+                      value={shopName}
                       onChange={(e) => setShopName(e.target.value)}
                     />
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
                       placeholder="Address"
-                      value={data.address}
+                      value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
                       placeholder="City"
-                      value={data.city}
+                      value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
                       placeholder="State"
-                      value={data.state}
+                      value={state}
                       onChange={(e) => setState(e.target.value)}
                     />
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
                       placeholder="ZIP"
-                      value={data.zip}
+                      value={zip}
                       onChange={(e) => setZip(e.target.value)}
                     />
                   </div>
@@ -215,33 +259,34 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               )}
             </div>
           </div>
-          <button className="bg-[#1500FF] text-white py-2 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer">
+          <button
+            className="bg-[#1500FF] text-white py-2 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer"
+            onClick={saveEdits}
+          >
             SAVE
           </button>
         </div>
       ) : (
         <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
-          <div className="w-[70%] flex flex-col gap-2">
-            <div className="flex gap-7 h-[125px]">
+          <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
+            <div className="flex sm:gap-7 gap-3 h-[125px]">
               <img
                 src={data.pfp}
                 alt={`${data.username} profile pic`}
-                className="w-28 h-28 rounded-[50%]"
+                className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
               />
-              <div className="flex flex-col gap-3">
-                <h4 className="text-slate-500 text-sm">Joined: {data.date}</h4>
-                <div className="flex gap-3 place-items-end">
-                  <h2 className="text-3xl">{data.username}</h2>
-                  <h3 className="text-slate-400">{data.accountType}</h3>
+              <div className="flex flex-col sm:gap-1">
+                <h4 className="text-slate-500 sm:text-sm text-xs">Joined: {data.date}</h4>
+                <div className="sm:flex gap-3 sm:place-items-center">
+                  <h2 className="sm:text-3xl text-xl">{data.username}</h2>
+                  <h3 className="sm:text-base text-xs text-slate-400">{data.accountType}</h3>
                   <div
                     className={
-                      data.accountType == "Barber"
-                        ? "flex gap-1 "
-                        : "hidden"
+                      data.accountType == "Barber" ? "flex gap-1" : "hidden"
                     }
                   >
                     <img
-                      className="w-[15px] h-[15px]"
+                      className="w-[15px] h-[15px] hover:drop-shadow-xl"
                       src="./icons/star-empty.png"
                       alt="Star Icon"
                     />
@@ -267,7 +312,8 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                     />
                   </div>
                 </div>
-                <div className="flex gap-12">
+                <h2>{data.name}</h2>
+                <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
                   <h3>{data.followerCount} Followers</h3>
                   <h3>{data.followingCount} Followers</h3>
                 </div>
@@ -278,7 +324,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               <h3>{data.bio}</h3>
             </div>
           </div>
-          <div className="w-[30%] flex flex-col gap-2">
+          <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">
             <div className=" flex flex-col gap-1 h-[125px] place-content-end">
               {/* <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
                 User Menu
@@ -325,11 +371,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               <h3>Location</h3>
               <h2 className="text-lg">{data.shopName}</h2>
               <h2>{data.address}</h2>
-              <div className="flex gap-2">
+              <div className="flex gap-1">
                 <h2>{data.city},</h2>
                 <h2>{data.state}</h2>
-                <h2>{data.zip}</h2>
               </div>
+                <h2>{data.zip}</h2>
             </div>
           </div>
         </div>

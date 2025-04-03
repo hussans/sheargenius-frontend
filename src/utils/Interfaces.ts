@@ -1,5 +1,5 @@
 export interface IUserProfileInfo {
-    id: string;
+    id: number;
     username: string;
     salt: string;
     hash: string;

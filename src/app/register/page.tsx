@@ -125,7 +125,7 @@ const register = () => {
               <p className="font-[NeueMontreal-Medium] text-sm pb-1"> Email </p>
               <input
                 className="bg-[#F5F5F5] rounded-md p-4"
-                type="text"
+                type="email"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
