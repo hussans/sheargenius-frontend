@@ -7,15 +7,7 @@ import React, { useState } from "react";
 
 const UserProfileCard = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
-  // const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [edit, setEdit] = useState(false);
-  const toggleDropDown = () => {
-    setDropDownOpen(!isDropDownOpen);
-  };
-  // const toggleDropDown2 = () => {
-  //   setDropDownOpen2(!isDropDownOpen2);
-  // };
-  // const [username, setUsername] = useState(data.username);
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email);
   const [accountType, setAccountType] = useState(data.accountType);
@@ -25,8 +17,12 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   const [state, setState] = useState(data.state);
   const [zip, setZip] = useState(data.zip);
   const [bio, setBio] = useState(data.bio);
-
+  
   const router = useRouter();
+
+  const toggleDropDown = () => {
+    setDropDownOpen(!isDropDownOpen);
+  };
 
   const enableEdit = () => {
     setEdit(true);
@@ -82,6 +78,12 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     }
     await getLoggedInUserData(data.username);
   };
+
+  const logout = () => {
+    sessionStorage.removeItem("AccountInfo");
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
 
   return (
     <section className="font-[NeueMontreal-Medium]">
@@ -283,8 +285,8 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                 <h4 className="text-slate-500 sm:text-sm text-xs">
                   Joined: {data.date}
                 </h4>
-                <div className="sm:flex gap-3 sm:place-items-center">
-                  <h2 className="sm:text-3xl text-xl">{data.username}</h2>
+                <div className="flex gap-3 place-items-center">
+                  <h2 className="sm:text-3xl text-xl h-fit">{data.username}</h2>
                   <h3 className="sm:text-base text-xs text-slate-400">
                     {data.accountType}
                   </h3>
@@ -357,7 +359,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   >
                     Edit Profile
                   </button>
-                  <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+                  <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={logout}>
                     Log Out
                   </button>
                   <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
