@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import ProfileCard from "@/components/ProfileCard";
 import CreateAccPopup from "@/components/ui/RegisterForm";
-import Navbar from "@/components/ui/Navbar";
 import PostCard from "@/components/ui/PostCard";
-import Footer from "@/components/ui/Footer";
 import Header from "@/components/Header";
+import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/footer";
 
 export default function Home() {
   const [searchActive, setSearchActive] = useState(false);

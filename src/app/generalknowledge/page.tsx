@@ -4,13 +4,12 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
-} from "@/components/ui/PostCard";
+} from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/Navbar";
 import Link from "next/link";
+import Image from "next/image";
 export default function Home() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
@@ -18,7 +17,7 @@ export default function Home() {
   return (
     <SidebarProvider className="flex flex-col">
       <Navbar />
-      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
             <div className="fixed">
@@ -45,7 +44,7 @@ export default function Home() {
                     the scalp, and higher numbers (like #7 or #8) leaving longer
                     lengths. For instance, a #1 guard typically leaves hair
                     about 1/8 inch long, while a #8 guard leaves around an inch.
-                    It’s important to note that different brands may have slight
+                    It is important to note that different brands may have slight
                     variations, so consulting the guide provided with the
                     clippers is a good idea. Other essentials include
                     maintaining sharp blades, using clipper oil to reduce
@@ -56,10 +55,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <img
+              <Image width={160} height={96}
                 src="/barber_utensils_wide.png"
                 alt="barber equipment"
-                className="rounded-lg w-40 h-24"
+                className="rounded-lg"
               />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
@@ -83,7 +82,7 @@ export default function Home() {
                     and adjustable barber chairs, along with handheld and
                     wall-mounted mirrors, are also key for creating a
                     professional setup. For purchasing these supplies, you can
-                    explore{" "}
+                    explore
                     <a
                       className="text-[#FF4649]"
                       href="https://modernbarbersupply.com/"
@@ -103,10 +102,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <img
+              <Image width={160} height={96}
                 src="/clippers.jpg"
                 alt="trimmers"
-                className="rounded-lg w-40 h-24"
+                className="rounded-lg"
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -122,26 +121,26 @@ export default function Home() {
                 <CardContent>
                   <p className="text-xs">
                     Proper barbershop etiquette involves arriving on time for
-                    your appointment or being prepared to wait if you’re a
+                    your appointment or being prepared to wait if you are a
                     walk-in. Communicate clearly with your barber about the
                     style you want, using reference pictures if possible, and
                     trust their expertise for recommendations. Make sure your
                     hair is clean before your visit, as it makes the process
                     smoother. Be courteous by not using your phone excessively,
                     respecting the barber's time, and tipping
-                    appropriately—usually 15-20% of the service cost. If you’re
-                    unsure about your barber’s policies or pricing, it’s
+                    appropriately—usually 15-20% of the service cost. If you are
+                    unsure about barber policy or pricing, it is
                     perfectly fine to ask in advance. Barbershops are also
-                    social hubs, so don’t hesitate to join in on light
+                    social hubs, so do not hesitate to join in on light
                     conversation while keeping the atmosphere pleasant and
                     respectful!
                   </p>
                 </CardContent>
               </div>
-              <img
+              <Image width={160} height={96}
                 src="/barbershop.jpg"
                 alt="barbershop"
-                className="rounded-lg h-60"
+                className="rounded-lg"
               />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
@@ -173,10 +172,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <img
+              <Image width={160} height={96}
                 src="/shower.jpg"
                 alt="shower"
-                className="rounded-lg w-40 h-24"
+                className="rounded-lg"
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -209,7 +208,7 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <img src="/oil.jpg" alt="hair oil" className="rounded-lg h-40" />
+              <Image width={160} height={96} src="/oil.jpg" alt="hair oil" className="rounded-lg" />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
               <div>
@@ -239,10 +238,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <img
+              <Image width={160} height={96}
                 src="/comb.jpg"
                 alt="haircut"
-                className="rounded-lg w-40 h-24"
+                className="rounded-lg" //w-160 h-96
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -258,17 +257,17 @@ export default function Home() {
                     <p className="text-xs">Aaron Robinson</p>
                     <div className="flex gap-2">
                       <a href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gihublogoWHITE.png"
                           alt="github"
-                          className="p-[.15rem] h-6 bg-indigo-900 rounded-[50%]"
+                          className="p-[.15rem]  bg-indigo-900 rounded-[50%]"
                         />
                       </a>
                       <a href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gmailicon.png"
                           alt="gmail"
-                          className="p-1 h-6 rounded-xs"
+                          className="p-1  rounded-xs"
                         />
                       </a>
                     </div>
@@ -277,17 +276,17 @@ export default function Home() {
                     <p className="text-xs">Darryl Patton</p>
                     <div className="flex gap-2">
                       <a href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gihublogoWHITE.png"
                           alt="github"
-                          className="p-[.15rem] h-6 bg-indigo-900 rounded-[50%]"
+                          className="p-[.15rem]  bg-indigo-900 rounded-[50%]"
                         />
                       </a>
                       <a href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gmailicon.png"
                           alt="gmail"
-                          className="p-1 h-6 rounded-xs"
+                          className="p-1  rounded-xs"
                         />
                       </a>
                     </div>
@@ -296,17 +295,17 @@ export default function Home() {
                     <p className="text-xs">Hassan</p>
                     <div className="flex gap-2">
                       <a href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gihublogoWHITE.png"
                           alt="github"
-                          className="p-[.15rem] h-6 bg-indigo-900 rounded-[50%]"
+                          className="p-[.15rem]  bg-indigo-900 rounded-[50%]"
                         />
                       </a>
                       <Link href="#">
-                        <img
+                        <Image width={24} height={24}
                           src="/gmailicon.png"
                           alt="gmail"
-                          className="p-1 h-6 rounded-xs"
+                          className="p-1  rounded-xs"
                         />
                       </Link>
                     </div>
@@ -318,43 +317,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="bg-black py-6 px-12 text-white font-[NeueMontreal-Medium]">
-        <Link href="#">
-          <p className="mb-8 cursor-pointer hover:text-slate-600">
-            <u>Back to Top</u>
-          </p></Link>
-          <div className="flex flex-row">
-            <div className="flex justify-evenly">
-              <div>
-                <p className="mb-3">
-                  <b>HOME</b>
-                </p>
-                <div className="flex flex-col gap-1">
-                  <p>TOP POSTS</p>
-                  <p>LOCAL BARBERS</p>
-                  <p>CREATE ACCOUNT</p>
-                  <p>BARBER ESSENTIALS</p>
-                  <p>BARBERSHOP ETIQUETTE</p>
-                  <p>CLIPPERS CRASH COURSE</p>
-                </div>
-              </div>
-              <div>
-                <p className="mb-3">
-                  <b>EXPLORE</b>
-                </p>
-                <div className="flex flex-col gap-1">
-                  <p>FADES</p>
-                  <p>SKINFADES</p>
-                  <p>STYLES</p>
-                  <p>GENERAL KNOWLEDGE</p>
-                </div>
-              </div>
-              <div></div>
-            </div>
-            <div className="flex justify-end"></div>
-          </div>
-        
-      </footer>
     </SidebarProvider>
   );
 }
