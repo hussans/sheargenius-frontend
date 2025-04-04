@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import Footer from "@/components/Footer";
 export default function GeneralKnowledge() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
@@ -366,6 +367,7 @@ export default function GeneralKnowledge() {
           </div>
         </div>
       </div>
+      <Footer/>
     </SidebarProvider>
   );
 }
