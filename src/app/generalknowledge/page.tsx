@@ -61,7 +61,7 @@ export default function Home() {
               <Image width={160} height={96}
                 src="/barber_utensils_wide.png"
                 alt="barber equipment"
-                className="rounded-lg"
+                className="rounded-lg aspect-video object-cover"
               />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
@@ -85,13 +85,13 @@ export default function Home() {
                     and adjustable barber chairs, along with handheld and
                     wall-mounted mirrors, are also key for creating a
                     professional setup. For purchasing these supplies, you can
-                    explore
+                    explore&nbsp; 
                     <a
                       className="text-[#FF4649]"
                       href="https://modernbarbersupply.com/"
                       target="_blank"
                     >
-                      Modern Barber Supply
+                       Modern Barber Supply
                     </a>{" "}
                     or{" "}
                     <a
@@ -108,7 +108,7 @@ export default function Home() {
               <Image width={160} height={96}
                 src="/clippers.jpg"
                 alt="trimmers"
-                className="rounded-lg"
+                className="rounded-lg aspect-video object-cover"
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -143,7 +143,7 @@ export default function Home() {
               <Image width={160} height={96}
                 src="/barbershop.jpg"
                 alt="barbershop"
-                className="rounded-lg"
+                className="rounded-lg aspect-video object-cover"
               />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
@@ -178,7 +178,7 @@ export default function Home() {
               <Image width={160} height={96}
                 src="/shower.jpg"
                 alt="shower"
-                className="rounded-lg"
+                className="rounded-lg aspect-video object-cover"
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -211,7 +211,7 @@ export default function Home() {
                   </p>
                 </CardContent>
               </div>
-              <Image width={160} height={96} src="/oil.jpg" alt="hair oil" className="rounded-lg" />
+              <Image width={160} height={96} src="/oil.jpg" alt="hair oil" className="rounded-lg aspect-video object-cover" />
             </Card>
             <Card className="flex flex-row-reverse justify-between  p-4">
               <div>
@@ -244,7 +244,7 @@ export default function Home() {
               <Image width={160} height={96}
                 src="/comb.jpg"
                 alt="haircut"
-                className="rounded-lg" //w-160 h-96
+                className="rounded-lg aspect-video object-cover" 
               />
             </Card>
             <Card className="flex flex-row justify-between  p-4">
@@ -270,7 +270,7 @@ export default function Home() {
       </ol>
     </CardContent>
   </div>
-  <Image width={160} height={96} src="/beard.jpg" alt="hair oil" className="rounded-lg" />
+  <Image width={160} height={96} src="/beard.jpg" alt="hair oil" className="rounded-lg aspect-video object-cover" />
 </Card>
 <Card className="flex flex-row-reverse justify-betweenjustify-between p-4">
   <div>
@@ -288,7 +288,7 @@ export default function Home() {
       </p>
     </CardContent>
   </div>
-  <Image width={160} height={96} src="/faceshape.jpg" alt="haircuts" className="rounded-lg" />
+  <Image width={160} height={96} src="/faceshape.jpg" alt="haircuts" className="rounded-lg aspect-video object-cover" />
 </Card>
 
 
