@@ -2,25 +2,25 @@
 import Navbar from "@/components/ui/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
-// import { loggedInData } from "@/utils/DataServices";
 import { Button } from "@/components/ui/button";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import PostCard from "@/components/ui/PostCard";
-// import { useRouter } from "next/navigation";
 
-const page = () => {
+const UserProfile = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-    const [searchActive, setSearchActive] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   // const router = useRouter();
-  
+  console.log(searchActive);
   // account checking
   // if(!checkToken) router.push("/login")
  
-
-  const accountData: IUserProfileInfo = JSON.parse(
-    sessionStorage.getItem("AccountInfo") || "{}"
-  );
+  const accountData: IUserProfileInfo = (() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("AccountInfo")) {
+      return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
+    }
+    return {}
+  })();
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -115,4 +115,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserProfile;

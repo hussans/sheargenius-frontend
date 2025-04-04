@@ -86,3 +86,18 @@ export interface IUserData {
 export interface IToken {
     token: string
 }
+
+export interface HaircutInterface {
+    id: number;
+    name: string;
+    description: string;
+    photo1: string;
+    photo2: string;
+    video: { src: string };
+    howTo: {
+      step1: string;
+      step2: string;
+      step3: string;
+      step4: string;
+    };
+  }

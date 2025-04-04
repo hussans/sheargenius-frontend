@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="bg-white min-h-screen w-full">
       <Navbar setSearchActive={setSearchActive} />
-      <header id="page-header" className="mt-16">
+      <header id="page-header">
         <Header searchActive={searchActive} setSearchActive={setSearchActive} />
       </header>
       <section id="top-posts" className="mt-20 mx-5">

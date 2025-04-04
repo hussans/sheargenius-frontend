@@ -1,4 +1,6 @@
+import { setCategory } from "@/utils/DataServices";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   searchActive: boolean;
@@ -8,6 +10,7 @@ interface HeaderProps {
 const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
   const [query, setQuery] = useState("");
   const [searchHovered, setSearchHovered] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (searchActive) {
@@ -17,6 +20,8 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
 
   const handleSearch = () => {
     console.log("Search..", query);
+    setCategory(query);
+    router.push("/directory");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

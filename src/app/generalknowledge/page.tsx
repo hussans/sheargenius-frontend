@@ -11,12 +11,13 @@ import Navbar from "@/components/ui/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-export default function Home() {
+export default function GeneralKnowledge() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
 
 
   const [searchActive, setSearchActive] = useState(false);
+  console.log(searchActive);
   return (
     <SidebarProvider className="flex flex-col">
       <Navbar setSearchActive={setSearchActive} />
@@ -52,7 +53,7 @@ export default function Home() {
                     clippers is a good idea. Other essentials include
                     maintaining sharp blades, using clipper oil to reduce
                     friction, and cleaning the clippers regularly to ensure
-                    precise cuts. Whether you're aiming for a fade, a buzz cut,
+                    precise cuts. Whether you are aiming for a fade, a buzz cut,
                     or just a quick trim, mastering the clipper settings is key
                     to achieving the desired style!
                   </p>
@@ -130,7 +131,7 @@ export default function Home() {
                     trust their expertise for recommendations. Make sure your
                     hair is clean before your visit, as it makes the process
                     smoother. Be courteous by not using your phone excessively,
-                    respecting the barber's time, and tipping
+                    respecting the barber <span>&apos</span>s time, and tipping
                     appropriately—usually 15-20% of the service cost. If you are
                     unsure about barber policy or pricing, it is
                     perfectly fine to ask in advance. Barbershops are also
@@ -163,14 +164,14 @@ export default function Home() {
                     easier and more enjoyable for both you and your barber.
                     Start by washing your hair thoroughly to remove any dirt,
                     oil, or product buildup, as clean hair is simpler to cut and
-                    style. If you’re sweating or coming from a workout, a quick
-                    shower helps ensure you're fresh and comfortable. Pay
+                    style. If you&#39;re sweating or coming from a workout, a quick
+                    shower helps ensure you&#39;re fresh and comfortable. Pay
                     attention to your scalp health, too—if you have dandruff or
                     irritation, addressing it beforehand can improve your
                     overall experience. Additionally, trim excessive facial hair
                     or clean your neckline if you expect these areas to be
                     groomed. Arriving clean and prepared shows respect for your
-                    barber’s time and equipment, maintaining a professional and
+                    barber&#39;s time and equipment, maintaining a professional and
                     pleasant environment for everyone.
                   </p>
                 </CardContent>
@@ -217,7 +218,7 @@ export default function Home() {
               <div>
                 <CardTitle id="why-mens-hair">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
-                    Why Men's Hair?
+                    Why Men&#39;s Hair?
                   </h1>
                 </CardTitle>
                 <CardDescription className="my-2">
@@ -226,16 +227,16 @@ export default function Home() {
                 <CardContent>
                   <p className="text-xs">
                     The team behind this website is deeply passionate about
-                    exploring diverse styles of men’s haircuts and celebrating
+                    exploring diverse styles of men&#39;s haircuts and celebrating
                     the rich traditions of barbershop culture. We believe that
-                    hairstyling is more than just grooming—it's an art form and
-                    a way to express individuality. The team feels it’s
+                    hairstyling is more than just grooming—it&#39;s an art form and
+                    a way to express individuality. The team feels it&#39;s
                     essential to educate men of all ages, as well as parents
                     with their children, on how to choose and maintain
                     hairstyles that suit their personalities, lifestyles, and
                     preferences. By providing valuable insights, tips, and
                     inspiration, ShearGenius aims to empower their audience to
-                    approach men’s hair styling with confidence and creativity,
+                    approach men&#39;s hair styling with confidence and creativity,
                     fostering a greater appreciation for the craftsmanship
                     behind every great cut.
                   </p>

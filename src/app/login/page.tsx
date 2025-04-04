@@ -1,40 +1,30 @@
 "use client";
-import { getLoggedInUserData, loggedInData, Login } from "@/utils/DataServices";
+import { getLoggedInUserData, loggedInData, login } from "@/utils/DataServices";
 import { IToken } from "@/utils/Interfaces";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const login = () => {
+const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  //   "use client";
-  // import { loggedInData } from '@/utils/DataServices'
-  // import React from 'react'
-
-  // const page = () => {
-  //   console.log(loggedInData())
-  // async?
   const handleSubmit = async () => {
     console.log("login attempted");
-    let userData = {
+    const userData = {
       username: username,
       password: password,
     };
-    const token: IToken = await Login(userData);
+    const token: IToken = await login(userData);
     if (token != null) {
       if (typeof window != null) {
         setError(false)
         localStorage.setItem("Token", token.token);
         console.log(token.token);
         await getLoggedInUserData(username);
-        // const userInfo = loggedInData()
-        // console.log(JSON.stringify(userInfo))
         sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
-        // console.log(sessionStorage.getItem("AccountInfo"))
         router.push("/user-profile");
       }
     } else {
@@ -95,7 +85,7 @@ const login = () => {
               </button>
               <p className="font-[NeueMontreal-Medium] text-sm pt-2">
                 {" "}
-                Don't have an account?
+                Don&#39;t have an account?
                 <Link
                   className="text-[#1500FF] active:text-[#3F5CFF]"
                   href={"./register"}
@@ -130,4 +120,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
