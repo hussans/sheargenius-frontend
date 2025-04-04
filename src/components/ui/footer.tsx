@@ -1,18 +1,20 @@
-'use client'
 import Link from "next/link";
 import React from "react";
+
 const Footer = () => {
   const openNavbarCategory = (category: string) => {
     window.dispatchEvent(
       new CustomEvent("openNavbarCategory", { detail: { category } })
     );
   };
+
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   return (
     <div className="bg-black w-full h-[350px] px-5 py-10 text-sm">
     <p
@@ -161,4 +163,5 @@ const Footer = () => {
     </div>
   );
 };
+
 export default Footer;
