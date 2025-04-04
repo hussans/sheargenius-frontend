@@ -1,18 +1,30 @@
-export interface IUserProfileInfo{
-    Id:string;
-    Username:string;
-    AccountType:string;
-    Name:string;
-    Bio:string;
-    username:string;
-    ShopName:string;
-    Address:string;
-    City:string;
-    State:string;
-    Zip:string;
-    Pfp:string;
-    IsDeleted:boolean
+export interface IUserProfileInfo {
+    id: number;
+    username: string;
+    salt: string;
+    hash: string;
+    date: string;
+    accountType: string;
+    name: string;
+    rating: number;
+    ratingCount: number;
+    followers: string[];
+    following: string[];
+    followerCount: number;
+    followingCount: number;
+    securityQuestion: string;
+    securityAnswer: string;
+    bio: string;
+    email: string;
+    shopName: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    pfp: string;
+    isDeleted: boolean;
 }
+
 
 export interface IPostItems{
     Id: number;
@@ -39,21 +51,32 @@ export interface IUserInfo {
     password: string
 }
 
-export interface INewUser{
+export interface INewUser {
     id: number;
-    username?: string;
-    accountType?: string;
-    name?: string;
-    bio?: string;
-    email?: string;
-    shopName?: string;
-    address?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    pfp?: string;
+    username: string;
+    password: string;
+    accountType: string;
+    date: string;
+    name: string;
+    rating: number;
+    ratingCount: number;
+    followers: string[];
+    following: string[];
+    followerCount: number;
+    followingCount: number;
+    securityQuestion: string;
+    securityAnswer: string;
+    bio: string;
+    email: string;
+    shopName: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    pfp: string;
     isDeleted: boolean;
 }
+
 
 export interface IUserData {
     id: number

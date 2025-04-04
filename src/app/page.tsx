@@ -1,11 +1,13 @@
+"use client";
 import ProfileCard from "@/components/ProfileCard";
 import CreateAccPopup from "@/components/ui/RegisterForm";
 import Navbar from "@/components/ui/navbar";
 import PostCard from "@/components/ui/PostCard";
 import Link from "next/link";
+import { loggedInData } from "@/utils/DataServices";
 
 export default function Home() {
-
+  console.log(loggedInData())
   return (
     <div className="bg-white min-h-screen w-full">
       <Navbar />
