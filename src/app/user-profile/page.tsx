@@ -10,7 +10,6 @@ const UserProfile = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
   const [searchActive, setSearchActive] = useState(false);
-  // const router = useRouter();
   console.log(searchActive);
   // account checking
   // if(!checkToken) router.push("/login")
