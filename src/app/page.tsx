@@ -5,7 +5,7 @@ import CreateAccPopup from "@/components/ui/RegisterForm";
 import PostCard from "@/components/ui/PostCard";
 import Header from "@/components/Header";
 import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/footer";
+import Footer from "@/components/ui/Footer";
 
 export default function Home() {
   const [searchActive, setSearchActive] = useState(false);

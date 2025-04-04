@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
   title: "ShearGenius",
@@ -25,7 +23,6 @@ export default function RootLayout({
         className={`antialiased`}
       >
         {children}
-        <Footer/>
       </body>
     </html>
   );

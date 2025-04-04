@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/ui/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 // import { loggedInData } from "@/utils/DataServices";
@@ -11,7 +11,7 @@ import PostCard from "@/components/ui/PostCard";
 const page = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-
+    const [searchActive, setSearchActive] = useState(false);
   // const router = useRouter();
   
   // account checking
@@ -33,7 +33,7 @@ const page = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive}/>
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
         <div className="flex justify-between mt-12 mb-4 place-items-center">
