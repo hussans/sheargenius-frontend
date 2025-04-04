@@ -1,26 +1,25 @@
 "use client";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
-// import { loggedInData } from "@/utils/DataServices";
 import { Button } from "@/components/ui/button";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import PostCard from "@/components/ui/PostCard";
-// import { useRouter } from "next/navigation";
+import PostCard from "@/components/PostCard";
 
-const page = () => {
+const UserProfile = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-
-  // const router = useRouter();
-  
+  const [searchActive, setSearchActive] = useState(false);
+  console.log(searchActive);
   // account checking
   // if(!checkToken) router.push("/login")
  
-
-  const accountData: IUserProfileInfo = JSON.parse(
-    sessionStorage.getItem("AccountInfo") || "{}"
-  );
+  const accountData: IUserProfileInfo = (() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("AccountInfo")) {
+      return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
+    }
+    return {}
+  })();
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -33,7 +32,7 @@ const page = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive}/>
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
         <div className="flex justify-between mt-12 mb-4 place-items-center">
@@ -115,4 +114,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserProfile;

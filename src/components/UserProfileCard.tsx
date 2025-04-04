@@ -7,6 +7,7 @@ import React, { useState } from "react";
 
 const UserProfileCard = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email);
@@ -17,11 +18,14 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   const [state, setState] = useState(data.state);
   const [zip, setZip] = useState(data.zip);
   const [bio, setBio] = useState(data.bio);
-  
+
   const router = useRouter();
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
+  };
+  const toggleDropDown2 = () => {
+    setDropDownOpen2(!isDropDownOpen2);
   };
 
   const enableEdit = () => {
@@ -33,6 +37,10 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     setAccountType(role);
     setDropDownOpen(false);
   };
+  const setStateMenu = (state: string) => {
+    setState(state);
+    setDropDownOpen2(false);
+  };
 
   const cancelEdit = () => {
     setEdit(false);
@@ -40,7 +48,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   };
 
   const saveEdits = async () => {
-    let newEditedUser: IUserProfileInfo = {
+    const newEditedUser: IUserProfileInfo = {
       id: 0,
       username: data.username,
       salt: data.salt,
@@ -67,7 +75,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
       isDeleted: data.isDeleted,
     };
     // console.log(newEditedUser);
-    let result = await editAccount(newEditedUser);
+    const result = await editAccount(newEditedUser);
     if (result) {
       console.log("Editing Success");
       sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
@@ -83,7 +91,60 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     sessionStorage.removeItem("AccountInfo");
     localStorage.removeItem("token");
     router.push("/login");
-  }
+  };
+
+  const states = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
 
   return (
     <section className="font-[NeueMontreal-Medium]">
@@ -104,7 +165,10 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
-            <label htmlFor="pictureSelect" className="absolute top-[35%] cursor-pointer">
+            <label
+              htmlFor="pictureSelect"
+              className="absolute top-[35%] cursor-pointer"
+            >
               <img
                 src="/icons/imgHover.png"
                 alt="edit logo image"
@@ -112,7 +176,12 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               />
             </label>
 
-            <input type="file" id="pictureSelect" accept="image/*,.pdf" className="hidden"/>
+            <input
+              type="file"
+              id="pictureSelect"
+              accept="image/*,.pdf"
+              className="hidden"
+            />
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">
             <div className="flex flex-col gap-2">
@@ -244,13 +313,43 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
-                    <input
-                      className="bg-white p-2 rounded-sm"
-                      type="text"
-                      placeholder="State"
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                    />
+                    <div className="flex flex-col">
+                      <div
+                        onClick={toggleDropDown2}
+                        className="bg-white flex justify-between items-center rounded-md px-4 py-2 cursor-pointer text-black"
+                      >
+                        {state}
+                        <img
+                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
+                            isDropDownOpen2 ? "rotate-180" : "rotate-0"
+                          }`}
+                          src="./icons/dropdown.png"
+                          alt="Drop Down Icon"
+                        />
+                      </div>
+                      {isDropDownOpen2 && (
+                        <div
+                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${
+                            isDropDownOpen2
+                              ? "opacity-100 visible"
+                              : "opacity-0 invisible"
+                          }`}
+                        >
+                          <div>
+                            {states.map((state) => (
+                              <div
+                                key={state}
+                                onClick={() => setStateMenu(state)}
+                                className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"
+                              >
+                                {state}
+                              </div>
+                            ))}
+                          </div>
+                          );
+                        </div>
+                      )}
+                    </div>
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
@@ -359,7 +458,10 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   >
                     Edit Profile
                   </button>
-                  <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={logout}>
+                  <button
+                    className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
+                    onClick={logout}
+                  >
                     Log Out
                   </button>
                   <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">

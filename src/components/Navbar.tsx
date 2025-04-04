@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
 }
+console.log("f")
 
 const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,7 +112,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
           </div>
         </div>
       </nav>
-
+      <div className="h-[64px]"></div>
       {isOpen && (
         <div className="fixed top-0 left-0 w-full min-h-screen bg-[#FFFFFF80] z-10 flex justify-end">
           <div className="fixed bg-white min-h-full w-[500px] z-20 px-10">
@@ -433,7 +434,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       href="/general-knowledge/clippers-crash-course"
                       className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
                     >
-                      Why Men's Hair?
+                      Why Men&#39;s Hair?
                     </Link>
                     <Link
                       href="/general-knowledge/clippers-crash-course"

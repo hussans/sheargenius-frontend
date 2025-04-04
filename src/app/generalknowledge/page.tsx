@@ -7,16 +7,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
-export default function Home() {
+import { useState } from "react";
+export default function GeneralKnowledge() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
 
+
+  const [searchActive, setSearchActive] = useState(false);
+  console.log(searchActive);
   return (
     <SidebarProvider className="flex flex-col">
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive} />
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
@@ -49,7 +53,7 @@ export default function Home() {
                     clippers is a good idea. Other essentials include
                     maintaining sharp blades, using clipper oil to reduce
                     friction, and cleaning the clippers regularly to ensure
-                    precise cuts. Whether you're aiming for a fade, a buzz cut,
+                    precise cuts. Whether you are aiming for a fade, a buzz cut,
                     or just a quick trim, mastering the clipper settings is key
                     to achieving the desired style!
                   </p>
@@ -127,7 +131,7 @@ export default function Home() {
                     trust their expertise for recommendations. Make sure your
                     hair is clean before your visit, as it makes the process
                     smoother. Be courteous by not using your phone excessively,
-                    respecting the barber's time, and tipping
+                    respecting the barber <span>&apos</span>s time, and tipping
                     appropriately—usually 15-20% of the service cost. If you are
                     unsure about barber policy or pricing, it is
                     perfectly fine to ask in advance. Barbershops are also
@@ -160,14 +164,14 @@ export default function Home() {
                     easier and more enjoyable for both you and your barber.
                     Start by washing your hair thoroughly to remove any dirt,
                     oil, or product buildup, as clean hair is simpler to cut and
-                    style. If you’re sweating or coming from a workout, a quick
-                    shower helps ensure you're fresh and comfortable. Pay
+                    style. If you&#39;re sweating or coming from a workout, a quick
+                    shower helps ensure you&#39;re fresh and comfortable. Pay
                     attention to your scalp health, too—if you have dandruff or
                     irritation, addressing it beforehand can improve your
                     overall experience. Additionally, trim excessive facial hair
                     or clean your neckline if you expect these areas to be
                     groomed. Arriving clean and prepared shows respect for your
-                    barber’s time and equipment, maintaining a professional and
+                    barber&#39;s time and equipment, maintaining a professional and
                     pleasant environment for everyone.
                   </p>
                 </CardContent>
@@ -214,7 +218,7 @@ export default function Home() {
               <div>
                 <CardTitle id="why-mens-hair">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
-                    Why Men's Hair?
+                    Why Men&#39;s Hair?
                   </h1>
                 </CardTitle>
                 <CardDescription className="my-2">
@@ -223,16 +227,16 @@ export default function Home() {
                 <CardContent>
                   <p className="text-xs">
                     The team behind this website is deeply passionate about
-                    exploring diverse styles of men’s haircuts and celebrating
+                    exploring diverse styles of men&#39;s haircuts and celebrating
                     the rich traditions of barbershop culture. We believe that
-                    hairstyling is more than just grooming—it's an art form and
-                    a way to express individuality. The team feels it’s
+                    hairstyling is more than just grooming—it&#39;s an art form and
+                    a way to express individuality. The team feels it&#39;s
                     essential to educate men of all ages, as well as parents
                     with their children, on how to choose and maintain
                     hairstyles that suit their personalities, lifestyles, and
                     preferences. By providing valuable insights, tips, and
                     inspiration, ShearGenius aims to empower their audience to
-                    approach men’s hair styling with confidence and creativity,
+                    approach men&#39;s hair styling with confidence and creativity,
                     fostering a greater appreciation for the craftsmanship
                     behind every great cut.
                   </p>
@@ -244,6 +248,51 @@ export default function Home() {
                 className="rounded-lg" //w-160 h-96
               />
             </Card>
+            <Card className="flex flex-row justify-between  p-4">
+  <div>
+    <CardTitle id="beard-care-essentials">
+      <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
+        Beard Care
+      </h1>
+    </CardTitle>
+    <CardDescription className="my-2">
+      Beard care essentials.
+    </CardDescription>
+    <CardContent>
+      <p className="text-xs">
+        To maintain a healthy, well-groomed beard, start by washing it regularly with a beard-specific shampoo to keep it clean without stripping natural oils. Moisturize with a beard oil or balm to hydrate both the hair and the skin underneath, preventing dryness and irritation. Trim your beard regularly to maintain shape and remove split ends. Use a beard comb or brush to keep hairs aligned and to distribute oils evenly. Finally, remember to eat a balanced diet, as proper nutrition supports beard growth and strength.
+      </p>
+      <p className="text-xs font-bold mt-2">Beard Essentials:</p>
+      <ol className="list-decimal ml-5 text-xs">
+        <li>Beard Shampoo – to cleanse without drying out your hair.</li>
+        <li>Beard Oil/Balm – for hydration and a soft, healthy beard.</li>
+        <li>Beard Comb/Brush – to detangle and style.</li>
+        <li>Beard Scissors/Trimmer – for shaping and trimming.</li>
+      </ol>
+    </CardContent>
+  </div>
+  <Image width={160} height={96} src="/beard.jpg" alt="hair oil" className="rounded-lg" />
+</Card>
+<Card className="flex flex-row-reverse justify-betweenjustify-between p-4">
+  <div>
+    <CardTitle id="haircuts-for-face-shapes">
+      <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
+        Haircuts for Different Face Shapes
+      </h1>
+    </CardTitle>
+    <CardDescription className="my-2">
+      Find the perfect style for your face.
+    </CardDescription>
+    <CardContent>
+      <p className="text-xs">
+        The shape of your face plays a significant role in determining which haircuts will flatter your features. For example, round faces look great with angular cuts, like a pompadour or quiff, while square faces benefit from softer, textured cuts. Oval faces are versatile and can pull off most styles, from buzz cuts to longer, flowing hairstyles. If you have a heart-shaped face, a textured fringe or side-parted style can balance the proportions. Understanding your face shape is key to choosing a haircut that enhances your appearance.
+      </p>
+    </CardContent>
+  </div>
+  <Image width={160} height={96} src="/faceshape.jpg" alt="haircuts" className="rounded-lg" />
+</Card>
+
+
             <Card className="flex flex-row justify-between  p-4">
               <div>
                 <CardTitle id="credits">
