@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 
 import Image from 'next/image';
 import PostCard from '@/components/ui/PostCard';
-import Footer from '@/components/ui/footer';
+
 import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
 
 
 interface HaircutInterface {
@@ -108,11 +109,8 @@ const [searchActive, setSearchActive] = useState(false);
                         </div>
                     </div>
 
-                    {/**********************************************Haircut Name & Description**************************************************** */}
-                    <div className="text-center mt-20">
-                        <h2 className="text-3xl font-bold">{haircut.name}</h2>
-                        <p className="text-lg mt-2 text-black">{haircut.description}</p>
-                    </div>
+                   
+                    
                     <div className='flex justify-evenly flex-wrap  gap-6'>
 
 
