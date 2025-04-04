@@ -8,6 +8,7 @@ import React, { useState } from "react";
 const login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState(false);
   const router = useRouter();
 
   //   "use client";
@@ -26,6 +27,7 @@ const login = () => {
     const token: IToken = await Login(userData);
     if (token != null) {
       if (typeof window != null) {
+        setError(false)
         localStorage.setItem("Token", token.token);
         console.log(token.token);
         await getLoggedInUserData(username);
@@ -34,9 +36,10 @@ const login = () => {
         sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
         // console.log(sessionStorage.getItem("AccountInfo"))
         router.push("/user-profile");
-      } else {
-        alert("Login was unsuccessful, invalid useranme or password");
       }
+    } else {
+      setError(true);
+      console.log("Login was unsuccessful, invalid useranme or password");
     }
   };
   return (
@@ -77,6 +80,12 @@ const login = () => {
                 required
               />
             </div>
+            {error && (
+              <p className="text-red-500 font-[NeueMontreal-Medium] text-sm">
+                {" "}
+                Invalid username or password{" "}
+              </p>
+            )}
             <div className="flex flex-col mt-8 text-center">
               <button
                 className="bg-[#1500FF] text-white py-4 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer"
@@ -95,7 +104,7 @@ const login = () => {
                   Sign Up{" "}
                 </Link>
               </p>
-              <p className="font-[NeueMontreal-Medium] text-sm pt-2">
+              <p className="font-[NeueMontreal-Medium] text-sm">
                 {" "}
                 Forgot your password?
                 <Link
@@ -112,7 +121,7 @@ const login = () => {
       </div>
       <div className="flex-6/10">
         <img
-          className="w-[1000px] h-[100vh] object-cover"
+          className="w-[1000px] h-full object-cover"
           src="./loginregister-img.jpg"
           alt=""
         />

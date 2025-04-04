@@ -74,9 +74,9 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     let result = await editAccount(newEditedUser);
     if (result) {
       console.log("Editing Success");
-      sessionStorage.setItem("AccountInfo",JSON.stringify(newEditedUser))
-      router.push("/user-profile")
-      cancelEdit()
+      sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
+      router.push("/user-profile");
+      cancelEdit();
     } else {
       alert("Editing Failed");
     }
@@ -102,11 +102,15 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
-            <img
-              src="/icons/imgHover.png"
-              alt="edit logo image"
-              className="w-10 h-10 absolute top-[30%] opacity-50 hover:opacity-100 drop-shadow-2xl"
-            />
+            <label htmlFor="pictureSelect" className="absolute top-[35%] cursor-pointer">
+              <img
+                src="/icons/imgHover.png"
+                alt="edit logo image"
+                className="w-10 h-10 opacity-50 hover:opacity-100 drop-shadow-2xl"
+              />
+            </label>
+
+            <input type="file" id="pictureSelect" accept="image/*,.pdf" className="hidden"/>
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">
             <div className="flex flex-col gap-2">
@@ -210,7 +214,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               ></textarea>
             </div>
             <div className="flex flex-col">
-              {data.accountType == "Barber"||accountType == "Barber" ? (
+              {data.accountType == "Barber" || accountType == "Barber" ? (
                 <div className="flex flex-col gap-1">
                   <p className="font-[NeueMontreal-Medium] text-sm pb-1">
                     {" "}
@@ -276,10 +280,14 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                 className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
               />
               <div className="flex flex-col sm:gap-1">
-                <h4 className="text-slate-500 sm:text-sm text-xs">Joined: {data.date}</h4>
+                <h4 className="text-slate-500 sm:text-sm text-xs">
+                  Joined: {data.date}
+                </h4>
                 <div className="sm:flex gap-3 sm:place-items-center">
                   <h2 className="sm:text-3xl text-xl">{data.username}</h2>
-                  <h3 className="sm:text-base text-xs text-slate-400">{data.accountType}</h3>
+                  <h3 className="sm:text-base text-xs text-slate-400">
+                    {data.accountType}
+                  </h3>
                   <div
                     className={
                       data.accountType == "Barber" ? "flex gap-1" : "hidden"
@@ -375,7 +383,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                 <h2>{data.city},</h2>
                 <h2>{data.state}</h2>
               </div>
-                <h2>{data.zip}</h2>
+              <h2>{data.zip}</h2>
             </div>
           </div>
         </div>

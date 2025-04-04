@@ -194,7 +194,7 @@ const register = () => {
               </p>
               <input
                 className="bg-[#F5F5F5] rounded-md px-4 py-2"
-                type="text"
+                type="number"
                 placeholder="3 Years"
                 onChange={(e) => setExp(e.target.value)}
               />
