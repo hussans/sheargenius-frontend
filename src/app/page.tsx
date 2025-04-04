@@ -4,20 +4,15 @@ import Navbar from "@/components/ui/Navbar";
 import PostCard from "@/components/ui/PostCard";
 import Link from "next/link";
 import Footer from "@/components/ui/Footer";
+import Header from "@/components/Header";
 
 export default function Home() {
 
   return (
     <div className="bg-white min-h-screen w-full">
       <Navbar />
-      <header>
-        <div className="relative">
-          <img className="w-full h-[724px] object-cover" src="./sheargenius-banner.png" alt="Barber Shop Leather Chair Banner Image" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-            <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-8xl"> ShearGenius </h1>
-            <p className="font-[NeueMontreal-Medium] text-white text-xl"> A Hub For All Things Hair </p>
-          </div>
-        </div>
+      <header className="mt-16">
+        <Header />
       </header>
       <section className="mt-20 mx-5">
         <div className="flex justify-center">
@@ -97,7 +92,6 @@ export default function Home() {
       <footer className="mt-25">
         <Footer />
       </footer>
-
     </div>
   );
 }
