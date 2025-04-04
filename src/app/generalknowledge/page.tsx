@@ -10,13 +10,16 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/Navbar";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 export default function Home() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
 
+
+  const [searchActive, setSearchActive] = useState(false);
   return (
     <SidebarProvider className="flex flex-col">
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive} />
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">

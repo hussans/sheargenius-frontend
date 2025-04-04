@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import Navbar from '@/components/ui/navbar';
+
 import Image from 'next/image';
 import PostCard from '@/components/ui/PostCard';
 import Footer from '@/components/ui/footer';
+import Navbar from '@/components/ui/Navbar';
+
 
 interface HaircutInterface {
     id: number;
@@ -25,6 +27,7 @@ export default function DirectoryPage(haircutname: string) {
     const [haircut, setHaircut] = useState<HaircutInterface | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [searchCompleted, setSearchCompleted] = useState<boolean>(false);
+const [searchActive, setSearchActive] = useState(false);
 
     const fetchHaircut = async () => {
         if (!searchQuery) return;
@@ -51,7 +54,7 @@ export default function DirectoryPage(haircutname: string) {
 
     return (
         <div className="bg-white min-h-screen w-full">
-            <Navbar />
+            <Navbar setSearchActive={setSearchActive} />
 
             {/* Hero Image ***********************************************************/}
             <header className="relative">
