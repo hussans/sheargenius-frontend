@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/PostCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/ui/Navbar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 export default function Home() {
