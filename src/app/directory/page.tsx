@@ -1,8 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import Navbar from '@/components/ui/Navbar';
+
 import Image from 'next/image';
 import PostCard from '@/components/ui/PostCard';
+import Footer from '@/components/ui/Footer';
+import Navbar from '@/components/ui/Navbar';
+
 
 interface HaircutInterface {
     id: number;
@@ -24,6 +27,7 @@ export default function DirectoryPage(haircutname: string) {
     const [haircut, setHaircut] = useState<HaircutInterface | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [searchCompleted, setSearchCompleted] = useState<boolean>(false);
+const [searchActive, setSearchActive] = useState(false);
 
     const fetchHaircut = async () => {
         if (!searchQuery) return;
@@ -50,7 +54,7 @@ export default function DirectoryPage(haircutname: string) {
 
     return (
         <div className="bg-white min-h-screen w-full">
-            <Navbar />
+            <Navbar setSearchActive={setSearchActive} />
 
             {/* Hero Image ***********************************************************/}
             <header className="relative">
@@ -146,14 +150,7 @@ export default function DirectoryPage(haircutname: string) {
             )}
 
             {/* ********************************************Footer ***************************************************************************/}
-            <footer className="bg-black text-white text-center p-6 mt-12">
-                <p className="text-lg">Looking to become a barber or book an appointment?</p>
-                <p className="mt-2 text-gray-400">Sign up for exclusive tips and offers.</p>
-                <input type="email" placeholder="Enter your email" className="mt-4 px-4 py-2 text-black rounded-lg" />
-                <button className="bg-blue-500 text-white px-6 py-2 rounded-lg ml-2 hover:bg-blue-700">
-                    Subscribe
-                </button>
-            </footer>
+           <Footer />
         </div>
     );
 }

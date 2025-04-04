@@ -10,13 +10,16 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import Navbar from "@/components/ui/Navbar";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 export default function Home() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
 
+
+  const [searchActive, setSearchActive] = useState(false);
   return (
     <SidebarProvider className="flex flex-col">
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive} />
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
@@ -244,6 +247,51 @@ export default function Home() {
                 className="rounded-lg" //w-160 h-96
               />
             </Card>
+            <Card className="flex flex-row justify-between  p-4">
+  <div>
+    <CardTitle id="beard-care-essentials">
+      <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
+        Beard Care
+      </h1>
+    </CardTitle>
+    <CardDescription className="my-2">
+      Beard care essentials.
+    </CardDescription>
+    <CardContent>
+      <p className="text-xs">
+        To maintain a healthy, well-groomed beard, start by washing it regularly with a beard-specific shampoo to keep it clean without stripping natural oils. Moisturize with a beard oil or balm to hydrate both the hair and the skin underneath, preventing dryness and irritation. Trim your beard regularly to maintain shape and remove split ends. Use a beard comb or brush to keep hairs aligned and to distribute oils evenly. Finally, remember to eat a balanced diet, as proper nutrition supports beard growth and strength.
+      </p>
+      <p className="text-xs font-bold mt-2">Beard Essentials:</p>
+      <ol className="list-decimal ml-5 text-xs">
+        <li>Beard Shampoo – to cleanse without drying out your hair.</li>
+        <li>Beard Oil/Balm – for hydration and a soft, healthy beard.</li>
+        <li>Beard Comb/Brush – to detangle and style.</li>
+        <li>Beard Scissors/Trimmer – for shaping and trimming.</li>
+      </ol>
+    </CardContent>
+  </div>
+  <Image width={160} height={96} src="/beard.jpg" alt="hair oil" className="rounded-lg" />
+</Card>
+<Card className="flex flex-row-reverse justify-betweenjustify-between p-4">
+  <div>
+    <CardTitle id="haircuts-for-face-shapes">
+      <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
+        Haircuts for Different Face Shapes
+      </h1>
+    </CardTitle>
+    <CardDescription className="my-2">
+      Find the perfect style for your face.
+    </CardDescription>
+    <CardContent>
+      <p className="text-xs">
+        The shape of your face plays a significant role in determining which haircuts will flatter your features. For example, round faces look great with angular cuts, like a pompadour or quiff, while square faces benefit from softer, textured cuts. Oval faces are versatile and can pull off most styles, from buzz cuts to longer, flowing hairstyles. If you have a heart-shaped face, a textured fringe or side-parted style can balance the proportions. Understanding your face shape is key to choosing a haircut that enhances your appearance.
+      </p>
+    </CardContent>
+  </div>
+  <Image width={160} height={96} src="/faceshape.jpg" alt="haircuts" className="rounded-lg" />
+</Card>
+
+
             <Card className="flex flex-row justify-between  p-4">
               <div>
                 <CardTitle id="credits">

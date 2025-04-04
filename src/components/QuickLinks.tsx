@@ -23,7 +23,13 @@ import {
             <a className="hover:text-[#FF4649]" href="#barber-shop-etiquette">Barber Shop Etiquette</a>
           </SidebarGroup>
           <SidebarGroup>
+            <a className="hover:text-[#FF4649]" href="#beard-care-essentials">Beard Care</a>
+          </SidebarGroup>
+          <SidebarGroup>
             <a className="hover:text-[#FF4649]" href="#proper-hygiene">Proper Hygiene</a>
+          </SidebarGroup>
+          <SidebarGroup>
+            <a className="hover:text-[#FF4649]" href="#haircuts-for-face-shapes">Haircuts for different face shapes</a>
           </SidebarGroup>
           <SidebarGroup>
             <a className="hover:text-[#FF4649]" href="#hair-growth-essentials">Hair Growth Essentials</a>
