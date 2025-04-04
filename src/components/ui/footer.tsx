@@ -1,56 +1,167 @@
-import Link from 'next/link'
+import Link from "next/link";
+import React from "react";
 
 const Footer = () => {
-  return (
-    <footer className="bg-black py-6 px-12 text-white">
-        <Link href="#" className="scroll-smooth w-fit">
-          <p className="mb-8">
-            <u className="cursor-pointer hover:text-slate-600">Back to Top</u>
-          </p>
-        </Link>
-        <div className="flex flex-row">
-          <div className="flex justify-between w-[50%]">
-            <div>
-              <p className="mb-3">
-                <b>HOME</b>
-              </p>
-              <div className="flex flex-col gap-1">
-                <p>TOP POSTS</p>
-                <p>LOCAL BARBERS</p>
-                <p>CREATE ACCOUNT</p>
-                <p>BARBER ESSENTIALS</p>
-                <p>BARBERSHOP ETIQUETTE</p>
-                <p>CLIPPERS CRASH COURSE</p>
-              </div>
-            </div>
-            <div>
-              <p className="mb-3">
-                <b>EXPLORE</b>
-              </p>
-              <div className="flex flex-col gap-1">
-                <p>FADES</p>
-                <p>SKINFADES</p>
-                <p>STYLES</p>
-                <p>GENERAL KNOWLEDGE</p>
-              </div>
-            </div>
-            <div></div>
-          </div>
-          <div className="flex justify-end w-[50%]">
-            <div>
-            <p className="mb-3 text-lg tracking-wide">CREATE YOUR ACCOUNT</p>
-            <div className="flex flex-col gap-2">
+  const openNavbarCategory = (category: string) => {
+    window.dispatchEvent(
+      new CustomEvent("openNavbarCategory", { detail: { category } })
+    );
+  };
 
-              <input type="text" placeholder="email" className="bg-white text-md text-black py-2 px-1 rounded-md w-96" />
-              <button className="bg-[#1500FF] text-white py-4 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer">
-                ENTER
-              </button>
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="bg-black w-full h-[350px] px-5 py-10 text-sm">
+    <p
+      onClick={() => scrollToSection("page-header")}
+      className="font-[NeueMontreal-Medium] text-white hover:underline cursor-pointer mb-10"
+    >
+      Back To Top
+    </p>
+      <div className="flex justify-between">
+        <div className="flex flex-row gap-30">
+          <div className="flex flex-col gap-3">
+            <p className="font-[NeueMontreal-Medium] text-white"> HOME </p>
+            <div className="flex flex-col gap-1">
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("top-posts");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#top-posts"
+              >
+                TOP POSTS
+              </a>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("local-barbers");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#local-barbers"
+              >
+                LOCAL BARBERS
+              </a>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("create-account");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#create-account"
+              >
+                CREATE ACCOUNT
+              </a>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("barber-essentials");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#barber-essentials"
+              >
+                BARBER ESSENTIALS
+              </a>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("barber-etiquette");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#barber-etiquette"
+              >
+                BARBER SHOP ETIQUETTE
+              </a>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("clippers-crash-course");
+                }}
+                className="font-[NeueMontreal-Regular] text-white cursor-pointer"
+                href="#clippers-crash-course"
+              >
+                CLIPPERS CRASH COURSE
+              </a>
             </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <p className="font-[NeueMontreal-Medium] text-white"> EXPLORE </p>
+            <div className="flex flex-col gap-1">
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNavbarCategory("fades");
+                }}
+                className="font-[NeueMontreal-Regular] text-white"
+                href=""
+              >
+                FADES
+              </Link>
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNavbarCategory("skin-fades");
+                }}
+                className="font-[NeueMontreal-Regular] text-white"
+                href=""
+              >
+                SKIN FADES
+              </Link>
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNavbarCategory("styles");
+                }}
+                className="font-[NeueMontreal-Regular] text-white"
+                href=""
+              >
+                STYLES
+              </Link>
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  openNavbarCategory("general-knowledge");
+                }}
+                className="font-[NeueMontreal-Regular] text-white"
+                href=""
+              >
+                GENERAL KNOWLEDGE
+              </Link>
             </div>
           </div>
         </div>
-      </footer>
-  )
-}
+        <div className="flex flex-col gap-3">
+          <p className="font-[NeueMontreal-Medium] text-white">
+            CREATE YOUR ACCOUNT
+          </p>
+          <div className="flex flex-col gap-1">
+            <input
+              className="bg-white font-[NeueMontreal-Regular] w-[450px] rounded-sm px-5 py-3"
+              type="text"
+              placeholder="email"
+            />
+            <button className="bg-[#1500FF] font-[NeueMontreal-Medium] rounded-sm text-white px-5 py-3 hover:bg-gray-100 hover:text-black active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-75">
+              CREATE ACCOUNT
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-between mt-10">
+        <p className="font-[NeueMontreal-Medium] text-white">
+          CodeStack Acadmey
+        </p>
+        <p className="font-[NeueMontreal-Medium] text-white">
+          © 2025 ShearGenius
+        </p>
+      </div>
+    </div>
+  );
+};
 
-export default Footer
+export default Footer;
