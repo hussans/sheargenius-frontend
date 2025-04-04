@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Navbar from '@/components/ui/navbar';
 import Image from 'next/image';
 import PostCard from '@/components/ui/PostCard';
+import Footer from '@/components/ui/footer';
 
 interface HaircutInterface {
     id: number;
@@ -146,14 +147,7 @@ export default function DirectoryPage(haircutname: string) {
             )}
 
             {/* ********************************************Footer ***************************************************************************/}
-            <footer className="bg-black text-white text-center p-6 mt-12">
-                <p className="text-lg">Looking to become a barber or book an appointment?</p>
-                <p className="mt-2 text-gray-400">Sign up for exclusive tips and offers.</p>
-                <input type="email" placeholder="Enter your email" className="mt-4 px-4 py-2 text-black rounded-lg" />
-                <button className="bg-blue-500 text-white px-6 py-2 rounded-lg ml-2 hover:bg-blue-700">
-                    Subscribe
-                </button>
-            </footer>
+           <Footer />
         </div>
     );
 }
