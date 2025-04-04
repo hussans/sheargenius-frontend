@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from "react";
 import ProfileCard from "@/components/ProfileCard";
-import CreateAccPopup from "@/components/ui/RegisterForm";
-import PostCard from "@/components/ui/PostCard";
+import CreateAccPopup from "@/components/RegisterForm";
+import PostCard from "@/components/PostCard";
 import Header from "@/components/Header";
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [searchActive, setSearchActive] = useState(false);

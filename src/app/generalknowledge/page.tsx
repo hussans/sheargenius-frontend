@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";

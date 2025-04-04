@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
 }
+console.log("f")
 
 const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);

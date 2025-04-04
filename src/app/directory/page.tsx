@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
-import PostCard from "@/components/ui/PostCard";
-import Footer from "@/components/ui/Footer";
-import Navbar from "@/components/ui/Navbar";
+import PostCard from "@/components/PostCard";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { HaircutInterface } from "@/utils/Interfaces";
 import { fetchHaircut, getCategory } from "@/utils/DataServices";
 
