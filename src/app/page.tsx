@@ -1,27 +1,15 @@
-<<<<<<< HEAD
 'use client'
 import React, { useState } from "react";
-=======
-"use client";
->>>>>>> c7528aafcb9ddf3c61f5398acc833fead4da0d8d
 import ProfileCard from "@/components/ProfileCard";
 import CreateAccPopup from "@/components/ui/RegisterForm";
-import Navbar from "@/components/ui/Navbar";
 import PostCard from "@/components/ui/PostCard";
-<<<<<<< HEAD
-import Footer from "@/components/ui/Footer";
 import Header from "@/components/Header";
+import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/footer";
 
 export default function Home() {
   const [searchActive, setSearchActive] = useState(false);
 
-=======
-import Link from "next/link";
-import { loggedInData } from "@/utils/DataServices";
-
-export default function Home() {
-  console.log(loggedInData())
->>>>>>> c7528aafcb9ddf3c61f5398acc833fead4da0d8d
   return (
     <div className="bg-white min-h-screen w-full">
       <Navbar setSearchActive={setSearchActive} />
