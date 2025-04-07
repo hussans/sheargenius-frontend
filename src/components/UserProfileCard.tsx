@@ -1,6 +1,7 @@
 // import { loggedInData } from "@/utils/DataServices";
 import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
+import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -9,15 +10,16 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(data.name);
-  const [email, setEmail] = useState(data.email);
-  const [accountType, setAccountType] = useState(data.accountType);
-  const [shopName, setShopName] = useState(data.shopName);
-  const [address, setAddress] = useState(data.address);
-  const [city, setCity] = useState(data.city);
-  const [state, setState] = useState(data.state);
-  const [zip, setZip] = useState(data.zip);
-  const [bio, setBio] = useState(data.bio);
+  const [name, setName] = useState<string>(data.name);
+  const [email, setEmail] = useState<string>(data.email);
+  const [pfp, setPfp] = useState<string>(data.pfp);
+  const [accountType, setAccountType] = useState<string>(data.accountType);
+  const [shopName, setShopName] = useState<string>(data.shopName);
+  const [address, setAddress] = useState<string>(data.address);
+  const [city, setCity] = useState<string>(data.city);
+  const [state, setState] = useState<string>(data.state);
+  const [zip, setZip] = useState<string>(data.zip);
+  const [bio, setBio] = useState<string>(data.bio);
 
   const router = useRouter();
 
@@ -71,7 +73,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
       city: city,
       state: state,
       zip: zip,
-      pfp: data.pfp,
+      pfp: pfp,
       isDeleted: data.isDeleted,
     };
     // console.log(newEditedUser);
@@ -91,6 +93,21 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     sessionStorage.removeItem("AccountInfo");
     localStorage.removeItem("token");
     router.push("/login");
+  };
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let reader = new FileReader()
+    let file = e.target.files?.[0]
+
+    if (file) {
+      //when this files if turned into a string this on load function will run
+      reader.onload = () => { 
+        setPfp(String(reader.result)) //once the file is read we will store the result into our setter function
+      }
+      reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
+    }
+
+
   };
 
   const states = [
@@ -161,7 +178,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
           </div>
           <div className="flex relative justify-center">
             <img
-              src={data.pfp}
+              src={pfp}
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
@@ -176,11 +193,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               />
             </label>
 
-            <input
-              type="file"
+            <FileInput
               id="pictureSelect"
               accept="image/*,.pdf"
               className="hidden"
+              onChange={handleImage}
             />
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">

@@ -1,10 +1,10 @@
 "use client";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 import { Button } from "@/components/ui/button";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import PostCard from "@/components/ui/PostCard";
+import PostCard from "@/components/PostCard";
 
 const UserProfile = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
