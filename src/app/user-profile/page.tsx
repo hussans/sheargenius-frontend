@@ -1,11 +1,11 @@
 "use client";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 // import { loggedInData } from "@/utils/DataServices";
 import { Button } from "@/components/ui/button";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import PostCard from "@/components/ui/PostCard";
+import PostCard from "@/components/PostCard";
 // import { useRouter } from "next/navigation";
 
 const page = () => {
@@ -13,10 +13,10 @@ const page = () => {
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
 
   // const router = useRouter();
-  
+
   // account checking
   // if(!checkToken) router.push("/login")
- 
+
 
   const accountData: IUserProfileInfo = JSON.parse(
     sessionStorage.getItem("AccountInfo") || "{}"
@@ -56,20 +56,18 @@ const page = () => {
                   >
                     {selectedFilter}
                     <img
-                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
-                        isDropDownOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       src="./icons/dropdown.png"
                       alt="Drop Down Icon"
                     />
                   </div>
                   {isDropDownOpen && (
                     <div
-                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${
-                        isDropDownOpen
-                          ? "opacity-100 visible"
-                          : "opacity-0 invisible"
-                      }`}
+                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${isDropDownOpen
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible"
+                        }`}
                     >
                       <div
                         onClick={() => selectFilter("Top Rated")}
@@ -98,16 +96,16 @@ const page = () => {
         </div>
         {/* div when the user has no posts */}
         <div className="bg-[#F5F5F5] flex justify-center place-items-center h-24 mb-8">
-            <h3>Click the + above to create your first post!</h3>
+          <h3>Click the + above to create your first post!</h3>
         </div>
 
         <div className="hidden">
-        {/* div when the user has posts */}
-        <div className="grid grid-cols-3 gap-3">
-          <PostCard/>
-          <PostCard/>
-          <PostCard/>
-        </div>
+          {/* div when the user has posts */}
+          <div className="grid grid-cols-3 gap-3">
+            <PostCard />
+            <PostCard />
+            <PostCard />
+          </div>
         </div>
 
       </div>
