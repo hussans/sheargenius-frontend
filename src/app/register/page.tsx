@@ -449,7 +449,7 @@ const Register = () => {
       </div>
       <div className="flex-6/10">
         <img
-          className="w-[1000px] h-full object-cover"
+          className="w-[1000px] h-screen object-cover"
           src="./loginregister-img.jpg"
           alt=""
         />

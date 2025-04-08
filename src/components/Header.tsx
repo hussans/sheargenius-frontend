@@ -50,7 +50,7 @@ const Header = ({ searchActive, setSearchActive, title, description }: HeaderPro
         <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-8xl">
           {title || "ShearGenius"}
         </h1>
-        <p className="font-[NeueMontreal-Medium] text-white text-xl">
+        <p className="font-[NeueMontreal-Medium] text-white text-center text-xl">
           {description || "A Hub For All Things Hair"}
         </p>
         {searchActive && (

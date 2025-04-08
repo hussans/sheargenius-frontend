@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { HaircutInterface } from "@/utils/Interfaces";
 import { fetchHaircut, getCategory } from "@/utils/DataServices";
+import Header from "@/components/Header";
 
 export default function DirectoryPage() {
   const [haircut, setHaircut] = useState<HaircutInterface>({
@@ -42,22 +43,13 @@ export default function DirectoryPage() {
       <Navbar setSearchActive={setSearchActive} />
 
       {/* Hero Image ***********************************************************/}
-      <header className="relative">
-        <img
-          className="w-full h-[724px] object-cover"
-          src="./sheargenius-banner.png"
-          alt="Barber Shop Leather Chair Banner Image"
+      <header>
+        <Header 
+        searchActive={searchActive} 
+        setSearchActive={setSearchActive} 
+        title={haircut.name}
+        description={haircut.description}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-          <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-8xl">
-            {" "}
-            {haircut.name}{" "}
-          </h1>
-          <p className="font-[NeueMontreal-Medium] text-white text-xl">
-            {" "}
-            {haircut.description}{" "}
-          </p>
-        </div>
       </header>
 
       {/*************************************************** Display Haircut Details ******************************************************/}
