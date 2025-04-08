@@ -25,7 +25,7 @@ const Login = () => {
         console.log(token.token);
         await getLoggedInUserData(username);
         sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
-        router.push("/user-profile");
+        if(loggedInData().isDeleted == false) router.push("/user-profile");
       }
     } else {
       setError(true);

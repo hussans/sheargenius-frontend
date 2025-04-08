@@ -21,6 +21,7 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
   const handleSearch = () => {
     console.log("Search..", query);
     setCategory(query);
+    localStorage.setItem("Category",query);
     router.push("/directory");
   };
 

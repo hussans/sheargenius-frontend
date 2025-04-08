@@ -9,6 +9,7 @@ import React, { useState } from "react";
 const UserProfileCard = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
+  const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState<string>(data.name);
   const [email, setEmail] = useState<string>(data.email);
@@ -95,19 +96,29 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     router.push("/login");
   };
 
+  const deleteAccount = async (model: IUserProfileInfo) => {
+    model.isDeleted = true;
+    const result = await editAccount(model);
+    if (result) {
+      sessionStorage.removeItem("AccountInfo");
+      localStorage.removeItem("token");
+      router.push("/login");
+    } else {
+      alert("deletion failed");
+    }
+  };
+
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let reader = new FileReader()
-    let file = e.target.files?.[0]
+    let reader = new FileReader();
+    let file = e.target.files?.[0];
 
     if (file) {
       //when this files if turned into a string this on load function will run
-      reader.onload = () => { 
-        setPfp(String(reader.result)) //once the file is read we will store the result into our setter function
-      }
+      reader.onload = () => {
+        setPfp(String(reader.result)); //once the file is read we will store the result into our setter function
+      };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
-
-
   };
 
   const states = [
@@ -363,7 +374,6 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                               </div>
                             ))}
                           </div>
-                          );
                         </div>
                       )}
                     </div>
@@ -481,9 +491,38 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   >
                     Log Out
                   </button>
-                  <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+                  <button
+                    className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
+                    onClick={() => setOpenState(true)}
+                  >
                     Delete Account
                   </button>
+                  {openState && (
+                    <div className="fixed top-0 left-0 w-full min-h-screen bg-[#807a7a80] z-10 flex justify-center place-items-center font-[NeueMontreal-Regular">
+                      <div className="w-[25%] bg-white p-4 flex flex-col gap-2 rounded-sm">
+                        <p className="text-sm">
+                          Are you sure you want to delete your account?
+                        </p>
+                        <p className="text-[11px]">
+                          This action CANNOT be undone!
+                        </p>
+                        <div className="flex gap-3 justify-between">
+                          <button
+                            className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-sm"
+                            onClick={() => deleteAccount(data)}
+                          >
+                            Yes, delete account
+                          </button>
+                          <button
+                            className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-sm"
+                            onClick={() => setOpenState(false)}
+                          >
+                            No, dismiss
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
