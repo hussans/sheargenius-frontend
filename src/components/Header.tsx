@@ -1,7 +1,10 @@
-import { setCategory } from "@/utils/DataServices";
+import {
+  fetchHaircut,
+  getProfileUserData,
+  setCategory,
+} from "@/utils/DataServices";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
 interface HeaderProps {
   searchActive: boolean;
   setSearchActive: (active: boolean) => void;
@@ -10,6 +13,7 @@ interface HeaderProps {
 const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
   const [query, setQuery] = useState("");
   const [searchHovered, setSearchHovered] = useState(false);
+  const [error, setError] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,11 +22,18 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
     }
   }, [searchActive]);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log("Search..", query);
     setCategory(query);
-    localStorage.setItem("Category",query);
-    router.push("/directory");
+    localStorage.setItem("Category", query);
+
+    console.log(await fetchHaircut(query));
+    console.log(await getProfileUserData(query));
+
+    if ((await fetchHaircut(query)) !== undefined) router.push("/directory");
+    else if ((await getProfileUserData(query)) !== null)
+      router.push("/search-profile");
+    else setError(true);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -94,8 +105,9 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
                 />
               </button>
             </div>
+
             <p className="font-[NeueMontreal-Medium] text-white">
-              Search ShearGenius
+              {error ? "Invalid Search..." : "Search ShearGenius"}
             </p>
           </div>
         )}
