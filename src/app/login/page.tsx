@@ -1,29 +1,38 @@
 "use client";
-import { getLoggedInUserData, loggedInData, login } from "@/utils/DataServices";
+import { getLoggedInUserData, loggedInData, Login } from "@/utils/DataServices";
 import { IToken } from "@/utils/Interfaces";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const Login = () => {
+const login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState(false);
   const router = useRouter();
 
+  //   "use client";
+  // import { loggedInData } from '@/utils/DataServices'
+  // import React from 'react'
+
+  // const page = () => {
+  //   console.log(loggedInData())
+  // async?
   const handleSubmit = async () => {
     console.log("login attempted");
-    const userData = {
+    let userData = {
       username: username,
       password: password,
     };
-    const token: IToken = await login(userData);
+    const token: IToken = await Login(userData);
     if (token != null) {
       if (typeof window != null) {
         setError(false)
         localStorage.setItem("Token", token.token);
         console.log(token.token);
         await getLoggedInUserData(username);
+        // const userInfo = loggedInData()
+        // console.log(JSON.stringify(userInfo))
         sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
         if(loggedInData().isDeleted == false) router.push("/user-profile");
       }
@@ -85,7 +94,7 @@ const Login = () => {
               </button>
               <p className="font-[NeueMontreal-Medium] text-sm pt-2">
                 {" "}
-                Don&#39;t have an account?
+                Don't have an account?
                 <Link
                   className="text-[#1500FF] active:text-[#3F5CFF]"
                   href={"./register"}
@@ -111,7 +120,7 @@ const Login = () => {
       </div>
       <div className="flex-6/10">
         <img
-          className="w-[1000px] h-full object-cover"
+          className="w-[1000px] h-screen object-cover"
           src="./loginregister-img.jpg"
           alt=""
         />
@@ -120,4 +129,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default login;
