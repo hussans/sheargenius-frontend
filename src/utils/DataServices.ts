@@ -1,5 +1,4 @@
 import {
-  HaircutInterface,
   INewUser,
   IPostItems,
   IUserInfo,
@@ -42,8 +41,8 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
     },
     body: JSON.stringify(newUser),
   });
-  // if our response is not ok, we will run this block
-  if (!res.ok) {
+   // if our response is not ok, we will run this block
+   if (!res.ok) {
     const data = await res.json();
     const message = data.message;
     console.log(message);
@@ -52,10 +51,10 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
 
   const data = await res.json();
   return data.success;
-};
+}
 
 //Login fetch
-export const login = async (user: IUserInfo) => {
+export const Login = async (user: IUserInfo) => {
   const res = await fetch(`${url}User/Login`, {
     method: "POST",
     headers: {
@@ -208,23 +207,4 @@ export const updatePostItem = async (post: IPostItems, token: string) => {
   const data = await res.json();
   //returns true and successfully added post to backend
   return data.success;
-};
-
-export const fetchHaircut = async (cut: string) => {
-  const response = await fetch("/Haircuts.json");
-  const data = await response.json();
-
-  const foundHaircut: HaircutInterface = data.haircuts.find(
-    (h: HaircutInterface) => h.name.toLowerCase() === cut.toLowerCase()
-  );
-  return foundHaircut;
-};
-
-let category:string;
-export const setCategory = (cat: string) => {
-  category = cat;
-  return category;
-};
-export const getCategory = () => {
-  return category;
 };
