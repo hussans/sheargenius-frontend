@@ -32,7 +32,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Caesar Cut
                             </button>
                         </Link>
@@ -40,7 +40,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Mohawk
                             </button>
                         </Link>
@@ -48,7 +48,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Faux Hawk
                             </button>
                         </Link>
@@ -56,7 +56,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Bowl Cut
                             </button>
                         </Link>
@@ -64,7 +64,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Side Part
                             </button>
                         </Link>
@@ -72,7 +72,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Pompadour
                             </button>
                         </Link>
@@ -80,7 +80,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Quiff
                             </button>
                         </Link>
@@ -88,7 +88,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Comb Over
                             </button>
                         </Link>
@@ -96,7 +96,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Slick Back
                             </button>
                         </Link>
@@ -104,7 +104,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Flat Top
                             </button>
                         </Link>
@@ -112,7 +112,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Man Bun
                             </button>
                         </Link>
@@ -120,7 +120,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 French Crop
                             </button>
                         </Link>
@@ -128,7 +128,7 @@ const stylesMore = () => {
                     <div>
                         <Link href={""}>
                             <button 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none cursor-pointer hover:bg-gray-300 hover:text-white active:bg-white active:text-black">
                                 Hair Deficient
                             </button>
                         </Link>
@@ -137,7 +137,7 @@ const stylesMore = () => {
                         <Link href={""}>
                             <button
                             disabled 
-                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-md w-full py-5 leading-none" >
+                            className="bg-white font-[NeueMontreal-Medium] outline-2 rounded-sm w-full py-5 leading-none" >
                                 More Coming Soon
                             </button>
                         </Link>
