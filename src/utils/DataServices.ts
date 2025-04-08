@@ -10,6 +10,7 @@ const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
 
 let userData: IUserProfileInfo;
+let profileData: INewUser;
 
 // Create account fetch
 export const createAccount = async (user: INewUser) => {
@@ -86,6 +87,28 @@ export const getLoggedInUserData = async (username: string) => {
   userData = await res.json();
   //we are going to use this data inside of a variable we will make a separate function for implementation
   return userData;
+};
+
+//get Profile Info in data fetch
+export const getProfileUserData = async (username: string) => {
+  try{
+  const res = await fetch(`${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`);
+
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.error(message);
+    return null;
+  }
+  profileData = await res.json();
+  // console.log(profileData)
+  //we are going to use this data inside of a variable we will make a separate function for implementation
+  return profileData;
+}
+catch(error) {
+  console.error("Error fetching profile user data:", error as Error); // Handle network errors
+    return null;
+}
 };
 
 //get the user's data
