@@ -1,6 +1,5 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 import { IUserProfileInfo } from "@/utils/Interfaces";
@@ -24,7 +23,7 @@ console.log(searchActive)
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive}/>
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
         <PostFeed/>
@@ -35,4 +34,4 @@ console.log(searchActive)
   );
 };
 
-export default page;
+export default UserProfile;
