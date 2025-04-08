@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 const UserProfile = () => {
   const [searchActive, setSearchActive] = useState(false);
   // const router = useRouter();
-  console.log(searchActive);
+console.log(searchActive)
   // account checking
   // if(!checkToken) router.push("/login")
  
@@ -19,6 +19,7 @@ const UserProfile = () => {
     }
     return {}
   })();
+ 
 
   return (
     <div>
