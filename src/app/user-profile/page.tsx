@@ -1,6 +1,5 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 import { IUserProfileInfo } from "@/utils/Interfaces";
@@ -10,7 +9,7 @@ import Footer from "@/components/Footer";
 const UserProfile = () => {
   const [searchActive, setSearchActive] = useState(false);
   // const router = useRouter();
-
+console.log(searchActive)
   // account checking
   // if(!checkToken) router.push("/login")
  
@@ -20,10 +19,11 @@ const UserProfile = () => {
     }
     return {}
   })();
+ 
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearchActive={setSearchActive}/>
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
         <PostFeed/>
@@ -34,4 +34,4 @@ const UserProfile = () => {
   );
 };
 
-export default page;
+export default UserProfile;
