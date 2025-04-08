@@ -120,7 +120,7 @@ export const loggedInData = () => {
 export const checkToken = () => {
   let result = false;
 
-  if (typeof window !== null) {
+  if (typeof window !== "undefined" ) {
     const LSData = localStorage.getItem("Token");
     if (LSData != null) result = true;
   }
