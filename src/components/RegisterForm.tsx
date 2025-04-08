@@ -1,10 +1,11 @@
+// import { checkToken } from "@/utils/DataServices";
 import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 const RegisterForm = () => {
   return (
-    <div className={`bg-black w-full h-[825px] py-20 px-10 grid grid-cols-2 `}>
+    <div className={`bg-black w-full h-[825px] py-20 px-10 grid grid-cols-2 ${checkToken() ? "hidden":""}`}>
       <div className="flex flex-col gap-96">
         <div>
           <p className="font-[NeueMontreal-Medium] text-white text-3xl">

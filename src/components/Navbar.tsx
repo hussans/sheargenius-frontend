@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkToken } from "@/utils/DataServices";
 
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
@@ -10,7 +12,8 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"explore">("explore");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
-
+  const router = useRouter();
+  
   const toggleSidebar = () =>
     setIsOpen((prev) => {
       if (prev) {
@@ -37,6 +40,16 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   };
 
   const activeClass = "bg-gray-200 px-1";
+  const profileClick = () => {
+    if (checkToken())
+    {
+
+      router.push("user-profile")
+    }
+    else {
+      router.push("login")
+    }
+  }
 
   useEffect(() => {
     const handleOpenNavbarCategory = (e: Event) => {
@@ -51,6 +64,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     return () => {
       window.removeEventListener("openNavbarCategory", handleOpenNavbarCategory);
     };
+
   }, []);
 
   return (
@@ -98,7 +112,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       alt="Search Icon"
                     />
                   </button>
-                  <button className="cursor-pointer">
+                  <button className="cursor-pointer" onClick={profileClick}>
                     <img
                       className="relative w-[17px] z-50"
                       src="./icons/user.png"
@@ -394,7 +408,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 {openCategory === "general-knowledge" && (
                   <div className="mt-2 ml-8 space-y-1">
                     <Link
-                      href="/general-knowledge/clippers-crash-course"
+                      href="./generalknowledge"
                       className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
                     >
                       Clippers Crash Course

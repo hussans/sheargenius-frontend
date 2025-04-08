@@ -109,8 +109,8 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let reader = new FileReader();
-    let file = e.target.files?.[0];
+    const reader = new FileReader();
+    const file = e.target.files?.[0];
 
     if (file) {
       //when this files if turned into a string this on load function will run

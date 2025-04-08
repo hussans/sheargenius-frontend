@@ -19,6 +19,7 @@ const UserProfile = () => {
     }
     return {}
   })();
+  console.log(accountData)
 
   return (
     <div>

@@ -8,9 +8,16 @@ import { useRouter } from "next/navigation";
 interface HeaderProps {
   searchActive: boolean;
   setSearchActive: (active: boolean) => void;
+  title?: string;
+  description?: string;
 }
 
-const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
+const Header = ({
+  searchActive,
+  setSearchActive,
+  title,
+  description,
+}: HeaderProps) => {
   const [query, setQuery] = useState("");
   const [searchHovered, setSearchHovered] = useState(false);
   const [error, setError] = useState(false);
@@ -30,8 +37,8 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
     console.log(await fetchHaircut(query));
     console.log(await getProfileUserData(query));
 
-    if ((await fetchHaircut(query)) !== undefined) router.push("/directory");
-    else if ((await getProfileUserData(query)) !== null)
+    if (await fetchHaircut(query) !== undefined) router.push("/directory");
+    else if (await getProfileUserData(query) !== null)
       router.push("/search-profile");
     else setError(true);
   };
@@ -58,10 +65,10 @@ const Header = ({ searchActive, setSearchActive }: HeaderProps) => {
         } flex flex-col items-center transition-all duration-300 z-5`}
       >
         <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-8xl">
-          ShearGenius
+          {title || "ShearGenius"}
         </h1>
-        <p className="font-[NeueMontreal-Medium] text-white text-xl">
-          A Hub For All Things Hair
+        <p className="font-[NeueMontreal-Medium] text-white text-center text-xl">
+          {description || "A Hub For All Things Hair"}{" "}
         </p>
         {searchActive && (
           <div className="mt-5 flex flex-col items-center gap-1">

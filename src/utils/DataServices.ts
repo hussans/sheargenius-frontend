@@ -121,7 +121,7 @@ export const checkToken = () => {
   let result = false;
 
   if (typeof window !== "undefined" ) {
-    const LSData = localStorage.getItem("Token");
+    const LSData = sessionStorage.getItem("AccountInfo");
     if (LSData != null) result = true;
   }
   return result;
