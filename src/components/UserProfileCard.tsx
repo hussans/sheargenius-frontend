@@ -27,9 +27,6 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
   };
-  const toggleDropDown2 = () => {
-    setDropDownOpen2(!isDropDownOpen2);
-  };
 
   const enableEdit = () => {
     setEdit(true);
@@ -40,10 +37,6 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     setAccountType(role);
     setDropDownOpen(false);
   };
-  const setStateMenu = (state: string) => {
-    setState(state);
-    setDropDownOpen2(false);
-  };
 
   const cancelEdit = () => {
     setEdit(false);
@@ -51,7 +44,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   };
 
   const saveEdits = async () => {
-    const newEditedUser: IUserProfileInfo = {
+    let newEditedUser: IUserProfileInfo = {
       id: 0,
       username: data.username,
       salt: data.salt,
@@ -78,7 +71,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
       isDeleted: data.isDeleted,
     };
     // console.log(newEditedUser);
-    const result = await editAccount(newEditedUser);
+    let result = await editAccount(newEditedUser);
     if (result) {
       console.log("Editing Success");
       sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
@@ -193,10 +186,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
-            <label
-              htmlFor="pictureSelect"
-              className="absolute top-[35%] cursor-pointer"
-            >
+            <label htmlFor="pictureSelect" className="absolute top-[35%] cursor-pointer">
               <img
                 src="/icons/imgHover.png"
                 alt="edit logo image"
@@ -485,10 +475,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   >
                     Edit Profile
                   </button>
-                  <button
-                    className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
-                    onClick={logout}
-                  >
+                  <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={logout}>
                     Log Out
                   </button>
                   <button

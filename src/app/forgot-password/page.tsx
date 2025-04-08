@@ -1,15 +1,15 @@
 "use client";
 import { getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
+import Link from "next/link";
 import React, { useState } from "react";
 
-const ForgotPassword = () => {
-  // PAGE DOES NOT WORK YET
-  const [username, setUsername] = useState<string>("");
-  const [answer, setAnswer] = useState<string>("");
-  // const [newPassword, setnewPassword] = useState("");
-  const [showQuestion, setShowQuestion] = useState<boolean>(false);
-  const [question, setQuestion] = useState<string>("please wait...");
+const page = () => {
+  const [username, setUsername] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [newPassword, setnewPassword] = useState("");
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [question, setQuestion] = useState("please wait...");
   const [accountData, setAccountData] = useState<IUserProfileInfo>({
     id: 0,
     username: "",
@@ -108,7 +108,7 @@ const ForgotPassword = () => {
                     className="bg-[#F5F5F5] rounded-md p-4"
                     type="text"
                     placeholder="Password"
-                    // onChange={(e) => setnewPassword(e.target.value)}
+                    onChange={(e) => setnewPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -145,4 +145,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default page;
