@@ -40,9 +40,9 @@ export default function DirectoryPage() {
 
   return (
     <div className="bg-white min-h-screen w-full">
-      <Navbar setSearchActive={setSearchActive} />
-
-      {/* Hero Image ***********************************************************/}
+      <nav>
+        <Navbar setSearchActive={setSearchActive} />
+      </nav>
       <header>
         <Header 
         searchActive={searchActive} 
