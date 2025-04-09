@@ -1,7 +1,7 @@
 // import { loggedInData } from "@/utils/DataServices";
 import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import { FileInput } from "flowbite-react";
+// import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -204,7 +204,8 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               />
             </label>
 
-            <FileInput
+            <input
+              type="file"
               id="pictureSelect"
               accept="image/*,.pdf"
               className="hidden"
