@@ -44,7 +44,7 @@ const RegisterForm = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end">
+      <div className="md:flex justify-end sm:hidden">
         <img className="h-[700px]" src="./registerpopup-image.jpg" alt="" />
       </div>
     </div>

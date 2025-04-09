@@ -21,7 +21,7 @@ export default function Home() {
           <p className="font-[NeueMontreal-Medium] text-xl"> Top Posts </p>
         </div>
         <div className="mt-10">
-          <div className="grid grid-cols-3 grid-rows-2 gap-3">
+          <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-3 sm:grid-cols-1 sm:grid-rows-6 md:grid-cols-2 md:grid-rows-3">
             <PostCard />
             <PostCard />
             <PostCard />
@@ -43,10 +43,12 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-10">
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid lg:grid-cols-3 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-3 gap-3">
               <ProfileCard />
               <ProfileCard />
-              <ProfileCard />
+              <div className="lg:col-span-1 md:col-span-full">
+                <ProfileCard />
+              </div>
             </div>
           </div>
         </div>
@@ -55,7 +57,7 @@ export default function Home() {
         <CreateAccPopup />
       </section>
       <section className="mt-25 px-5">
-        <div className="grid grid-cols-2 grid-rows-2 gap-3">
+        <div className="grid lg:grid-cols-2 lg:grid-rows-2 sm:grid-cols-1 sm:grid-rows-3 gap-3">
           <div id="barber-essentials" className="relative col-span-2">
             <img
               className="w-full h-[600px] object-cover"
@@ -101,7 +103,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div id="clippers-crash-course" className="relative">
+          <div id="clippers-crash-course" className="relative lg:row-2 sm:row-3">
             <img
               className="w-full h-[600px] object-cover"
               src="./barberitems.jpg"
