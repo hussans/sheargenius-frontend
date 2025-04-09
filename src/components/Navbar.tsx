@@ -400,7 +400,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 {openCategory === "general-knowledge" && (
                   <div className="mt-2 ml-8 space-y-1">
                     <Link
-                      href="/general-knowledge/clippers-crash-course"
+                      href="./generalknowledge"
                       className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
                     >
                       Clippers Crash Course

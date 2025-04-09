@@ -16,8 +16,8 @@ export default function GeneralKnowledge() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
 
-
   const [searchActive, setSearchActive] = useState(false);
+  console.log(searchActive);
   return (
     <SidebarProvider className="flex flex-col">
       <Navbar setSearchActive={setSearchActive} />
