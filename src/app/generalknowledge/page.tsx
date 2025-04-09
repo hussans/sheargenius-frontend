@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import Footer from "@/components/Footer";
 export default function GeneralKnowledge() {
   // npx shadcn@latest add sidebar
   // npx shadcn@latest add card
@@ -20,14 +21,14 @@ export default function GeneralKnowledge() {
   return (
     <SidebarProvider className="flex flex-col">
       <Navbar setSearchActive={setSearchActive} />
-      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
+      <div className="items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
             <div className="fixed">
               <QuickLinks />
             </div>
           </div>
-          <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
+          <div className="w-full max-w-4xl mx-auto flex flex-col gap-6">
             <Card className="flex flex-row justify-between p-4">
               <div>
                 <CardTitle id="clipper-crash-course">
@@ -424,6 +425,7 @@ export default function GeneralKnowledge() {
           </div>
         </div>
       </div>
+      <Footer/>
     </SidebarProvider>
   );
 }

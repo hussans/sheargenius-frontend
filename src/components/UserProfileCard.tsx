@@ -198,7 +198,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               className="absolute top-[35%] cursor-pointer"
             >
               <img
-                src="/icons/imgHover.png"
+                src="/imghover.png"
                 alt="edit logo image"
                 className="w-10 h-10 opacity-50 hover:opacity-100 drop-shadow-2xl"
               />
