@@ -382,6 +382,12 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     >
                       Fringe Cut
                     </Link>
+                    <Link
+                      href="/styles-more"
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      More
+                    </Link>
                   </div>
                 )}
               </div>
