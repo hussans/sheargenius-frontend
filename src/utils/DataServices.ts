@@ -246,8 +246,9 @@ export const fetchHaircut = async (cut: string) => {
 let category:string;
 export const setCategory = (cat: string) => {
   category = cat;
+  localStorage.setItem("searchQuery",category)
   return category;
 };
 export const getCategory = () => {
-  return category;
+  return localStorage.getItem("searchQuery") as string
 };

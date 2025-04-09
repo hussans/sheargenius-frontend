@@ -303,12 +303,13 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <p className="font-[NeueMontreal-Medium] text-sm"> Bio </p>
+              <p className="font-[NeueMontreal-Medium] text-sm"> Bio - 150 max characters </p>
 
               <textarea
                 className="bg-white p-2 rounded-sm h-full"
                 placeholder="Bio Here..."
                 value={bio}
+                maxLength={150}
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>
@@ -457,7 +458,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <h3>{data.bio}</h3>
+              <textarea className="h-full text-sm" value={data.bio} readOnly></textarea>
             </div>
           </div>
           <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">

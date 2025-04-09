@@ -34,13 +34,17 @@ const Header = ({
     setCategory(query);
     localStorage.setItem("Category", query);
 
-    console.log(await fetchHaircut(query));
-    console.log(await getProfileUserData(query));
-
-    if (await fetchHaircut(query) !== undefined) router.push("/directory");
-    else if (await getProfileUserData(query) !== null)
-      router.push("/search-profile");
-    else setError(true);
+    const result = await fetchHaircut(query);
+if (result !== undefined) {
+  router.push("/directory");
+} else {
+  const profileData = await getProfileUserData(query);
+  if (profileData !== null) {
+    router.push("/search-profile");
+  } else {
+    setError(true);
+  }
+}
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
