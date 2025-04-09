@@ -134,7 +134,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-3 sm:hidden lg:flex">
+        <div className="flex flex-col gap-3">
           <p className="font-[NeueMontreal-Medium] text-white">
             CREATE YOUR ACCOUNT
           </p>

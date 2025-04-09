@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkToken } from "@/utils/DataServices";
 
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
@@ -10,7 +12,8 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"explore">("explore");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
-
+  const router = useRouter();
+  
   const toggleSidebar = () =>
     setIsOpen((prev) => {
       if (prev) {
@@ -37,6 +40,16 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   };
 
   const activeClass = "bg-gray-200 px-1";
+  const profileClick = () => {
+    if (checkToken())
+    {
+
+      router.push("user-profile")
+    }
+    else {
+      router.push("login")
+    }
+  }
 
   useEffect(() => {
     const handleOpenNavbarCategory = (e: Event) => {
@@ -51,6 +64,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     return () => {
       window.removeEventListener("openNavbarCategory", handleOpenNavbarCategory);
     };
+
   }, []);
 
   return (
@@ -98,7 +112,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       alt="Search Icon"
                     />
                   </button>
-                  <button className="cursor-pointer">
+                  <button className="cursor-pointer" onClick={profileClick}>
                     <img
                       className="relative w-[17px] z-50"
                       src="./icons/user.png"
@@ -111,7 +125,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
           </div>
         </div>
       </nav>
-
+      <div className="h-[64px]"></div>
       {isOpen && (
         <div className="fixed top-0 left-0 w-full min-h-screen bg-[#FFFFFF80] z-10 flex justify-end">
           <div className="fixed bg-white min-h-full w-[500px] z-20 px-10">
@@ -368,12 +382,6 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     >
                       Fringe Cut
                     </Link>
-                    <Link
-                      href={"./styles-more"}
-                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
-                    >
-                      More
-                    </Link>
                   </div>
                 )}
               </div>
@@ -439,7 +447,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       href="/general-knowledge/clippers-crash-course"
                       className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
                     >
-                      Why Men's Hair?
+                      Why Men&#39;s Hair?
                     </Link>
                     <Link
                       href="/general-knowledge/clippers-crash-course"

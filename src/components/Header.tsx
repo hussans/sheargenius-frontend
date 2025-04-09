@@ -1,5 +1,10 @@
+import {
+  fetchHaircut,
+  getProfileUserData,
+  setCategory,
+} from "@/utils/DataServices";
 import React, { useState, useEffect } from "react";
-
+import { useRouter } from "next/navigation";
 interface HeaderProps {
   searchActive: boolean;
   setSearchActive: (active: boolean) => void;
@@ -7,9 +12,16 @@ interface HeaderProps {
   description?: string;
 }
 
-const Header = ({ searchActive, setSearchActive, title, description }: HeaderProps) => {
+const Header = ({
+  searchActive,
+  setSearchActive,
+  title,
+  description,
+}: HeaderProps) => {
   const [query, setQuery] = useState("");
   const [searchHovered, setSearchHovered] = useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (searchActive) {
@@ -17,8 +29,22 @@ const Header = ({ searchActive, setSearchActive, title, description }: HeaderPro
     }
   }, [searchActive]);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log("Search..", query);
+    setCategory(query);
+    localStorage.setItem("Category", query);
+
+    const result = await fetchHaircut(query);
+if (result !== undefined) {
+  router.push("/directory");
+} else {
+  const profileData = await getProfileUserData(query);
+  if (profileData !== null) {
+    router.push("/search-profile");
+  } else {
+    setError(true);
+  }
+}
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -46,7 +72,7 @@ const Header = ({ searchActive, setSearchActive, title, description }: HeaderPro
           {title || "ShearGenius"}
         </h1>
         <p className="font-[NeueMontreal-Medium] text-white text-center text-xl">
-          {description || "A Hub For All Things Hair"}
+          {description || "A Hub For All Things Hair"}{" "}
         </p>
         {searchActive && (
           <div className="mt-5 flex flex-col items-center gap-1">
@@ -90,8 +116,9 @@ const Header = ({ searchActive, setSearchActive, title, description }: HeaderPro
                 />
               </button>
             </div>
+
             <p className="font-[NeueMontreal-Medium] text-white">
-              Search ShearGenius
+              {error ? "Invalid Search..." : "Search ShearGenius"}
             </p>
           </div>
         )}

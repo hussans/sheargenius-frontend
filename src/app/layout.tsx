@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+// import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
   title: "ShearGenius",
@@ -26,4 +27,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};

@@ -1,4 +1,5 @@
 import {
+  HaircutInterface,
   INewUser,
   IPostItems,
   IUserInfo,
@@ -9,6 +10,7 @@ const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
 
 let userData: IUserProfileInfo;
+let profileData: INewUser;
 
 // Create account fetch
 export const createAccount = async (user: INewUser) => {
@@ -41,8 +43,8 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
     },
     body: JSON.stringify(newUser),
   });
-   // if our response is not ok, we will run this block
-   if (!res.ok) {
+  // if our response is not ok, we will run this block
+  if (!res.ok) {
     const data = await res.json();
     const message = data.message;
     console.log(message);
@@ -51,10 +53,10 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
 
   const data = await res.json();
   return data.success;
-}
+};
 
 //Login fetch
-export const Login = async (user: IUserInfo) => {
+export const login = async (user: IUserInfo) => {
   const res = await fetch(`${url}User/Login`, {
     method: "POST",
     headers: {
@@ -87,6 +89,28 @@ export const getLoggedInUserData = async (username: string) => {
   return userData;
 };
 
+//get Profile Info in data fetch
+export const getProfileUserData = async (username: string) => {
+  try{
+  const res = await fetch(`${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`);
+
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.error(message);
+    return null;
+  }
+  profileData = await res.json();
+  // console.log(profileData)
+  //we are going to use this data inside of a variable we will make a separate function for implementation
+  return profileData;
+}
+catch(error) {
+  console.error("Error fetching profile user data:", error as Error); // Handle network errors
+    return null;
+}
+};
+
 //get the user's data
 export const loggedInData = () => {
   return userData;
@@ -96,8 +120,8 @@ export const loggedInData = () => {
 export const checkToken = () => {
   let result = false;
 
-  if (typeof window !== null) {
-    const LSData = localStorage.getItem("Token");
+  if (typeof window !== "undefined" ) {
+    const LSData = sessionStorage.getItem("AccountInfo");
     if (LSData != null) result = true;
   }
   return result;
@@ -207,4 +231,24 @@ export const updatePostItem = async (post: IPostItems, token: string) => {
   const data = await res.json();
   //returns true and successfully added post to backend
   return data.success;
+};
+
+export const fetchHaircut = async (cut: string) => {
+  const response = await fetch("/Haircuts.json");
+  const data = await response.json();
+
+  const foundHaircut: HaircutInterface = data.haircuts.find(
+    (h: HaircutInterface) => h.name.toLowerCase() === cut.toLowerCase()
+  );
+  return foundHaircut;
+};
+
+let category:string;
+export const setCategory = (cat: string) => {
+  category = cat;
+  localStorage.setItem("searchQuery",category)
+  return category;
+};
+export const getCategory = () => {
+  return localStorage.getItem("searchQuery") as string
 };

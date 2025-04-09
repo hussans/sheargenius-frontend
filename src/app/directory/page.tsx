@@ -1,15 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import PostCard from "@/components/PostCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { HaircutInterface } from "@/utils/Interfaces";
 import { fetchHaircut, getCategory } from "@/utils/DataServices";
 import Header from "@/components/Header";
-
 export default function DirectoryPage() {
-  const [haircut, setHaircut] = useState<HaircutInterface | null>(null);
+  const [haircut, setHaircut] = useState<HaircutInterface>({
+    id: 0,
+    name: "",
+    description: "",
+    photo1: "#",
+    photo2: "#",
+    video: { src: "#" },
+    howTo: {
+      step1: "",
+      step2: "",
+      step3: "",
+      step4: "",
+    },
+  });
+
   const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
@@ -21,62 +33,50 @@ export default function DirectoryPage() {
         console.error("Error fetching haircut:", error);
       }
     };
-
     const category = getCategory();
     if (category) {
       fetchData(category);
     }
   }, [searchActive]);
-
   return (
     <div className="bg-white min-h-screen w-full">
       <nav>
         <Navbar setSearchActive={setSearchActive} />
       </nav>
       <header>
-        <Header 
-        searchActive={searchActive} 
-        setSearchActive={setSearchActive} 
-        title={haircut.name}
-        description={haircut.description}
+        <Header
+          searchActive={searchActive}
+          setSearchActive={setSearchActive}
+          title={haircut.name}
+          description={haircut.description}
         />
       </header>
-
       {haircut && (
         <div className="container mt-20 px-4 mx-auto">
           {/* Haircut Examples */}
           <div>
-            <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">{haircut.name} Examples</h2>
+            <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
+              {haircut.name} Examples
+            </h2>
             <div className="flex flex-col md:flex-row gap-12 justify-evenly items-center">
-              <Image
+              <img
                 src={haircut.photo1}
                 alt={haircut.name}
-                width={100}
-                height={100}
                 className="w-[500px] h-[500px] object-cover rounded-lg shadow-lg"
-                priority
               />
-              <Image
-                src="/icons/sheargenius-logo.svg"
-                alt="Shear Genius Logo"
-                width={100}
-                height={100}
-                priority
-              />
-              <Image
+              <img src="/icons/sheargenius-logo.svg" alt="Shear Genius Logo" />
+              <img
                 src={haircut.photo2}
                 alt={haircut.name}
-                width={100}
-                height={100}
                 className="w-[500px] h-[500px] object-cover rounded-lg shadow-lg"
-                priority
               />
             </div>
           </div>
-
           {/* Related Post Section */}
           <div className="mt-28">
-            <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">Related Posts</h2>
+            <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
+              Related Posts
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <PostCard />
               <PostCard />
@@ -88,12 +88,12 @@ export default function DirectoryPage() {
               </button>
             </div>
           </div>
-
-
           <div className="flex flex-row justify-center items-center gap-12 mt-20">
             {/* How-To Steps */}
             <div className="w-full lg:w-1/3 text-left">
-              <h3 className="text-2xl font-bold mb-4 font-[NeueMontreal-Medium]">How To:</h3>
+              <h3 className="text-2xl font-bold mb-4 font-[NeueMontreal-Medium]">
+                How To:
+              </h3>
               <ul className="text-lg space-y-2 font-bold font-[NeueMontreal-Medium]">
                 <li>1. {haircut.howTo.step1}</li>
                 <li>2. {haircut.howTo.step2}</li>
@@ -101,10 +101,8 @@ export default function DirectoryPage() {
                 <li>4. {haircut.howTo.step4}</li>
               </ul>
             </div>
-
             {/* Video Tutorial */}
             <div className="w-full lg:w-2/3 text-center">
-
               <div className="flex justify-center">
                 <iframe
                   width="100%"
@@ -119,14 +117,10 @@ export default function DirectoryPage() {
               </div>
             </div>
           </div>
-
         </div>
-
-
       )}
-
-<div className="mt-25">
-      <Footer />
+      <div className="mt-25">
+        <Footer />
       </div>
     </div>
   );

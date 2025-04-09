@@ -2,11 +2,11 @@
 import { loggedInData } from '@/utils/DataServices'
 import React from 'react'
 
-const page = () => {
+const Explore = () => {
   console.log(loggedInData())
   return (
     <div>Explore</div>
   )
 }
 
-export default page
+export default Explore

@@ -1,27 +1,34 @@
 // import { loggedInData } from "@/utils/DataServices";
 import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
+// import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const UserProfileCard = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [isDropDownOpen2, setDropDownOpen2] = useState(false);
+  const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(data.name);
-  const [email, setEmail] = useState(data.email);
-  const [accountType, setAccountType] = useState(data.accountType);
-  const [shopName, setShopName] = useState(data.shopName);
-  const [address, setAddress] = useState(data.address);
-  const [city, setCity] = useState(data.city);
-  const [state, setState] = useState(data.state);
-  const [zip, setZip] = useState(data.zip);
-  const [bio, setBio] = useState(data.bio);
-  
+  const [name, setName] = useState<string>(data.name);
+  const [email, setEmail] = useState<string>(data.email);
+  const [pfp, setPfp] = useState<string>(data.pfp);
+  const [accountType, setAccountType] = useState<string>(data.accountType);
+  const [shopName, setShopName] = useState<string>(data.shopName);
+  const [address, setAddress] = useState<string>(data.address);
+  const [city, setCity] = useState<string>(data.city);
+  const [state, setState] = useState<string>(data.state);
+  const [zip, setZip] = useState<string>(data.zip);
+  const [bio, setBio] = useState<string>(data.bio);
+
   const router = useRouter();
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
+  };
+  const toggleDropDown2 = () => {
+    setDropDownOpen2(!isDropDownOpen2);
   };
 
   const enableEdit = () => {
@@ -33,6 +40,10 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     setAccountType(role);
     setDropDownOpen(false);
   };
+  const setStateMenu = (state: string) => {
+    setState(state);
+    setDropDownOpen2(false);
+  };
 
   const cancelEdit = () => {
     setEdit(false);
@@ -40,7 +51,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   };
 
   const saveEdits = async () => {
-    let newEditedUser: IUserProfileInfo = {
+    const newEditedUser: IUserProfileInfo = {
       id: 0,
       username: data.username,
       salt: data.salt,
@@ -63,11 +74,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
       city: city,
       state: state,
       zip: zip,
-      pfp: data.pfp,
+      pfp: pfp,
       isDeleted: data.isDeleted,
     };
     // console.log(newEditedUser);
-    let result = await editAccount(newEditedUser);
+    const result = await editAccount(newEditedUser);
     if (result) {
       console.log("Editing Success");
       sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
@@ -83,7 +94,85 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     sessionStorage.removeItem("AccountInfo");
     localStorage.removeItem("token");
     router.push("/login");
-  }
+  };
+
+  const deleteAccount = async (model: IUserProfileInfo) => {
+    model.isDeleted = true;
+    const result = await editAccount(model);
+    if (result) {
+      sessionStorage.removeItem("AccountInfo");
+      localStorage.removeItem("token");
+      router.push("/login");
+    } else {
+      alert("deletion failed");
+    }
+  };
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    const file = e.target.files?.[0];
+
+    if (file) {
+      //when this files if turned into a string this on load function will run
+      reader.onload = () => {
+        setPfp(String(reader.result)); //once the file is read we will store the result into our setter function
+      };
+      reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
+    }
+  };
+
+  const states = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
 
   return (
     <section className="font-[NeueMontreal-Medium]">
@@ -100,11 +189,14 @@ const UserProfileCard = (data: IUserProfileInfo) => {
           </div>
           <div className="flex relative justify-center">
             <img
-              src={data.pfp}
+              src={pfp}
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
-            <label htmlFor="pictureSelect" className="absolute top-[35%] cursor-pointer">
+            <label
+              htmlFor="pictureSelect"
+              className="absolute top-[35%] cursor-pointer"
+            >
               <img
                 src="/icons/imgHover.png"
                 alt="edit logo image"
@@ -112,7 +204,13 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               />
             </label>
 
-            <input type="file" id="pictureSelect" accept="image/*,.pdf" className="hidden"/>
+            <input
+              type="file"
+              id="pictureSelect"
+              accept="image/*,.pdf"
+              className="hidden"
+              onChange={handleImage}
+            />
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">
             <div className="flex flex-col gap-2">
@@ -206,12 +304,13 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <p className="font-[NeueMontreal-Medium] text-sm"> Bio </p>
+              <p className="font-[NeueMontreal-Medium] text-sm"> Bio - 150 max characters </p>
 
               <textarea
                 className="bg-white p-2 rounded-sm h-full"
                 placeholder="Bio Here..."
                 value={bio}
+                maxLength={150}
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>
@@ -244,13 +343,42 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
-                    <input
-                      className="bg-white p-2 rounded-sm"
-                      type="text"
-                      placeholder="State"
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                    />
+                    <div className="flex flex-col">
+                      <div
+                        onClick={toggleDropDown2}
+                        className="bg-white flex justify-between items-center rounded-md px-4 py-2 cursor-pointer text-black"
+                      >
+                        {state}
+                        <img
+                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
+                            isDropDownOpen2 ? "rotate-180" : "rotate-0"
+                          }`}
+                          src="./icons/dropdown.png"
+                          alt="Drop Down Icon"
+                        />
+                      </div>
+                      {isDropDownOpen2 && (
+                        <div
+                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${
+                            isDropDownOpen2
+                              ? "opacity-100 visible"
+                              : "opacity-0 invisible"
+                          }`}
+                        >
+                          <div>
+                            {states.map((state) => (
+                              <div
+                                key={state}
+                                onClick={() => setStateMenu(state)}
+                                className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"
+                              >
+                                {state}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                     <input
                       className="bg-white p-2 rounded-sm"
                       type="text"
@@ -331,7 +459,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <h3>{data.bio}</h3>
+              <textarea className="h-full text-sm" value={data.bio} readOnly></textarea>
             </div>
           </div>
           <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">
@@ -359,12 +487,44 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   >
                     Edit Profile
                   </button>
-                  <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={logout}>
+                  <button
+                    className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
+                    onClick={logout}
+                  >
                     Log Out
                   </button>
-                  <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+                  <button
+                    className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
+                    onClick={() => setOpenState(true)}
+                  >
                     Delete Account
                   </button>
+                  {openState && (
+                    <div className="fixed top-0 left-0 w-full min-h-screen bg-[#807a7a80] z-10 flex justify-center place-items-center font-[NeueMontreal-Regular">
+                      <div className="w-[25%] bg-white p-4 flex flex-col gap-2 rounded-sm">
+                        <p className="text-sm">
+                          Are you sure you want to delete your account?
+                        </p>
+                        <p className="text-[11px]">
+                          This action CANNOT be undone!
+                        </p>
+                        <div className="flex gap-3 justify-between">
+                          <button
+                            className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-sm"
+                            onClick={() => deleteAccount(data)}
+                          >
+                            Yes, delete account
+                          </button>
+                          <button
+                            className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-sm"
+                            onClick={() => setOpenState(false)}
+                          >
+                            No, dismiss
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
