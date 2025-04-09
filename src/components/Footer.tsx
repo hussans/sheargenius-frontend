@@ -13,6 +13,8 @@ const Footer = () => {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  console.log(scrollToSection);
   return (
     <div className="bg-black w-full h-[350px] px-5 py-10 text-sm">
     <p
