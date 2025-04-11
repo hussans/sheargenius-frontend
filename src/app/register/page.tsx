@@ -4,8 +4,10 @@ import {
   createAccount,
   getFormattedDate,
   getLoggedInUserData,
+  loggedInData,
+  login,
 } from "@/utils/DataServices";
-import { INewUser } from "@/utils/Interfaces";
+import { INewUser, IToken } from "@/utils/Interfaces";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -71,7 +73,7 @@ const Register = () => {
       followingCount: 0,
       securityQuestion: securityQuestion,
       securityAnswer: securityAnswer.toLowerCase(),
-      bio: `${exp} year(s) of experience.`,
+      bio: Number(exp) > 0 ? `${exp} year(s) of experience.`: "",
       email: email,
       shopName: barbershopName,
       address: address,
@@ -86,12 +88,27 @@ const Register = () => {
     const result = await createAccount(newEditedUser);
     if (result) {
       console.log("Account Created");
-      router.push("/");
+      const userData = {
+        username: username,
+        password: password,
+      };
+      const token: IToken = await login(userData);
+      if (token != null) {
+        if (typeof window != null) {
+          localStorage.setItem("Token", token.token);
+          console.log(token.token);
+          await getLoggedInUserData(username);
+          sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
+          if (loggedInData().isDeleted == false) router.push("/");
+        }
+      } else {
+        console.log("Login was unsuccessful, invalid useranme or password");
+      }
     } else {
       alert("Username already exists...");
       console.log(newEditedUser);
     }
-    await getLoggedInUserData(newEditedUser.username);
+    // await getLoggedInUserData(newEditedUser.username);
   };
 
   const states = [
@@ -146,7 +163,6 @@ const Register = () => {
     "Wisconsin",
     "Wyoming",
   ];
-
 
   return (
     <div className="bg-white flex">
@@ -214,7 +230,7 @@ const Register = () => {
                 <div className="relative">
                   <div
                     onClick={toggleDropDown}
-                    className="bg-[#f5f5f5] flex justify-between items-center rounded-md px-4 py-2 cursor-pointer text-[#7c7d86]"
+                    className="bg-[#f5f5f5] flex justify-between items-center rounded-md px-4 py-2 cursor-pointer"
                   >
                     {selectedRole}
                     <img
@@ -252,20 +268,22 @@ const Register = () => {
             </div>
             {/* Div will pop up when barber is selected */}
             <div
-              className={selectedRole == "Barber" ? "flex flex-col gap-3" : "hidden"}
+              className={
+                selectedRole == "Barber" ? "flex flex-col gap-3" : "hidden"
+              }
             >
-            <div className="flex flex-col mt-1">
-              <p className="font-[NeueMontreal-Medium] text-sm pb-1">
-                {" "}
-                Years of Experience{" "}
-              </p>
-              <input
-                className="bg-[#F5F5F5] rounded-md px-4 py-2"
-                type="number"
-                placeholder="3 Years"
-                onChange={(e) => setExp(e.target.value)}
-              />
-            </div>
+              <div className="flex flex-col mt-1">
+                <p className="font-[NeueMontreal-Medium] text-sm pb-1">
+                  {" "}
+                  Years of Experience{" "}
+                </p>
+                <input
+                  className="bg-[#F5F5F5] rounded-md px-4 py-2"
+                  type="number"
+                  placeholder="3 Years"
+                  onChange={(e) => setExp(e.target.value)}
+                />
+              </div>
               <div className="flex flex-col mt-1">
                 <p className="font-[NeueMontreal-Medium] text-sm pb-1">
                   {" "}
@@ -303,7 +321,7 @@ const Register = () => {
                 />
               </div>
               <div className="flex flex-col mt-1">
-              <p className="font-[NeueMontreal-Medium] text-sm pb-1">
+                <p className="font-[NeueMontreal-Medium] text-sm pb-1">
                   {" "}
                   State{" "}
                 </p>
@@ -339,7 +357,6 @@ const Register = () => {
                         </div>
                       ))}
                     </div>
-                    
                   </div>
                 )}
               </div>

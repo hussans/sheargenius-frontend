@@ -127,6 +127,10 @@ export const checkToken = () => {
   return result;
 };
 
+export const getToken = () => {
+  return localStorage.getItem("Token") ?? ""
+}
+
 //format the days date when creating new User
 export function getFormattedDate(): string {
   const today = new Date();

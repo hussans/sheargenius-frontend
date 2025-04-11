@@ -27,23 +27,23 @@ export interface IUserProfileInfo {
 
 
 export interface IPostItems{
-    Id: number;
-    UserId: number;
-    PublisherName: string;
-    Date: string;
-    Caption: string;
-    Image: string;
-    Likes: number;
-    Category: string;
-    IsPublished: boolean;
-    IsDeleted: boolean;
-    Comments: ICommentInfo[]
+    id: number;
+    userId: number;
+    publisherName: string;
+    date: string;
+    caption: string;
+    image: string;
+    likes: number;
+    category: string;
+    isPublished: boolean;
+    isDeleted: boolean;
+    comments: ICommentInfo[]
 }
 
 export interface ICommentInfo{
-    Id: number
-    Username: string
-    Comment: string
+    id: number
+    username: string
+    comment: string
 }
 
 export interface IUserInfo {

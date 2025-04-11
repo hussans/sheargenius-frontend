@@ -3,17 +3,25 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { checkToken } from "@/utils/DataServices";
+import AddPostComponent from "./AddPostComponent";
 
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
 }
 
+const categoryTitles = async () => {
+  const response = await fetch("/Haircuts.json");
+  const data = await response.json();
+  console.log(data);
+};
+
 const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [addPost, setAddPost] = useState(false);
   const [activeTab, setActiveTab] = useState<"explore">("explore");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const router = useRouter();
-  
+
   const toggleSidebar = () =>
     setIsOpen((prev) => {
       if (prev) {
@@ -41,15 +49,20 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
   const activeClass = "bg-gray-200 px-1";
   const profileClick = () => {
-    if (checkToken())
-    {
+    if (checkToken()) {
+      router.push("user-profile");
+    } else {
+      router.push("login");
+    }
+  };
 
-      router.push("user-profile")
+  const addPostClick = () => {
+    if (checkToken()) {
+      setAddPost(true)
+    } else {
+      router.push("login");
     }
-    else {
-      router.push("login")
-    }
-  }
+  };
 
   useEffect(() => {
     const handleOpenNavbarCategory = (e: Event) => {
@@ -62,9 +75,11 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
     window.addEventListener("openNavbarCategory", handleOpenNavbarCategory);
     return () => {
-      window.removeEventListener("openNavbarCategory", handleOpenNavbarCategory);
+      window.removeEventListener(
+        "openNavbarCategory",
+        handleOpenNavbarCategory
+      );
     };
-
   }, []);
 
   return (
@@ -100,8 +115,19 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       className="relative w-[17px] z-50"
                       src="./icons/plus.png"
                       alt="Plus Icon"
+                      onClick={addPostClick}
                     />
                   </button>
+                  {addPost && (
+                    <div className="absolute top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
+                      <div className="w-[50%] bg-white p-2 rounded-sm relative">
+                        <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
+                          X
+                        </h3>
+                        <AddPostComponent/>
+                      </div>
+                    </div>
+                  )}
                   <button
                     className="cursor-pointer"
                     onClick={handleSearchClick}
@@ -193,9 +219,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                         ? "./icons/minus-small.png"
                         : "./icons/plus-small.png"
                     }
-                    alt={
-                      openCategory === "fades" ? "Minus Icon" : "Plus Icon"
-                    }
+                    alt={openCategory === "fades" ? "Minus Icon" : "Plus Icon"}
                   />
                 </button>
                 {openCategory === "fades" && (
@@ -271,9 +295,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                         : "./icons/plus-small.png"
                     }
                     alt={
-                      openCategory === "skin-fades"
-                        ? "Minus Icon"
-                        : "Plus Icon"
+                      openCategory === "skin-fades" ? "Minus Icon" : "Plus Icon"
                     }
                   />
                 </button>
@@ -313,11 +335,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                         ? "./icons/minus-small.png"
                         : "./icons/plus-small.png"
                     }
-                    alt={
-                      openCategory === "styles"
-                        ? "Minus Icon"
-                        : "Plus Icon"
-                    }
+                    alt={openCategory === "styles" ? "Minus Icon" : "Plus Icon"}
                   />
                 </button>
                 {openCategory === "styles" && (

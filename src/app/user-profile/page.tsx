@@ -11,7 +11,7 @@ const UserProfile = () => {
   // const router = useRouter();
   console.log(searchActive);
   // account checking
-  // if(!checkToken) router.push("/login")
+  // if(!checkFToken) router.push("/login")
  
   const accountData: IUserProfileInfo = (() => {
     if (typeof window !== "undefined" && sessionStorage.getItem("AccountInfo")) {
