@@ -1,3 +1,4 @@
+"use client"
 // import { checkToken } from "@/utils/DataServices";
 import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";

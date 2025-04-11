@@ -1,7 +1,13 @@
 "use client";
-import { addPostItem, getAllPosts, getFormattedDate, getToken, loggedInData } from "@/utils/DataServices";
+import {
+  addPostItem,
+  getAllPosts,
+  getFormattedDate,
+  getToken,
+  loggedInData,
+} from "@/utils/DataServices";
 import { HaircutInterface, IPostItems } from "@/utils/Interfaces";
-import { comment } from "postcss";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const categoryTitles = async () => {
@@ -20,11 +26,11 @@ const AddPostComponent = () => {
   const [caption, setCaption] = useState<string>("");
   const [image, setImage] = useState<string>("/nofileselected.png");
   const [haircuts, setHaircuts] = useState<string[]>([]);
-  const [post] = useState<IPostItems>({
+  const [post, setPost] = useState<IPostItems>({
     id: 0,
-    userId: loggedInData().id,
-    publisherName: loggedInData().name,
-    date: getFormattedDate(),
+    userId: 0,
+    publisherName: "",
+    date: "",
     caption: caption,
     image: image,
     likes: 0,
@@ -39,12 +45,34 @@ const AddPostComponent = () => {
       },
     ],
   });
+  const router = useRouter();
 
-  const handleSubmit = async() => {
-    console.log(getToken())
-    await addPostItem(post, getToken())
-    console.log(await getAllPosts(getToken()))
-  }
+  const handleSubmit = async () => {
+    const newPost = {
+      id: 0,
+      userId: loggedInData().id,
+      publisherName: loggedInData().username,
+      date: getFormattedDate(),
+      caption: caption,
+      image: image,
+      likes: 0,
+      category: style,
+      isPublished: true,
+      isDeleted: false,
+      comments: [
+        {
+          id: 0,
+          username: "",
+          comment: "",
+        },
+      ],
+    };
+    setPost(newPost);
+    console.log(getToken());
+    await addPostItem(post, getToken());
+    console.log(await getAllPosts(getToken()));
+    router.push("/user-profile");
+  };
   useEffect(() => {
     const fetchTitles = async () => {
       setHaircuts(await categoryTitles());
@@ -145,7 +173,10 @@ const AddPostComponent = () => {
               </div>
             )}
           </div>
-          <button className="bg-[#1500FF] text-white py-2 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer" onClick={handleSubmit}>
+          <button
+            className="bg-[#1500FF] text-white py-2 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer"
+            onClick={handleSubmit}
+          >
             POST
           </button>
         </div>
