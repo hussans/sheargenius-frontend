@@ -20,6 +20,7 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [date, setDate] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [exp, setExp] = useState<string>("");
   const [barbershopName, setBarbershopName] = useState<string>("");
@@ -58,13 +59,14 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
+    setDate(getFormattedDate())
     const newEditedUser: INewUser = {
       id: 0,
       username: username.toLowerCase(),
       password: password,
       accountType: selectedRole,
       name: name,
-      date: getFormattedDate(),
+      date: date,
       rating: 0,
       ratingCount: 0,
       followers: [],
@@ -401,11 +403,11 @@ const Register = () => {
                     >
                       <div
                         onClick={() =>
-                          selectQuestion("Where city were you born in?")
+                          selectQuestion("Which city were you born in?")
                         }
                         className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"
                       >
-                        Where city were you born in?
+                        Which city were you born in?
                       </div>
                       <div
                         onClick={() =>

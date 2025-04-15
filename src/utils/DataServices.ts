@@ -1,5 +1,5 @@
 import {
-  HaircutInterface,
+  IHaircutInterface,
   INewUser,
   IPostItems,
   IUserInfo,
@@ -116,6 +116,16 @@ export const loggedInData = () => {
   return userData;
 };
 
+export const fetchInfo = () => {
+  if (
+    typeof window !== "undefined" &&
+    sessionStorage.getItem("AccountInfo")
+  ) {
+    return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
+  }
+  return {};
+}
+
 //we are checking if the token is in our storage (see if were logged in)
 export const checkToken = () => {
   let result = false;
@@ -159,24 +169,36 @@ export function getFormattedDate(): string {
 
 // --------------POST ENDPOINTS----------------
 
-export const getAllPosts = async (token: string) => {
-  const res = await fetch(`${url}Post/GetAllPosts`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+export const getAllPosts = async () => {
+  const res = await fetch(`${url}Post/GetAllPosts`)
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
     console.log(message);
     return [];
   }
-
   const data = await res.json();
+  // console.log(data)
   return data;
 };
+// export const getAllPosts = async (token: string) => {
+//   const res = await fetch(`${url}Post/GetAllPosts`, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: "Bearer " + token,
+//     },
+//   });
+//   if (!res.ok) {
+//     const errorData = await res.json();
+//     const message = errorData.message;
+//     console.log(message);
+//     return [];
+//   }
+
+//   const data = await res.json();
+//   return data;
+// };
 
 export const getPostItemsByUserId = async (userId: number, token: string) => {
   const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
@@ -241,8 +263,8 @@ export const fetchHaircut = async (cut: string) => {
   const response = await fetch("/Haircuts.json");
   const data = await response.json();
 
-  const foundHaircut: HaircutInterface = data.haircuts.find(
-    (h: HaircutInterface) => h.name.toLowerCase() === cut.toLowerCase()
+  const foundHaircut: IHaircutInterface = data.haircuts.find(
+    (h: IHaircutInterface) => h.name.toLowerCase() === cut.toLowerCase()
   );
   return foundHaircut;
 };

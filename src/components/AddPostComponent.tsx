@@ -1,12 +1,13 @@
 "use client";
 import {
   addPostItem,
+  fetchInfo,
   getAllPosts,
   getFormattedDate,
   getToken,
   loggedInData,
 } from "@/utils/DataServices";
-import { HaircutInterface, IPostItems } from "@/utils/Interfaces";
+import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -14,7 +15,7 @@ const categoryTitles = async () => {
   const response = await fetch("/Haircuts.json");
   const data = await response.json();
   const titles: string[] = [];
-  data.haircuts.map((haircut: HaircutInterface) => {
+  data.haircuts.map((haircut: IHaircutInterface) => {
     titles.push(haircut.name);
   });
   return titles;
@@ -48,10 +49,11 @@ const AddPostComponent = () => {
   const router = useRouter();
 
   const handleSubmit = async () => {
+    console.log(fetchInfo())
     const newPost = {
       id: 0,
-      userId: loggedInData().id,
-      publisherName: loggedInData().username,
+      userId: fetchInfo().id,
+      publisherName: fetchInfo().username,
       date: getFormattedDate(),
       caption: caption,
       image: image,
@@ -70,8 +72,9 @@ const AddPostComponent = () => {
     setPost(newPost);
     console.log(getToken());
     await addPostItem(post, getToken());
-    console.log(await getAllPosts(getToken()));
-    router.push("/user-profile");
+    console.log(await getAllPosts());
+    // console.log(await getAllPosts(getToken()));
+    router.refresh();
   };
   useEffect(() => {
     const fetchTitles = async () => {
@@ -79,6 +82,11 @@ const AddPostComponent = () => {
     };
     fetchTitles();
   }, [style]);
+
+  const handleStyle = (cut:string) => {
+    setStyle(cut)
+    toggleDropDown(false)
+  }
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
@@ -155,7 +163,7 @@ const AddPostComponent = () => {
             </div>
             {dropDown && (
               <div
-                className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 shadow-md transition-all duration-700 h-64 overflow-scroll ${
+                className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 shadow-md transition-all duration-700 h-64 overflow-y-scroll w-[50%] ${
                   dropDown ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
               >
@@ -163,7 +171,7 @@ const AddPostComponent = () => {
                   {haircuts.map((cut) => (
                     <div
                       key={cut}
-                      onClick={() => setStyle(cut)}
+                      onClick={() => handleStyle(cut)}
                       className="cursor-pointer hover:bg-gray-100 p-1 rounded-sm"
                     >
                       {cut}

@@ -1,14 +1,28 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileCard from "@/components/ProfileCard";
 import CreateAccPopup from "@/components/RegisterForm";
 import PostCard from "@/components/PostCard";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getAllPosts } from "@/utils/DataServices";
+import { IPostItems } from "@/utils/Interfaces";
+
 
 export default function Home() {
+  // const getPosts = async (): Promise<IPostItems[]> => {
+  //   const postEntries: IPostItems[] = await getAllPosts();
+  //   return postEntries;
+  // };
   const [searchActive, setSearchActive] = useState(false);
+  const [posts, setPosts] = useState<IPostItems[]>([]);
+  useEffect(() => {
+    const asyncGetPosts = async() => {
+      setPosts(await getAllPosts())
+    }
+    asyncGetPosts()
+  },[searchActive])
 
   return (
     <div className="bg-white min-h-screen w-full">
@@ -22,12 +36,12 @@ export default function Home() {
         </div>
         <div className="mt-10">
           <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-3 sm:grid-cols-1 sm:grid-rows-6 md:grid-cols-2 md:grid-rows-3">
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            <PostCard {...posts[2]}/>
+            <PostCard {...posts[2]}/>
+            <PostCard {...posts[2]}/>
+            <PostCard {...posts[2]}/>
+            <PostCard {...posts[2]}/>
+            <PostCard {...posts[2]}/>
           </div>
           <div className="mt-10">
             <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">

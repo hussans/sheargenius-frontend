@@ -1,26 +1,28 @@
 // import { loggedInData } from "@/utils/DataServices";
 import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
+import Image from "next/image";
 // import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const UserProfileCard = (data: IUserProfileInfo) => {
+const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState<string>(data.name);
-  const [email, setEmail] = useState<string>(data.email);
-  const [pfp, setPfp] = useState<string>(data.pfp);
-  const [accountType, setAccountType] = useState<string>(data.accountType);
-  const [shopName, setShopName] = useState<string>(data.shopName);
-  const [address, setAddress] = useState<string>(data.address);
-  const [city, setCity] = useState<string>(data.city);
-  const [state, setState] = useState<string>(data.state);
-  const [zip, setZip] = useState<string>(data.zip);
-  const [bio, setBio] = useState<string>(data.bio);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [pfp, setPfp] = useState<string>("");
+  const [accountType, setAccountType] = useState<string>("");
+  const [shopName, setShopName] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [state, setState] = useState<string>("");
+  const [zip, setZip] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const [data, setData] = useState<IUserProfileInfo>({...info});
 
   const router = useRouter();
 
@@ -82,7 +84,8 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     if (result) {
       console.log("Editing Success");
       sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
-      router.push("/user-profile");
+      // router.push("/user-profile");
+      setData(newEditedUser);
       cancelEdit();
     } else {
       alert("Editing Failed");
@@ -188,7 +191,9 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             <h2 className="text-2xl">Edit Profile</h2>
           </div>
           <div className="flex relative justify-center">
-            <img
+            <Image
+              width={100}
+              height={100}
               src={pfp}
               alt={`${data.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
@@ -307,7 +312,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               <p className="font-[NeueMontreal-Medium] text-sm"> Bio - 150 max characters </p>
 
               <textarea
-                className="bg-white p-2 rounded-sm h-full"
+                className="bg-white p-2 rounded-sm h-full resize-none"
                 placeholder="Bio Here..."
                 value={bio}
                 maxLength={150}
@@ -459,7 +464,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <textarea className="h-full text-sm" value={data.bio} readOnly></textarea>
+              <textarea className="h-full text-sm cursor-default resize-none" value={data.bio} readOnly disabled></textarea>
             </div>
           </div>
           <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">

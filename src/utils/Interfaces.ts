@@ -87,7 +87,7 @@ export interface IToken {
     token: string
 }
 
-export interface HaircutInterface {
+export interface IHaircutInterface {
     id: number;
     name: string;
     description: string;

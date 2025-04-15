@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserProfileCard from "@/components/UserProfileCard";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import PostFeed from "@/components/PostFeed";
@@ -8,28 +8,33 @@ import Footer from "@/components/Footer";
 
 const UserProfile = () => {
   const [searchActive, setSearchActive] = useState(false);
-  // const router = useRouter();
-  console.log(searchActive);
-  // account checking
-  // if(!checkFToken) router.push("/login")
- 
+
   const accountData: IUserProfileInfo = (() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("AccountInfo")) {
+    if (
+      typeof window !== "undefined" &&
+      sessionStorage.getItem("AccountInfo")
+    ) {
       return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
     }
-    return {}
+    return {};
   })();
-  console.log(accountData)
+
+  // console.log(accountData);
+  console.log(searchActive);
+
+  // const router = useRouter();
+
+  // account checking
+  // if(!checkFToken) router.push("/login")
 
   return (
     <div>
-      <Navbar setSearchActive={setSearchActive}/>
+      <Navbar setSearchActive={setSearchActive} />
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
-        <PostFeed/>
-
+        <PostFeed {...accountData}/>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
