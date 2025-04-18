@@ -181,6 +181,20 @@ export const getAllPosts = async () => {
   // console.log(data)
   return data;
 };
+
+export const getUserPosts = async (id:number) => {
+  const res = await fetch(`${url}Post/GetPostsByUserId/${id}`)
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
+  }
+  const data = await res.json();
+  // console.log(data)
+  return data;
+
+}
 // export const getAllPosts = async (token: string) => {
 //   const res = await fetch(`${url}Post/GetAllPosts`, {
 //     method: "GET",

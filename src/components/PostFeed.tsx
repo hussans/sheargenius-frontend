@@ -2,23 +2,39 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { Button } from "./ui/button";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
-import { getAllPosts } from "@/utils/DataServices";
+import { getUserPosts } from "@/utils/DataServices";
 
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-  const [posts, setPosts] = useState<IPostItems[]>([]);
+  const [posts, setPosts] = useState<IPostItems[]>([
+    {
+      id: 0,
+      userId: 0,
+      publisherName: "",
+      date: "",
+      caption: "",
+      image: "/nofileselected.png",
+      likes: 0,
+      category: "",
+      isPublished: true,
+      isDeleted: false,
+      comments: [{ id: 0, username: "", comment: "" }],
+    },
+  ]);
+  const [id, setId] = useState<number>(data.id);
+
+  console.log(data.id);
+
   useEffect(() => {
-    const asyncGetPosts = async () => {
-      const allPosts = await getAllPosts();
-      setPosts(
-        allPosts.filter(
-          (post: IPostItems) => post.publisherName == data.username
-        )
-      );
+    console.log(id);
+    const asyncGetPosts = async (id: number) => {
+      setPosts(await getUserPosts(id));
+      console.log(await getUserPosts(id));
     };
-    asyncGetPosts();
-  }, [isDropDownOpen]);
+    asyncGetPosts(data.id);
+  }, [data.id]);
+
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
   };
@@ -95,8 +111,8 @@ const PostFeed = (data: IUserProfileInfo) => {
           <h3>Click the + above to create your first post!</h3>
         </div>
       ) : (
-        <div className="hidden">
-          <div className="grid grid-cols-3 gap-3">
+        <div>
+          <div className="grid grid-cols-4 gap-3">
             {posts.map((post, idx) => (
               <div key={idx}>
                 <PostCard {...post} />

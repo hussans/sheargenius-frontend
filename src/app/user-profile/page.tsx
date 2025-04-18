@@ -8,16 +8,41 @@ import Footer from "@/components/Footer";
 
 const UserProfile = () => {
   const [searchActive, setSearchActive] = useState(false);
+  const [accountData, setAccountData] = useState<IUserProfileInfo>({
+    id: 0,
+    username: "",
+    salt: "",
+    hash: "",
+    date: "",
+    accountType: "",
+    name: "",
+    rating: 0,
+    ratingCount: 0,
+    followers: [""],
+    following: [""],
+    followerCount: 0,
+    followingCount: 0,
+    securityQuestion: "",
+    securityAnswer: "",
+    bio: "",
+    email: "",
+    shopName: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    pfp: "",
+    isDeleted: false,
+  });
 
-  const accountData: IUserProfileInfo = (() => {
+  useEffect(() => {
     if (
       typeof window !== "undefined" &&
       sessionStorage.getItem("AccountInfo")
     ) {
-      return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
+      setAccountData(JSON.parse(sessionStorage.getItem("AccountInfo") || "{}"));
     }
-    return {};
-  })();
+  }, [searchActive]);
 
   // console.log(accountData);
   console.log(searchActive);
@@ -32,7 +57,7 @@ const UserProfile = () => {
       <Navbar setSearchActive={setSearchActive} />
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <UserProfileCard {...accountData} />
-        <PostFeed {...accountData}/>
+        <PostFeed {...accountData} />
       </div>
       <Footer />
     </div>
