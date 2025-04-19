@@ -22,7 +22,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [state, setState] = useState<string>("");
   const [zip, setZip] = useState<string>("");
   const [bio, setBio] = useState<string>("");
-  const [data, setData] = useState<IUserProfileInfo>({...info});
+  // const [data, setData] = useState<IUserProfileInfo>({...info});
 
   const router = useRouter();
 
@@ -85,7 +85,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
       console.log("Editing Success");
       sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
       // router.push("/user-profile");
-      setData(newEditedUser);
+      // setData(newEditedUser);
       cancelEdit();
     } else {
       alert("Editing Failed");

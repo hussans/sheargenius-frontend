@@ -1,12 +1,18 @@
 "use client"
-// import { checkToken } from "@/utils/DataServices";
 import { checkToken } from "@/utils/DataServices";
+// import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const RegisterForm = () => {
+  const [isHidden,setIsHidden] = useState(false)
+
+  useEffect(() => {
+    setIsHidden(checkToken())
+  },[])
+
   return (
-    <div className={`bg-black w-full h-[825px] py-20 px-10 grid grid-cols-2`}>
+    <div className={`bg-black w-full h-[825px] py-20 px-10 grid grid-cols-2 ${isHidden ? "hidden": ""}`}>
       <div className="flex flex-col gap-96">
         <div>
           <p className="font-[NeueMontreal-Medium] text-white text-3xl">

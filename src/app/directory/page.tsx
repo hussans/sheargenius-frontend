@@ -3,11 +3,16 @@ import React, { useEffect, useState } from "react";
 import PostCard from "@/components/PostCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { HaircutInterface } from "@/utils/Interfaces";
-import { fetchHaircut, getCategory } from "@/utils/DataServices";
+import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
+import {
+  fetchHaircut,
+  getCategory,
+  getPostItemsByCategory,
+  getToken,
+} from "@/utils/DataServices";
 import Header from "@/components/Header";
 export default function DirectoryPage() {
-  const [haircut, setHaircut] = useState<HaircutInterface>({
+  const [haircut, setHaircut] = useState<IHaircutInterface>({
     id: 0,
     name: "",
     description: "",
@@ -22,6 +27,66 @@ export default function DirectoryPage() {
     },
   });
 
+  const [posts, setPosts] = useState<IPostItems[]>([
+    {
+      id: 0,
+      userId: 0,
+      publisherName: "",
+      date: "",
+      caption: "",
+      image: "/nofileselected.png",
+      likes: 0,
+      category: "",
+      isPublished: true,
+      isDeleted: false,
+      comments: [
+        {
+          id: 0,
+          username: "",
+          comment: "",
+        },
+      ],
+    },
+    {
+      id: 0,
+      userId: 0,
+      publisherName: "",
+      date: "",
+      caption: "",
+      image: "/nofileselected.png",
+      likes: 0,
+      category: "",
+      isPublished: true,
+      isDeleted: false,
+      comments: [
+        {
+          id: 0,
+          username: "",
+          comment: "",
+        },
+      ],
+    },
+    {
+      id: 0,
+      userId: 0,
+      publisherName: "",
+      date: "",
+      caption: "",
+      image: "/nofileselected.png",
+      likes: 0,
+      category: "",
+      isPublished: true,
+      isDeleted: false,
+      comments: [
+        {
+          id: 0,
+          username: "",
+          comment: "",
+        },
+      ],
+    },
+  ]);
+
   const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
@@ -29,6 +94,7 @@ export default function DirectoryPage() {
       try {
         const data = await fetchHaircut(cut);
         setHaircut(data);
+        setPosts(await getPostItemsByCategory(cut, getToken()));
       } catch (error) {
         console.error("Error fetching haircut:", error);
       }
@@ -78,9 +144,11 @@ export default function DirectoryPage() {
               Related Posts
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <PostCard />
-              <PostCard />
-              <PostCard />
+              {posts.slice(0, 3).map((post, index) => (
+                <div key={index}>
+                  <PostCard {...post} />
+                </div>
+              ))}
             </div>
             <div className="mt-6">
               <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white transition-all duration-75">

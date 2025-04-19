@@ -3,11 +3,28 @@ import PostCard from "./PostCard";
 import { Button } from "./ui/button";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import { getUserPosts } from "@/utils/DataServices";
+import FocusPostComponent from "./FocusPostComponent";
 
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [focus, setFocus] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
   const [posts, setPosts] = useState<IPostItems[]>([
+    // {
+    //   id: 0,
+    //   userId: 0,
+    //   publisherName: "",
+    //   date: "",
+    //   caption: "",
+    //   image: "/nofileselected.png",
+    //   likes: 0,
+    //   category: "",
+    //   isPublished: true,
+    //   isDeleted: false,
+    //   comments: [{ id: 0, username: "", comment: "" }],
+    // },
+  ]);
+  const [activePost, setActivePost] = useState<IPostItems>(
     {
       id: 0,
       userId: 0,
@@ -21,13 +38,9 @@ const PostFeed = (data: IUserProfileInfo) => {
       isDeleted: false,
       comments: [{ id: 0, username: "", comment: "" }],
     },
-  ]);
-  const [id, setId] = useState<number>(data.id);
-
-  console.log(data.id);
+  );
 
   useEffect(() => {
-    console.log(id);
     const asyncGetPosts = async (id: number) => {
       setPosts(await getUserPosts(id));
       console.log(await getUserPosts(id));
@@ -43,6 +56,11 @@ const PostFeed = (data: IUserProfileInfo) => {
     setSelectedFilter(question);
     setDropDownOpen(false);
   };
+
+  const displayPost = (post:IPostItems) => {
+    setFocus(true)
+    setActivePost(post)
+  }
   return (
     <div>
       {" "}
@@ -115,8 +133,20 @@ const PostFeed = (data: IUserProfileInfo) => {
           <div className="grid grid-cols-4 gap-3">
             {posts.map((post, idx) => (
               <div key={idx}>
+                <div onClick={() => displayPost(post)}>
                 <PostCard {...post} />
               </div>
+                                {focus && (
+                                  <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
+                                    <div className="w-[50%] bg-white p-2 rounded-sm relative">
+                                      <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-2xl" onClick={() => setFocus(false)}>
+                                        X
+                                      </h3>
+                                      <FocusPostComponent {...activePost}/>
+                                    </div>
+                                  </div>
+                                )}
+                                </div> 
             ))}
           </div>
         </div>

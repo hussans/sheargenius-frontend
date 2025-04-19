@@ -91,24 +91,35 @@ export const getLoggedInUserData = async (username: string) => {
 
 //get Profile Info in data fetch
 export const getProfileUserData = async (username: string) => {
-  try{
-  const res = await fetch(`${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`);
+  try {
+    const res = await fetch(
+      `${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`
+    );
 
-  if (!res.ok) {
-    const data = await res.json();
-    const message = data.message;
-    console.error(message);
+    if (!res.ok) {
+      const data = await res.json();
+      const message = data.message;
+      console.error(message);
+      return null;
+    }
+    profileData = await res.json();
+    // console.log(profileData)
+    //we are going to use this data inside of a variable we will make a separate function for implementation
+    return profileData;
+  } catch (error) {
+    console.error("Error fetching profile user data:", error as Error); // Handle network errors
     return null;
   }
-  profileData = await res.json();
+};
+
+export const getUserData = async (username: string) => {
+  const res = await fetch(
+    `${url}/User/GetUserInfoByUsername/${username.toLowerCase()}`
+  );
+  userData = await res.json();
   // console.log(profileData)
   //we are going to use this data inside of a variable we will make a separate function for implementation
-  return profileData;
-}
-catch(error) {
-  console.error("Error fetching profile user data:", error as Error); // Handle network errors
-    return null;
-}
+  return userData;
 };
 
 //get the user's data
@@ -117,20 +128,17 @@ export const loggedInData = () => {
 };
 
 export const fetchInfo = () => {
-  if (
-    typeof window !== "undefined" &&
-    sessionStorage.getItem("AccountInfo")
-  ) {
+  if (typeof window !== "undefined" && sessionStorage.getItem("AccountInfo")) {
     return JSON.parse(sessionStorage.getItem("AccountInfo") || "{}");
   }
   return {};
-}
+};
 
 //we are checking if the token is in our storage (see if were logged in)
 export const checkToken = () => {
   let result = false;
 
-  if (typeof window !== "undefined" ) {
+  if (typeof window !== "undefined") {
     const LSData = sessionStorage.getItem("AccountInfo");
     if (LSData != null) result = true;
   }
@@ -138,8 +146,8 @@ export const checkToken = () => {
 };
 
 export const getToken = () => {
-  return localStorage.getItem("Token") ?? ""
-}
+  return localStorage.getItem("Token") ?? "";
+};
 
 //format the days date when creating new User
 export function getFormattedDate(): string {
@@ -170,7 +178,7 @@ export function getFormattedDate(): string {
 // --------------POST ENDPOINTS----------------
 
 export const getAllPosts = async () => {
-  const res = await fetch(`${url}Post/GetAllPosts`)
+  const res = await fetch(`${url}Post/GetAllPosts`);
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -182,8 +190,8 @@ export const getAllPosts = async () => {
   return data;
 };
 
-export const getUserPosts = async (id:number) => {
-  const res = await fetch(`${url}Post/GetPostsByUserId/${id}`)
+export const getUserPosts = async (id: number) => {
+  const res = await fetch(`${url}Post/GetPostsByUserId/${id}`);
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -193,8 +201,7 @@ export const getUserPosts = async (id:number) => {
   const data = await res.json();
   // console.log(data)
   return data;
-
-}
+};
 // export const getAllPosts = async (token: string) => {
 //   const res = await fetch(`${url}Post/GetAllPosts`, {
 //     method: "GET",
@@ -216,6 +223,25 @@ export const getUserPosts = async (id:number) => {
 
 export const getPostItemsByUserId = async (userId: number, token: string) => {
   const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+export const getPostItemsByCategory = async (category: string, token: string) => {
+  const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -283,12 +309,12 @@ export const fetchHaircut = async (cut: string) => {
   return foundHaircut;
 };
 
-let category:string;
+let category: string;
 export const setCategory = (cat: string) => {
   category = cat;
-  localStorage.setItem("searchQuery",category)
+  localStorage.setItem("searchQuery", category);
   return category;
 };
 export const getCategory = () => {
-  return localStorage.getItem("searchQuery") as string
+  return localStorage.getItem("searchQuery") as string;
 };

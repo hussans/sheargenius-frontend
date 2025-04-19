@@ -5,10 +5,8 @@ import {
   getAllPosts,
   getFormattedDate,
   getToken,
-  loggedInData,
 } from "@/utils/DataServices";
-import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
-import { useRouter } from "next/navigation";
+import { IHaircutInterface } from "@/utils/Interfaces";
 import React, { useEffect, useState } from "react";
 
 const categoryTitles = async () => {
@@ -27,26 +25,25 @@ const AddPostComponent = () => {
   const [caption, setCaption] = useState<string>("");
   const [image, setImage] = useState<string>("/nofileselected.png");
   const [haircuts, setHaircuts] = useState<string[]>([]);
-  const [post, setPost] = useState<IPostItems>({
-    id: 0,
-    userId: 0,
-    publisherName: "",
-    date: "",
-    caption: caption,
-    image: image,
-    likes: 0,
-    category: style,
-    isPublished: true,
-    isDeleted: false,
-    comments: [
-      {
-        id: 0,
-        username: "",
-        comment: "",
-      },
-    ],
-  });
-  const router = useRouter();
+  // const [post, setPost] = useState<IPostItems>({
+  //   id: 0,
+  //   userId: 0,
+  //   publisherName: "",
+  //   date: "",
+  //   caption: caption,
+  //   image: image,
+  //   likes: 0,
+  //   category: style,
+  //   isPublished: true,
+  //   isDeleted: false,
+  //   comments: [
+  //     {
+  //       id: 0,
+  //       username: "",
+  //       comment: "",
+  //     },
+  //   ],
+  // });
 
   const handleSubmit = async () => {
     console.log(fetchInfo())
@@ -69,12 +66,12 @@ const AddPostComponent = () => {
         },
       ],
     };
-    setPost(newPost);
+    // setPost(newPost);
     console.log(getToken());
-    await addPostItem(post, getToken());
+    await addPostItem(newPost, getToken());
     console.log(await getAllPosts());
     // console.log(await getAllPosts(getToken()));
-    router.refresh();
+    window.location.reload();
   };
   useEffect(() => {
     const fetchTitles = async () => {

@@ -1,7 +1,7 @@
-import { INewUser } from "@/utils/Interfaces";
+import { IUserProfileInfo } from "@/utils/Interfaces";
 import React from "react";
 
-const SearchProfileCard = (data: INewUser) => {
+const SearchProfileCard = (data: IUserProfileInfo) => {
   return (
     <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
       <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">

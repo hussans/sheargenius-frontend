@@ -9,11 +9,11 @@ interface NavbarProps {
   setSearchActive: (active: boolean) => void;
 }
 
-const categoryTitles = async () => {
-  const response = await fetch("/Haircuts.json");
-  const data = await response.json();
-  console.log(data);
-};
+// const categoryTitles = async () => {
+//   const response = await fetch("/Haircuts.json");
+//   const data = await response.json();
+//   console.log(data);
+// };
 
 const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +119,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     />
                   </button>
                   {addPost && (
-                    <div className="absolute top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
+                    <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
                       <div className="w-[50%] bg-white p-2 rounded-sm relative">
                         <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
                           X
