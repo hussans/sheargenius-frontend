@@ -34,7 +34,7 @@ const SearchProfile = () => {
     zip: "",
     pfp: "#",
     isDeleted: false
-  })
+  });
 
   useEffect(() => {
 
