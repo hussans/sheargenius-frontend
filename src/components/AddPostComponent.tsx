@@ -68,8 +68,6 @@ const AddPostComponent = () => {
     const uploadedUrl = await blobUpload(formData);
 
     if (uploadedUrl) {
-      console.log("File uploaded at:", uploadedUrl);
-      console.log("f");
       const newPost = {
         id: 0,
         userId: fetchInfo().id,
