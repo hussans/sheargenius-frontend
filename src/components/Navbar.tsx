@@ -120,7 +120,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                   </button>
                   {addPost && (
                     <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
-                      <div className="w-[50%] bg-white p-2 rounded-sm relative">
+                      <div className="w-[50%] min-h-fit bg-white p-3 rounded-sm relative">
                         <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
                           X
                         </h3>

@@ -6,8 +6,9 @@ import {
   getFormattedDate,
   getToken,
 } from "@/utils/DataServices";
-import { IHaircutInterface } from "@/utils/Interfaces";
+import { ICommentInfo, IHaircutInterface } from "@/utils/Interfaces";
 import React, { useEffect, useState } from "react";
+import ImageButton from "./UploadBtnComponent";
 
 const categoryTitles = async () => {
   const response = await fetch("/Haircuts.json");
@@ -114,21 +115,21 @@ const AddPostComponent = () => {
             <div className="w-[60%]">
               <div className="flex justify-between">
                 <h4>Caption</h4>
-                <h5 className="text-sm">700 characters max</h5>
+                <h5 className="text-sm">300 characters max</h5>
               </div>
 
               <textarea
                 name="caption"
                 id="postCaption"
-                maxLength={700}
+                maxLength={300}
                 placeholder="Caption..."
-                className="bg-[#f5f5f5] p-2 w-full"
+                className="bg-[#f5f5f5] p-2 w-full h-[30%]"
                 onChange={(e) => setCaption(e.target.value)}
               ></textarea>
             </div>
           </div>
 
-          <label htmlFor="pictureSelect" className="cursor-pointer">
+          {/* <label htmlFor="pictureSelect" className="cursor-pointer">
             <div className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-center">
               Upload Image
             </div>
@@ -140,7 +141,9 @@ const AddPostComponent = () => {
             accept="image/*,.pdf"
             className="hidden"
             onChange={handleImage}
-          />
+          /> */}
+
+          <ImageButton/>
 
           <div>
             <h4>Category/Style</h4>

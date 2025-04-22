@@ -1,6 +1,7 @@
-import { getUserData } from "@/utils/DataServices";
-import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
+import { checkToken, getUserData } from "@/utils/DataServices";
+import { ICommentInfo, IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const FocusPostComponent = (data: IPostItems) => {
@@ -31,6 +32,8 @@ const FocusPostComponent = (data: IPostItems) => {
     isDeleted: false,
   });
   const [username] = useState<string>(data.publisherName);
+  const [commentText, setCommentText] = useState<string>("");
+   const router = useRouter();
 
   useEffect(() => {
     const fetchProfileData = async (username: string) => {
@@ -38,9 +41,27 @@ const FocusPostComponent = (data: IPostItems) => {
     };
     fetchProfileData(username);
   }, [username]);
+
+  const addComment = async() => {
+    if(!checkToken()){router.push("/login")}
+    else{
+      const commentToAdd:ICommentInfo = {
+        id: data.userId,
+        username: data.publisherName,
+        comment: commentText
+      }
+      console.log(commentToAdd)
+    }
+  }
+
+  const viewMore = async() => {
+    localStorage.setItem("Category", data.category);
+    router.push("/directory");
+  }
+
   return (
     <div>
-              <h2 className="text-center text-2xl">Post</h2>
+      <h2 className="text-center text-2xl">Post</h2>
       <div className="flex place-items-center p-2">
         <div className="flex gap-2 w-full">
           <div className="w-[50%]">
@@ -48,7 +69,7 @@ const FocusPostComponent = (data: IPostItems) => {
               <Image
                 width={100}
                 height={100}
-                src={userData.pfp != ""? userData.pfp:"/nofileselected.png"}
+                src={userData.pfp != "" ? userData.pfp : "/nofileselected.png"}
                 className="w-6 rounded-full h-6"
                 alt={`${data.publisherName}'s profile pic`}
               />
@@ -93,8 +114,8 @@ const FocusPostComponent = (data: IPostItems) => {
               </div>
               <h3>{`category: ${data.category}`}</h3>
             </div>
-           
-            <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+
+            <button onClick={viewMore} className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
               View More Posts Like This
             </button>
           </div>
@@ -106,24 +127,32 @@ const FocusPostComponent = (data: IPostItems) => {
                 placeholder="Add a comment"
                 className="rounded-md bg-white text-sm p-1 w-full"
                 maxLength={70}
+                onChange={(e) => (setCommentText(e.target.value))}
               />
               <div className="rounded-full w-8 h-8 flex justify-center place-items-center cursor-pointer">
+             <button onClick={addComment}>
+
                 <Image
                   width={100}
                   height={100}
                   alt="comment icon"
                   src="/icons/beacon.png"
                   className="h-[25px] w-[25px]  p-1"
-                />
+                  />
+                  </button>
               </div>
             </div>
             <hr />
-            {data.comments != null ? data.comments.map((comment, idx) => (
-              <div key={idx} className="flex gap-2">
-                <h3>{comment.username}</h3>
-                <h3>{comment.comment}</h3>
-              </div>
-            )): <div className="text-center text-slate-400">no comments yet</div>}
+            {data.comments != null ? (
+              data.comments.map((comment, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <h3>{comment.username}</h3>
+                  <h3>{comment.comment}</h3>
+                </div>
+              ))
+            ) : (
+              <div className="text-center text-slate-400">no comments yet</div>
+            )}
           </div>
         </div>
       </div>

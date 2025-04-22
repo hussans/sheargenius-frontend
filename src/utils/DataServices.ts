@@ -8,6 +8,7 @@ import {
 
 const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
+const blobURL = "https://aaronsblob123.blob.core.windows.net/aaronsblob"
 
 let userData: IUserProfileInfo;
 let profileData: INewUser;
@@ -36,6 +37,26 @@ export const createAccount = async (user: INewUser) => {
 
 // Edit account fetch
 export const editAccount = async (newUser: IUserProfileInfo) => {
+  const res = await fetch(`${url}User/EditAccount`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+  // if our response is not ok, we will run this block
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.json();
+  return data.success;
+};
+
+export const addCommentToPost = async (newUser: IUserProfileInfo) => {
   const res = await fetch(`${url}User/EditAccount`, {
     method: "PUT",
     headers: {
@@ -317,4 +338,25 @@ export const setCategory = (cat: string) => {
 };
 export const getCategory = () => {
   return localStorage.getItem("searchQuery") as string;
+};
+
+export const blobUpload = async (params: FormData)=> {
+  const response = await fetch(url + 'Blob/Upload', {
+      method: 'POST',
+      // The browser automatically sets the correct Content-Type header to multipart/form-data
+      body: params, //becuase params is FormData we do NOT need to stringify it
+  });
+
+  if (response.ok) {
+      // Extract the filename from FormData
+      const fileName = params.get('fileName') as string;
+      
+      // Construct the Blob Storage URL
+      const uploadedFileUrl = `${blobURL}/${fileName}`;
+      
+      return uploadedFileUrl;
+  } else {
+      console.log('Failed to upload file.');
+      return null;
+  }
 };
