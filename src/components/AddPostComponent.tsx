@@ -1,14 +1,14 @@
 "use client";
 import {
   addPostItem,
+  blobUpload,
   fetchInfo,
   getAllPosts,
   getFormattedDate,
   getToken,
 } from "@/utils/DataServices";
-import { ICommentInfo, IHaircutInterface } from "@/utils/Interfaces";
+import { IHaircutInterface } from "@/utils/Interfaces";
 import React, { useEffect, useState } from "react";
-import ImageButton from "./UploadBtnComponent";
 
 const categoryTitles = async () => {
   const response = await fetch("/Haircuts.json");
@@ -24,68 +24,74 @@ const AddPostComponent = () => {
   const [dropDown, toggleDropDown] = useState(false);
   const [style, setStyle] = useState<string>("Drop Fade");
   const [caption, setCaption] = useState<string>("");
-  const [image, setImage] = useState<string>("/nofileselected.png");
+  const [imagePreview, setImagePreview] = useState<string>(
+    "/nofileselected.png"
+  );
   const [haircuts, setHaircuts] = useState<string[]>([]);
-  // const [post, setPost] = useState<IPostItems>({
-  //   id: 0,
-  //   userId: 0,
-  //   publisherName: "",
-  //   date: "",
-  //   caption: caption,
-  //   image: image,
-  //   likes: 0,
-  //   category: style,
-  //   isPublished: true,
-  //   isDeleted: false,
-  //   comments: [
-  //     {
-  //       id: 0,
-  //       username: "",
-  //       comment: "",
-  //     },
-  //   ],
-  // });
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleSubmit = async () => {
-    console.log(fetchInfo())
-    const newPost = {
-      id: 0,
-      userId: fetchInfo().id,
-      publisherName: fetchInfo().username,
-      date: getFormattedDate(),
-      caption: caption,
-      image: image,
-      likes: 0,
-      category: style,
-      isPublished: true,
-      isDeleted: false,
-      comments: [
-        {
-          id: 0,
-          username: "",
-          comment: "",
-        },
-      ],
-    };
-    // setPost(newPost);
-    console.log(getToken());
-    await addPostItem(newPost, getToken());
-    console.log(await getAllPosts());
-    // console.log(await getAllPosts(getToken()));
-    window.location.reload();
-  };
   useEffect(() => {
     const fetchTitles = async () => {
       setHaircuts(await categoryTitles());
     };
     fetchTitles();
-  }, [style]);
+  }, [dropDown]);
 
-  const handleStyle = (cut:string) => {
-    setStyle(cut)
-    toggleDropDown(false)
-  }
+  const handleStyle = (cut: string) => {
+    setStyle(cut);
+    toggleDropDown(false);
+  };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImage(e);
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  //A Function that Handles the submitting of file to our backend
+  const handleSubmit = async () => {
+    //Check if the file is inside of our state Variable
+    if (!file) {
+      alert("Please select a file to upload.");
+      return;
+    }
+    //A Unique file name so data isn't being overwritten in our blob
+    const uniqueFileName = `${Date.now()}-${file.name}`;
+
+    //New Form Data Object to append our file and file name
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", uniqueFileName);
+
+    //Finally passing that formData into our Backend
+    const uploadedUrl = await blobUpload(formData);
+
+    if (uploadedUrl) {
+      console.log("File uploaded at:", uploadedUrl);
+      console.log("f");
+      const newPost = {
+        id: 0,
+        userId: fetchInfo().id,
+        publisherName: fetchInfo().username,
+        date: getFormattedDate(),
+        caption: caption,
+        image: uploadedUrl,
+        likes: 0,
+        category: style,
+        isPublished: true,
+        isDeleted: false,
+        comments: [],
+      };
+      console.log(newPost);
+      await addPostItem(newPost, getToken());
+      console.log(await getAllPosts());
+      // window.location.reload();
+      // You can now store this URL in your component state or send it to your backend
+    }
+  };
+
+  //normal file reader for image preview NOT added to DB
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     const file = e.target.files?.[0];
@@ -93,11 +99,12 @@ const AddPostComponent = () => {
     if (file) {
       //when this files if turned into a string this on load function will run
       reader.onload = () => {
-        setImage(String(reader.result)); //once the file is read we will store the result into our setter function
+        setImagePreview(String(reader.result)); //once the file is read we will store the result into our setter function
       };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
   };
+
   return (
     <div>
       <h2 className="text-center text-2xl">Create Post</h2>
@@ -107,7 +114,7 @@ const AddPostComponent = () => {
             <div className="w-[40%]">
               <h4>Image</h4>
               <img
-                src={image}
+                src={imagePreview}
                 alt="new post picture"
                 className="aspect-square border border-slate-300"
               />
@@ -129,7 +136,7 @@ const AddPostComponent = () => {
             </div>
           </div>
 
-          {/* <label htmlFor="pictureSelect" className="cursor-pointer">
+          <label htmlFor="pictureSelect" className="cursor-pointer">
             <div className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-center">
               Upload Image
             </div>
@@ -140,10 +147,8 @@ const AddPostComponent = () => {
             id="pictureSelect"
             accept="image/*,.pdf"
             className="hidden"
-            onChange={handleImage}
-          /> */}
-
-          <ImageButton/>
+            onChange={handleFileChange}
+          />
 
           <div>
             <h4>Category/Style</h4>

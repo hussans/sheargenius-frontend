@@ -9,39 +9,14 @@ const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [focus, setFocus] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-  const [posts, setPosts] = useState<IPostItems[]>([
-    // {
-    //   id: 0,
-    //   userId: 0,
-    //   publisherName: "",
-    //   date: "",
-    //   caption: "",
-    //   image: "/nofileselected.png",
-    //   likes: 0,
-    //   category: "",
-    //   isPublished: true,
-    //   isDeleted: false,
-    //   comments: [{ id: 0, username: "", comment: "" }],
-    // },
-  ]);
-  const [activePost, setActivePost] = useState<IPostItems>({
-    id: 0,
-    userId: 0,
-    publisherName: "",
-    date: "",
-    caption: "",
-    image: "/nofileselected.png",
-    likes: 0,
-    category: "",
-    isPublished: true,
-    isDeleted: false,
-    comments: [{ id: 0, username: "", comment: "" }],
-  });
+  const [posts, setPosts] = useState<IPostItems[]>([]);
 
   useEffect(() => {
     const asyncGetPosts = async (id: number) => {
-      setPosts(await getUserPosts(id));
-      console.log(await getUserPosts(id));
+      if (id != 0) {
+        setPosts(await getUserPosts(id));
+        console.log(await getUserPosts(id));
+      }
     };
     asyncGetPosts(data.id);
   }, [data.id]);
@@ -55,10 +30,6 @@ const PostFeed = (data: IUserProfileInfo) => {
     setDropDownOpen(false);
   };
 
-  const displayPost = (post: IPostItems) => {
-    setFocus(true);
-    setActivePost(post);
-  };
   return (
     <div>
       {" "}

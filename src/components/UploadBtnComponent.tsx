@@ -13,7 +13,7 @@ const ImageButton = () => {
   };
   //A Function that Handles the submitting of file to our backend
   const handleSubmit = async (e: React.FormEvent) => {
-  //Prevent default so our app doesn't reload on submitting
+      //Prevent default so our app doesn't reload on submitting
       e.preventDefault();
   
 		  //Check if the file is inside of our state Variable
