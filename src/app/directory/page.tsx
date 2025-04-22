@@ -53,26 +53,35 @@ export default function DirectoryPage() {
       </header>
       {haircut && (
         <div className="container mt-20 px-4 mx-auto">
-          {/* Haircut Examples */}
+         
           <div>
             <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
               {haircut.name} Examples
             </h2>
-            <div className="flex flex-col md:flex-row gap-12 justify-evenly items-center">
-              <img
-                src={haircut.photo1}
-                alt={haircut.name}
-                className="w-[500px] h-[500px] object-cover rounded-lg shadow-lg"
-              />
-              <img src="/icons/sheargenius-logo.svg" alt="Shear Genius Logo" />
+            <div className="flex flex-col md:flex-row md:justify-center md:items-center gap-12 text-center">
+              <div className="flex justify-center">
+
+
+                <img
+                  src={haircut.photo1}
+                  alt={haircut.name}
+                  className="w-full max-w-[400px] object-cover rounded-lg shadow-lg"
+                />
+              </div>
+              <div className="flex justify-center">
+              <img src="/icons/sheargenius-logo.svg" alt="Shear Genius Logo"
+                className="w-20 h-auto object-contain" />
+                </div>
+                <div className="flex justify-center">
               <img
                 src={haircut.photo2}
                 alt={haircut.name}
-                className="w-[500px] h-[500px] object-cover rounded-lg shadow-lg"
+                className="w-full max-w-[400px] object-cover rounded-lg shadow-lg"
               />
+              </div>
             </div>
           </div>
-          {/* Related Post Section */}
+          
           <div className="mt-28">
             <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
               Related Posts
@@ -89,7 +98,7 @@ export default function DirectoryPage() {
             </div>
           </div>
           <div className="flex flex-row justify-center items-center gap-12 mt-20">
-            {/* How-To Steps */}
+           
             <div className="w-full lg:w-1/3 text-left">
               <h3 className="text-2xl font-bold mb-4 font-[NeueMontreal-Medium]">
                 How To:
@@ -101,7 +110,7 @@ export default function DirectoryPage() {
                 <li>4. {haircut.howTo.step4}</li>
               </ul>
             </div>
-            {/* Video Tutorial */}
+           
             <div className="w-full lg:w-2/3 text-center">
               <div className="flex justify-center">
                 <iframe
