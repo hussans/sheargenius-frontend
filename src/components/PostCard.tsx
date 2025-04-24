@@ -1,10 +1,20 @@
-import { IPostItems } from "@/utils/Interfaces";
+import { ICommentInfo, IPostItems } from "@/utils/Interfaces";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FocusPostComponent from "./FocusPostComponent";
+import { getCommentsbyId } from "@/utils/DataServices";
 
 const PostCard = (data: IPostItems) => {
   const [focus, setFocus] = useState<boolean>(false);
+  const [comments, setComments] = useState<ICommentInfo[]>([]);
+  
+  useEffect(() => {
+    const getCommentNumber = async() => {
+      setComments(await getCommentsbyId(data.id));
+    }
+    getCommentNumber()
+  })
+
   return (
     <div>
       {focus && (
@@ -61,7 +71,7 @@ const PostCard = (data: IPostItems) => {
                   />
                 </button>
                 <p className="font-[NeueMontreal-Medium] text-lg">
-                  {data.likes}
+                  {data.likes.length}
                 </p>
               </div>
               <div className="flex flex-row gap-2">
@@ -71,7 +81,7 @@ const PostCard = (data: IPostItems) => {
                   alt="Beacon Comment Icon"
                 />
                 <p className="font-[NeueMontreal-Medium] text-lg">
-                  {data.comments != null ? data.comments.length : "0"}
+                {comments != null ? comments.length : "0"}
                 </p>
               </div>
             </div>

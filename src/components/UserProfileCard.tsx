@@ -8,7 +8,7 @@ import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
@@ -27,7 +27,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [zip, setZip] = useState<string>(info.zip);
   const [bio, setBio] = useState<string>(info.bio);
   const [file, setFile] = useState<File | null>(null);
-  const [data] = useState<IUserProfileInfo>({...info});
+  // const [data] = useState<IUserProfileInfo>({...info});
   const router = useRouter();
 
   const toggleDropDown = () => {

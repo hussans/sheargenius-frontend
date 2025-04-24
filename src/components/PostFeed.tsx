@@ -3,11 +3,9 @@ import PostCard from "./PostCard";
 import { Button } from "./ui/button";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import { getUserPosts } from "@/utils/DataServices";
-import FocusPostComponent from "./FocusPostComponent";
 
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
-  const [focus, setFocus] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
   const [posts, setPosts] = useState<IPostItems[]>([]);
 

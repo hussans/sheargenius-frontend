@@ -52,7 +52,7 @@ const FocusPostComponent = (data: IPostItems) => {
       console.log(await getCommentsbyId(id));
     };
     fetchProfileData(username, data.id);
-  }, [newComment]);
+  }, [newComment,data.id,username]);
    
   const addLike = () => {
     setLikes(likes+1)

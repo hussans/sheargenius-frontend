@@ -12,7 +12,47 @@ import { IPostItems } from "@/utils/Interfaces";
 
 export default function Home() {
   const [searchActive, setSearchActive] = useState(false);
-  const [posts, setPosts] = useState<IPostItems[]>([]);
+    const [posts, setPosts] = useState<IPostItems[]>([
+      {
+        id: 0,
+        userId: 0,
+        publisherName: "",
+        date: "",
+        caption: "",
+        image: "/nofileselected.png",
+        likes: [],
+        category: "",
+        isPublished: true,
+        isDeleted: false,
+        comments: [],
+      },
+      {
+        id: 0,
+        userId: 0,
+        publisherName: "",
+        date: "",
+        caption: "",
+        image: "/nofileselected.png",
+        likes: [],
+        category: "",
+        isPublished: true,
+        isDeleted: false,
+        comments: [],
+      },
+      {
+        id: 0,
+        userId: 0,
+        publisherName: "",
+        date: "",
+        caption: "",
+        image: "/nofileselected.png",
+        likes: [],
+        category: "",
+        isPublished: true,
+        isDeleted: false,
+        comments: [],
+      },
+    ]);
   useEffect(() => {
     const asyncGetPosts = async() => {
       setPosts(await getAllPosts())
@@ -32,12 +72,11 @@ export default function Home() {
         </div>
         <div className="mt-10">
           <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-3 sm:grid-cols-1 sm:grid-rows-6 md:grid-cols-2 md:grid-rows-3">
-            <PostCard {...posts[2]}/>
-            <PostCard {...posts[2]}/>
-            <PostCard {...posts[2]}/>
-            <PostCard {...posts[2]}/>
-            <PostCard {...posts[2]}/>
-            <PostCard {...posts[2]}/>
+          {posts.slice(0, 6).map((post, index) => (
+                <div key={index}>
+                  <PostCard {...post} />
+                </div>
+              ))}
           </div>
           <div className="mt-10">
             <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">

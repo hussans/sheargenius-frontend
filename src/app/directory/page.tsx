@@ -35,17 +35,11 @@ export default function DirectoryPage() {
       date: "",
       caption: "",
       image: "/nofileselected.png",
-      likes: 0,
+      likes: [],
       category: "",
       isPublished: true,
       isDeleted: false,
-      comments: [
-        {
-          id: 0,
-          username: "",
-          comment: "",
-        },
-      ],
+      comments: [],
     },
     {
       id: 0,
@@ -54,17 +48,11 @@ export default function DirectoryPage() {
       date: "",
       caption: "",
       image: "/nofileselected.png",
-      likes: 0,
+      likes: [],
       category: "",
       isPublished: true,
       isDeleted: false,
-      comments: [
-        {
-          id: 0,
-          username: "",
-          comment: "",
-        },
-      ],
+      comments: [],
     },
     {
       id: 0,
@@ -73,17 +61,11 @@ export default function DirectoryPage() {
       date: "",
       caption: "",
       image: "/nofileselected.png",
-      likes: 0,
+      likes: [],
       category: "",
       isPublished: true,
       isDeleted: false,
-      comments: [
-        {
-          id: 0,
-          username: "",
-          comment: "",
-        },
-      ],
+      comments: [],
     },
   ]);
 

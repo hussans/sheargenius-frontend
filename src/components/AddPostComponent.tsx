@@ -3,7 +3,6 @@ import {
   addPostItem,
   blobUpload,
   fetchInfo,
-  getAllPosts,
   getFormattedDate,
   getToken,
 } from "@/utils/DataServices";
