@@ -225,7 +225,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 {openCategory === "fades" && (
                   <div className="mt-2 ml-8 space-y-1">
                     <Link
-                      href="/fades/drop-fade"
+                      href={`./directory/drop-fade`}
                       className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
                     >
                       Drop Fade
