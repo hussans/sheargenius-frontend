@@ -11,10 +11,6 @@ import { IPostItems } from "@/utils/Interfaces";
 
 
 export default function Home() {
-  // const getPosts = async (): Promise<IPostItems[]> => {
-  //   const postEntries: IPostItems[] = await getAllPosts();
-  //   return postEntries;
-  // };
   const [searchActive, setSearchActive] = useState(false);
   const [posts, setPosts] = useState<IPostItems[]>([]);
   useEffect(() => {

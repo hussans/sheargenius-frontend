@@ -7,7 +7,7 @@ import {
   getFormattedDate,
   getToken,
 } from "@/utils/DataServices";
-import { IHaircutInterface } from "@/utils/Interfaces";
+import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
 import React, { useEffect, useState } from "react";
 
 const categoryTitles = async () => {
@@ -68,23 +68,23 @@ const AddPostComponent = () => {
     const uploadedUrl = await blobUpload(formData);
 
     if (uploadedUrl) {
-      const newPost = {
+      const newPost:IPostItems = {
         id: 0,
         userId: fetchInfo().id,
         publisherName: fetchInfo().username,
         date: getFormattedDate(),
         caption: caption,
         image: uploadedUrl,
-        likes: 0,
+        likes: [],
         category: style,
         isPublished: true,
         isDeleted: false,
-        comments: [],
+        comments: []
       };
       console.log(newPost);
       await addPostItem(newPost, getToken());
-      console.log(await getAllPosts());
-      // window.location.reload();
+      // console.log(await getAllPosts());
+      window.location.reload();
       // You can now store this URL in your component state or send it to your backend
     }
   };

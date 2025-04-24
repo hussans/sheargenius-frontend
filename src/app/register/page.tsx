@@ -20,7 +20,6 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const [date, setDate] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [exp, setExp] = useState<string>("");
   const [barbershopName, setBarbershopName] = useState<string>("");
@@ -59,20 +58,19 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
-    setDate(getFormattedDate())
+    console.log(getFormattedDate())
     const newEditedUser: INewUser = {
       id: 0,
       username: username.toLowerCase(),
       password: password,
       accountType: selectedRole,
       name: name,
-      date: date,
+      date: getFormattedDate(),
       rating: 0,
-      ratingCount: 0,
+      ratingCount: [],
       followers: [],
       following: [],
-      followerCount: 0,
-      followingCount: 0,
+      likes: [],
       securityQuestion: securityQuestion,
       securityAnswer: securityAnswer.toLowerCase(),
       bio: Number(exp) > 0 ? `${exp} year(s) of experience.`: "",
@@ -197,7 +195,7 @@ const Register = () => {
               </p>
               <input
                 className="bg-[#F5F5F5] rounded-md p-4"
-                type="text"
+                type="username"
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
               />

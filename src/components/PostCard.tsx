@@ -22,7 +22,7 @@ const PostCard = (data: IPostItems) => {
       )}
       <div
         onClick={() => setFocus(true)}
-        className="w-full h-[500px] rounded-lg relative overflow-hidden"
+        className="w-full h-[500px] rounded-lg relative cursor-pointer overflow-hidden"
       >
         <div className="bg-gray-300 text-white h-[410px] flex justify-center">
           <Image

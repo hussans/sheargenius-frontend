@@ -54,8 +54,8 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             </div>
             <h2>{data.name}</h2>
             <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-              <h3>{data.followerCount} Followers</h3>
-              <h3>{data.followingCount} Followers</h3>
+              <h3>{data.followers.length} Followers</h3>
+              <h3>{data.following.length} Followers</h3>
             </div>
           </div>
         </div>

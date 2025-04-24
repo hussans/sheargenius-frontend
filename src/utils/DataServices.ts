@@ -1,4 +1,5 @@
 import {
+  ICommentInfo,
   IHaircutInterface,
   INewUser,
   IPostItems,
@@ -56,13 +57,13 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
   return data.success;
 };
 
-export const addCommentToPost = async (newUser: IUserProfileInfo) => {
-  const res = await fetch(`${url}User/EditAccount`, {
-    method: "PUT",
+export const addCommentToPost = async (comment:ICommentInfo) => {
+  const res = await fetch(`${url}Post/AddComment`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newUser),
+    body: JSON.stringify(comment),
   });
   // if our response is not ok, we will run this block
   if (!res.ok) {
@@ -74,6 +75,18 @@ export const addCommentToPost = async (newUser: IUserProfileInfo) => {
 
   const data = await res.json();
   return data.success;
+};
+
+export const getCommentsbyId = async (id: number) => {
+  const res = await fetch(`${url}Post/GetCommentsByPostId?id=${id}`);
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return null;
+  }
+  const data = await res.json();
+  return data;
 };
 
 //Login fetch
@@ -98,7 +111,7 @@ export const login = async (user: IUserInfo) => {
 };
 //get Logged in data fetch
 export const getLoggedInUserData = async (username: string) => {
-  const res = await fetch(`${url}/User/GetUserInfoByUsername/${username}`);
+  const res = await fetch(`${url}User/GetUserInfoByUsername/${username}`);
   if (!res.ok) {
     const data = await res.json();
     const message = data.message;
@@ -114,7 +127,7 @@ export const getLoggedInUserData = async (username: string) => {
 export const getProfileUserData = async (username: string) => {
   try {
     const res = await fetch(
-      `${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`
+      `${url}User/GetProfileInfoByUsername/${username.toLowerCase()}`
     );
 
     if (!res.ok) {
@@ -135,7 +148,7 @@ export const getProfileUserData = async (username: string) => {
 
 export const getUserData = async (username: string) => {
   const res = await fetch(
-    `${url}/User/GetUserInfoByUsername/${username.toLowerCase()}`
+    `${url}User/GetUserInfoByUsername/${username.toLowerCase()}`
   );
   userData = await res.json();
   // console.log(profileData)

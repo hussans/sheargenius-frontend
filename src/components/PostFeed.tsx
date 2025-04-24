@@ -16,6 +16,7 @@ const PostFeed = (data: IUserProfileInfo) => {
       if (id != 0) {
         setPosts(await getUserPosts(id));
         console.log(await getUserPosts(id));
+        console.log(await getUserPosts(id));
       }
     };
     asyncGetPosts(data.id);

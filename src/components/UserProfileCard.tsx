@@ -6,29 +6,28 @@ import {
 } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
-// import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [pfp, setPfp] = useState<string>(info.pfp);
-  const [accountType, setAccountType] = useState<string>("");
-  const [shopName, setShopName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [state, setState] = useState<string>("");
-  const [zip, setZip] = useState<string>("");
-  const [bio, setBio] = useState<string>("");
+  const [name, setName] = useState<string>(info.name);
+  const [email, setEmail] = useState<string>(info.email);
+  const [pfp] = useState<string>(info.pfp);
+  const [pfpPreview, setPfpPreview] = useState<string>(info.pfp);
+  const [accountType, setAccountType] = useState<string>(info.accountType);
+  const [shopName, setShopName] = useState<string>(info.shopName);
+  const [address, setAddress] = useState<string>(info.address);
+  const [city, setCity] = useState<string>(info.city);
+  const [state, setState] = useState<string>(info.state);
+  const [zip, setZip] = useState<string>(info.zip);
+  const [bio, setBio] = useState<string>(info.bio);
   const [file, setFile] = useState<File | null>(null);
-  // const [data, setData] = useState<IUserProfileInfo>({...info});
-
+  const [data] = useState<IUserProfileInfo>({...info});
   const router = useRouter();
 
   const toggleDropDown = () => {
@@ -75,8 +74,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     const uploadedUrl = await blobUpload(formData);
 
     if (uploadedUrl) {
-      console.log("File uploaded at:", uploadedUrl);
-      console.log("f");
       const newEditedUser: IUserProfileInfo = {
         id: 0,
         username: info.username,
@@ -89,8 +86,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
         ratingCount: info.ratingCount,
         followers: info.followers,
         following: info.following,
-        followerCount: info.followerCount,
-        followingCount: info.followingCount,
+        likes: info.likes,
         securityQuestion: info.securityQuestion,
         securityAnswer: info.securityAnswer,
         bio: bio,
@@ -103,14 +99,15 @@ const UserProfileCard = (info: IUserProfileInfo) => {
         pfp: uploadedUrl,
         isDeleted: info.isDeleted,
       };
-      console.log(newEditedUser);
       const result = await editAccount(newEditedUser);
+      console.log(newEditedUser)
       if (result) {
         console.log("Editing Success");
         sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
         // router.push("/user-profile");
         // setData(newEditedUser);
         cancelEdit();
+        window.location.reload();
       } else {
         alert("Editing Failed");
       }
@@ -145,12 +142,13 @@ const UserProfileCard = (info: IUserProfileInfo) => {
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
+
     const file = e.target.files?.[0];
 
     if (file) {
       //when this files if turned into a string this on load function will run
       reader.onload = () => {
-        setPfp(String(reader.result)); //once the file is read we will store the result into our setter function
+        setPfpPreview(String(reader.result)); //once the file is read we will store the result into our setter function
       };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
@@ -213,6 +211,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     <section className="font-[NeueMontreal-Medium]">
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/* div when edit is selected */}
           <button
             className="w-fit cursor-pointer text-slate-500 hover:text-black text-2xl px-3"
             onClick={cancelEdit}
@@ -226,7 +225,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
             <Image
               width={100}
               height={100}
-              src={info.pfp != "" ? info.pfp : "/nofileselected.png"}
+              src={pfp == pfpPreview ? info.pfp : pfpPreview}
               alt={`${info.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
@@ -442,6 +441,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
         </div>
       ) : (
         <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/*div when edit is not selected*/}
           <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
             <div className="flex sm:gap-7 gap-3 h-[125px]">
               <img
@@ -492,8 +492,8 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                 </div>
                 <h2>{info.name}</h2>
                 <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-                  <h3>{info.followerCount} Followers</h3>
-                  <h3>{info.followingCount} Followers</h3>
+                  <h3>{info.followers.length} Followers</h3>
+                  <h3>{info.following.length} Followers</h3>
                 </div>
               </div>
             </div>
@@ -595,8 +595,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
           </div>
         </div>
       )}
-
-      {/* div when edit is selected */}
     </section>
   );
 };
