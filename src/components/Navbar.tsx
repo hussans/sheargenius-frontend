@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { checkToken, setCategory } from "@/utils/DataServices";
+import { usePathname, useRouter } from "next/navigation";
+import { checkToken, getCategory, setCategory } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
 
 interface NavbarProps {
@@ -43,8 +43,14 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     }
   };
 
+  const path = usePathname();
+  console.log(path);
+
   const handleHaircutLinkClick = (haircutName: string) => {
     setCategory(haircutName);
+    if (path == "/directory") {
+      window.location.reload();
+    }
     router.push("/directory");
     setIsOpen(false);
     setOpenCategory(null);
@@ -129,16 +135,6 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                       onClick={addPostClick}
                     />
                   </button>
-                  {addPost && (
-                    <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center">
-                      <div className="w-[50%] min-h-fit bg-white p-3 rounded-sm relative">
-                        <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
-                          X
-                        </h3>
-                        <AddPostComponent/>
-                      </div>
-                    </div>
-                  )}
                   <button
                     className="cursor-pointer"
                     onClick={handleSearchClick}
@@ -170,11 +166,15 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       <div className="h-[64px]"></div>
 
       {addPost && (
-         <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center z-60">
-           <div className="w-[50%] bg-white p-2 rounded-sm relative">
-             <h3 className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
-               X
-             </h3>
+         <div className="fixed top-0 left-0 h-screen bg-[#f5f5f596] w-full flex justify-center place-items-center z-60">
+           <div className="w-[50%] bg-white rounded-lg relative">
+             <button className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
+                <img
+                  className="w-[25px] hover:bg-gray-100 hover:rounded-sm"
+                  src="./icons/cross-small.png"
+                  alt="Closing X Button"
+                />
+             </button>
              <AddPostComponent/>
            </div>
          </div>
@@ -313,12 +313,12 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                      <button onClick={() => handleHaircutLinkClick("Taper Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Taper Cut</button>
                      <button onClick={() => handleHaircutLinkClick("Crew Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Crew Cut</button>
                      <button onClick={() => handleHaircutLinkClick("Buzz Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Buzz Cut</button>
-                     <button onClick={() => handleHaircutLinkClick("Mullet Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Mullet Cut</button>
+                     <button onClick={() => handleHaircutLinkClick("Mullet")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Mullet Cut</button>
                      <button onClick={() => handleHaircutLinkClick("Cornrows")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Cornrows</button>
-                     <button onClick={() => handleHaircutLinkClick("Dreadlocks")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Dreadlocks</button>
+                     <button onClick={() => handleHaircutLinkClick("Dread Locs")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Dreadlocks</button>
                      <button onClick={() => handleHaircutLinkClick("Braids")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Braids</button>
                      <button onClick={() => handleHaircutLinkClick("Short Layer")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Short Layer</button>
-                     <button onClick={() => handleHaircutLinkClick("Blowout")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Blowout</button>
+                     <button onClick={() => handleHaircutLinkClick("Blowouts")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Blowouts</button>
                      <button onClick={() => handleHaircutLinkClick("Fringe Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Fringe Cut</button>
                      <Link href="/styles-more" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">More</Link>
                    </div>

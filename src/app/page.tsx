@@ -71,8 +71,8 @@ export default function Home() {
           <p className="font-[NeueMontreal-Medium] text-xl"> Top Posts </p>
         </div>
         <div className="mt-10">
-          <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-3 sm:grid-cols-1 sm:grid-rows-6 md:grid-cols-2 md:grid-rows-3">
-          {posts.slice(0, 6).map((post, index) => (
+          <div className="grid lg:grid-cols-3 lg:grid-rows-1 gap-3 sm:grid-cols-1 sm:grid-rows-3 md:grid-cols-2 md:grid-rows-2">
+          {posts.slice(0, 3).map((post, index) => (
                 <div key={index}>
                   <PostCard {...post} />
                 </div>

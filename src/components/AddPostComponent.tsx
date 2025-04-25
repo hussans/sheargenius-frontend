@@ -103,23 +103,23 @@ const AddPostComponent = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-center text-2xl">Create Post</h2>
+    <div className="px-10 pb-10 pt-3">
+      <h2 className="font-[NeueMontreal-Medium] text-center text-2xl mb-10">Create Post</h2>
       <div className="flex justify-center place-items-center h-[50vh]">
         <div className="flex w-[70%] flex-col gap-3">
           <div className="flex gap-3 min-h-[15vh]">
             <div className="w-[40%]">
-              <h4>Image</h4>
+              <h4 className="font-[NeueMontreal-Medium]">Image</h4>
               <img
                 src={imagePreview}
                 alt="new post picture"
-                className="aspect-square border border-slate-300"
+                className="w-full h-[205px] aspect-square outline-2 rounded-sm"
               />
             </div>
             <div className="w-[60%]">
-              <div className="flex justify-between">
-                <h4>Caption</h4>
-                <h5 className="text-sm">300 characters max</h5>
+              <div className="flex justify-between items-center">
+                <h4 className="font-[NeueMontreal-Medium]">Caption</h4>
+                <h5 className="font-[NeueMontreal-Medium] text-gray-500 text-xs">300 characters</h5>
               </div>
 
               <textarea
@@ -127,14 +127,14 @@ const AddPostComponent = () => {
                 id="postCaption"
                 maxLength={300}
                 placeholder="Caption..."
-                className="bg-[#f5f5f5] p-2 w-full h-[30%]"
+                className="bg-[#f5f5f5] p-2 w-full h-[205px] resize-none rounded-sm font-[NeueMontreal-Medium]"
                 onChange={(e) => setCaption(e.target.value)}
               ></textarea>
             </div>
           </div>
 
           <label htmlFor="pictureSelect" className="cursor-pointer">
-            <div className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-center">
+            <div className="bg-black w-full text-white text-sm font-[NeueMontreal-Medium] py-2 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-center">
               Upload Image
             </div>
           </label>
@@ -148,7 +148,7 @@ const AddPostComponent = () => {
           />
 
           <div>
-            <h4>Category/Style</h4>
+            <h4 className="font-[NeueMontreal-Medium]">Category/Style</h4>
 
             <div
               onClick={() => toggleDropDown(!dropDown)}
@@ -165,7 +165,7 @@ const AddPostComponent = () => {
             </div>
             {dropDown && (
               <div
-                className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 shadow-md transition-all duration-700 h-64 overflow-y-scroll w-[50%] ${
+                className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 shadow-md transition-all duration-700 h-50 w-[62.5%] overflow-y-scroll mt-1 ${
                   dropDown ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
               >
@@ -184,7 +184,7 @@ const AddPostComponent = () => {
             )}
           </div>
           <button
-            className="bg-[#1500FF] text-white py-2 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer"
+            className="bg-[#1500FF] text-white py-3 mt-2 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-black active:bg-[#1500FF] cursor-pointer"
             onClick={handleSubmit}
           >
             POST
