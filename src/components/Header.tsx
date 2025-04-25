@@ -32,19 +32,19 @@ const Header = ({
   const handleSearch = async () => {
     console.log("Search..", query);
     setCategory(query);
-    localStorage.setItem("Category", query);
-
     const result = await fetchHaircut(query);
-if (result !== undefined) {
-  router.push("/directory");
-} else {
-  const profileData = await getProfileUserData(query);
-  if (profileData !== null) {
-    router.push("/search-profile");
-  } else {
-    setError(true);
-  }
-}
+    if (result !== undefined) {
+      router.push("/directory");
+      return;
+    } else {
+      const profileData = await getProfileUserData(query);
+      if (profileData !== null) {
+        router.push("/search-profile");
+        return;
+      } else {
+        setError(true);
+      }
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

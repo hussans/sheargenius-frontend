@@ -13,12 +13,10 @@ const PostFeed = (data: IUserProfileInfo) => {
     const asyncGetPosts = async (id: number) => {
       if (id != 0) {
         setPosts(await getUserPosts(id));
-        console.log(await getUserPosts(id));
-        console.log(await getUserPosts(id));
       }
     };
     asyncGetPosts(data.id);
-  }, [data.id]);
+  });
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);

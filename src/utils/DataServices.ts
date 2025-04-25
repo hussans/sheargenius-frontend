@@ -255,14 +255,8 @@ export const getUserPosts = async (id: number) => {
 //   return data;
 // };
 
-export const getPostItemsByUserId = async (userId: number, token: string) => {
-  const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+export const getPostItemsByUserId = async (userId: number) => {
+  const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`)
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -274,14 +268,8 @@ export const getPostItemsByUserId = async (userId: number, token: string) => {
   return data;
 };
 
-export const getPostItemsByCategory = async (category: string, token: string) => {
-  const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+export const getPostItemsByCategory = async (category: string) => {
+  const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`)
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -292,6 +280,24 @@ export const getPostItemsByCategory = async (category: string, token: string) =>
   const data = await res.json();
   return data;
 };
+// export const getPostItemsByCategory = async (category: string, token: string) => {
+//   const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: "Bearer " + token,
+//     },
+//   });
+//   if (!res.ok) {
+//     const errorData = await res.json();
+//     const message = errorData.message;
+//     console.log(message);
+//     return [];
+//   }
+
+//   const data = await res.json();
+//   return data;
+// };
 
 export const addPostItem = async (post: IPostItems, token: string) => {
   const res = await fetch(`${url}Post/AddPost`, {

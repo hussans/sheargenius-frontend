@@ -8,7 +8,6 @@ import {
   fetchHaircut,
   getCategory,
   getPostItemsByCategory,
-  getToken,
 } from "@/utils/DataServices";
 import Header from "@/components/Header";
 
@@ -87,7 +86,7 @@ export default function DirectoryPage() {
              });
           }
 
-          const postData = await getPostItemsByCategory(category, getToken());
+          const postData = await getPostItemsByCategory(category);
           setPosts(postData && postData.length > 0 ? postData : []);
 
         } catch (error) {

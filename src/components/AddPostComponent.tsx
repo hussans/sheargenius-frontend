@@ -34,7 +34,7 @@ const AddPostComponent = () => {
       setHaircuts(await categoryTitles());
     };
     fetchTitles();
-  }, [dropDown]);
+  });
 
   const handleStyle = (cut: string) => {
     setStyle(cut);
@@ -82,9 +82,7 @@ const AddPostComponent = () => {
       };
       console.log(newPost);
       await addPostItem(newPost, getToken());
-      // console.log(await getAllPosts());
       window.location.reload();
-      // You can now store this URL in your component state or send it to your backend
     }
   };
 

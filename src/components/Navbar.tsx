@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkToken, getCategory, setCategory } from "@/utils/DataServices";
+import { checkToken, setCategory } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
 
 interface NavbarProps {

@@ -1,4 +1,3 @@
-// import { loggedInData } from "@/utils/DataServices";
 import {
   blobUpload,
   editAccount,
@@ -111,7 +110,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
       } else {
         alert("Editing Failed");
       }
-      await getLoggedInUserData(info.username);
     }
   };
 

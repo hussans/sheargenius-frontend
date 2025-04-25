@@ -99,7 +99,7 @@ const Register = () => {
           console.log(token.token);
           await getLoggedInUserData(username);
           sessionStorage.setItem("AccountInfo", JSON.stringify(loggedInData()));
-          if (loggedInData().isDeleted == false) router.push("/");
+          if (loggedInData().isDeleted == false) router.push("/user-profile");
         }
       } else {
         console.log("Login was unsuccessful, invalid useranme or password");
@@ -108,7 +108,6 @@ const Register = () => {
       alert("Username already exists...");
       console.log(newEditedUser);
     }
-    // await getLoggedInUserData(newEditedUser.username);
   };
 
   const states = [
