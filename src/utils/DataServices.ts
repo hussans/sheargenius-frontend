@@ -1,4 +1,5 @@
 import {
+  ICommentInfo,
   IHaircutInterface,
   INewUser,
   IPostItems,
@@ -8,6 +9,7 @@ import {
 
 const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
+const blobURL = "https://aaronsblob123.blob.core.windows.net/aaronsblob"
 
 let userData: IUserProfileInfo;
 let profileData: INewUser;
@@ -55,6 +57,38 @@ export const editAccount = async (newUser: IUserProfileInfo) => {
   return data.success;
 };
 
+export const addCommentToPost = async (comment:ICommentInfo) => {
+  const res = await fetch(`${url}Post/AddComment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment),
+  });
+  // if our response is not ok, we will run this block
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.json();
+  return data.success;
+};
+
+export const getCommentsbyId = async (id: number) => {
+  const res = await fetch(`${url}Post/GetCommentsByPostId?id=${id}`);
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return null;
+  }
+  const data = await res.json();
+  return data;
+};
+
 //Login fetch
 export const login = async (user: IUserInfo) => {
   const res = await fetch(`${url}User/Login`, {
@@ -77,7 +111,7 @@ export const login = async (user: IUserInfo) => {
 };
 //get Logged in data fetch
 export const getLoggedInUserData = async (username: string) => {
-  const res = await fetch(`${url}/User/GetUserInfoByUsername/${username}`);
+  const res = await fetch(`${url}User/GetUserInfoByUsername/${username}`);
   if (!res.ok) {
     const data = await res.json();
     const message = data.message;
@@ -93,7 +127,7 @@ export const getLoggedInUserData = async (username: string) => {
 export const getProfileUserData = async (username: string) => {
   try {
     const res = await fetch(
-      `${url}/User/GetProfileInfoByUsername/${username.toLowerCase()}`
+      `${url}User/GetProfileInfoByUsername/${username.toLowerCase()}`
     );
 
     if (!res.ok) {
@@ -114,7 +148,7 @@ export const getProfileUserData = async (username: string) => {
 
 export const getUserData = async (username: string) => {
   const res = await fetch(
-    `${url}/User/GetUserInfoByUsername/${username.toLowerCase()}`
+    `${url}User/GetUserInfoByUsername/${username.toLowerCase()}`
   );
   userData = await res.json();
   // console.log(profileData)
@@ -317,4 +351,25 @@ export const setCategory = (cat: string) => {
 };
 export const getCategory = () => {
   return localStorage.getItem("searchQuery") as string;
+};
+
+export const blobUpload = async (params: FormData)=> {
+  const response = await fetch(url + 'Blob/Upload', {
+      method: 'POST',
+      // The browser automatically sets the correct Content-Type header to multipart/form-data
+      body: params, //becuase params is FormData we do NOT need to stringify it
+  });
+
+  if (response.ok) {
+      // Extract the filename from FormData
+      const fileName = params.get('fileName') as string;
+      
+      // Construct the Blob Storage URL
+      const uploadedFileUrl = `${blobURL}/${fileName}`;
+      
+      return uploadedFileUrl;
+  } else {
+      console.log('Failed to upload file.');
+      return null;
+  }
 };

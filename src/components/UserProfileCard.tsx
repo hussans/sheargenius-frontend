@@ -1,8 +1,11 @@
 // import { loggedInData } from "@/utils/DataServices";
-import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
+import {
+  blobUpload,
+  editAccount,
+  getLoggedInUserData,
+} from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
-// import { FileInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -12,18 +15,19 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [pfp, setPfp] = useState<string>("/nofileselected.png");
-  const [accountType, setAccountType] = useState<string>("");
-  const [shopName, setShopName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [state, setState] = useState<string>("");
-  const [zip, setZip] = useState<string>("");
-  const [bio, setBio] = useState<string>("");
-  // const [data, setData] = useState<IUserProfileInfo>({...info});
-
+  const [name, setName] = useState<string>(info.name);
+  const [email, setEmail] = useState<string>(info.email);
+  const [pfp] = useState<string>(info.pfp);
+  const [pfpPreview, setPfpPreview] = useState<string>(info.pfp);
+  const [accountType, setAccountType] = useState<string>(info.accountType);
+  const [shopName, setShopName] = useState<string>(info.shopName);
+  const [address, setAddress] = useState<string>(info.address);
+  const [city, setCity] = useState<string>(info.city);
+  const [state, setState] = useState<string>(info.state);
+  const [zip, setZip] = useState<string>(info.zip);
+  const [bio, setBio] = useState<string>(info.bio);
+  const [file, setFile] = useState<File | null>(null);
+  // const [data] = useState<IUserProfileInfo>({...info});
   const router = useRouter();
 
   const toggleDropDown = () => {
@@ -53,44 +57,62 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   };
 
   const saveEdits = async () => {
-    const newEditedUser: IUserProfileInfo = {
-      id: 0,
-      username: info.username,
-      salt: info.salt,
-      hash: info.hash,
-      date: info.date,
-      accountType: accountType,
-      name: name,
-      rating: info.rating,
-      ratingCount: info.ratingCount,
-      followers: info.followers,
-      following: info.following,
-      followerCount: info.followerCount,
-      followingCount: info.followingCount,
-      securityQuestion: info.securityQuestion,
-      securityAnswer: info.securityAnswer,
-      bio: bio,
-      email: email,
-      shopName: shopName,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-      pfp: pfp,
-      isDeleted: info.isDeleted,
-    };
-    // console.log(newEditedUser);
-    const result = await editAccount(newEditedUser);
-    if (result) {
-      console.log("Editing Success");
-      sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
-      // router.push("/user-profile");
-      // setData(newEditedUser);
-      cancelEdit();
-    } else {
-      alert("Editing Failed");
+    //Check if the file is inside of our state Variable
+    if (!file) {
+      alert("Please select a file to upload.");
+      return;
     }
-    await getLoggedInUserData(info.username);
+    //A Unique file name so data isn't being overwritten in our blob
+    const uniqueFileName = `${Date.now()}-${file.name}`;
+
+    //New Form Data Object to append our file and file name
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", uniqueFileName);
+
+    //Finally passing that formData into our Backend
+    const uploadedUrl = await blobUpload(formData);
+
+    if (uploadedUrl) {
+      const newEditedUser: IUserProfileInfo = {
+        id: 0,
+        username: info.username,
+        salt: info.salt,
+        hash: info.hash,
+        date: info.date,
+        accountType: accountType,
+        name: name,
+        rating: info.rating,
+        ratingCount: info.ratingCount,
+        followers: info.followers,
+        following: info.following,
+        likes: info.likes,
+        securityQuestion: info.securityQuestion,
+        securityAnswer: info.securityAnswer,
+        bio: bio,
+        email: email,
+        shopName: shopName,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        pfp: uploadedUrl,
+        isDeleted: info.isDeleted,
+      };
+      const result = await editAccount(newEditedUser);
+      console.log(newEditedUser)
+      if (result) {
+        console.log("Editing Success");
+        sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
+        // router.push("/user-profile");
+        // setData(newEditedUser);
+        cancelEdit();
+        window.location.reload();
+      } else {
+        alert("Editing Failed");
+      }
+      await getLoggedInUserData(info.username);
+    }
   };
 
   const logout = () => {
@@ -111,14 +133,22 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImage(e);
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
+
     const file = e.target.files?.[0];
 
     if (file) {
       //when this files if turned into a string this on load function will run
       reader.onload = () => {
-        setPfp(String(reader.result)); //once the file is read we will store the result into our setter function
+        setPfpPreview(String(reader.result)); //once the file is read we will store the result into our setter function
       };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
@@ -181,6 +211,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     <section className="font-[NeueMontreal-Medium]">
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/* div when edit is selected */}
           <button
             className="w-fit cursor-pointer text-slate-500 hover:text-black text-2xl px-3"
             onClick={cancelEdit}
@@ -194,7 +225,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
             <Image
               width={100}
               height={100}
-              src={pfp}
+              src={pfp == pfpPreview ? info.pfp : pfpPreview}
               alt={`${info.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
@@ -214,7 +245,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
               id="pictureSelect"
               accept="image/*,.pdf"
               className="hidden"
-              onChange={handleImage}
+              onChange={handleFileChange}
             />
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">
@@ -309,7 +340,10 @@ const UserProfileCard = (info: IUserProfileInfo) => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <p className="font-[NeueMontreal-Medium] text-sm"> Bio - 150 max characters </p>
+              <p className="font-[NeueMontreal-Medium] text-sm">
+                {" "}
+                Bio - 150 max characters{" "}
+              </p>
 
               <textarea
                 className="bg-white p-2 rounded-sm h-full resize-none"
@@ -407,10 +441,11 @@ const UserProfileCard = (info: IUserProfileInfo) => {
         </div>
       ) : (
         <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/*div when edit is not selected*/}
           <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
             <div className="flex sm:gap-7 gap-3 h-[125px]">
               <img
-                src={info.pfp != ""? info.pfp:"/nofileselected.png"}
+                src={info.pfp != "" ? info.pfp : "/nofileselected.png"}
                 alt={`${info.username} profile pic`}
                 className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
               />
@@ -457,14 +492,19 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                 </div>
                 <h2>{info.name}</h2>
                 <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-                  <h3>{info.followerCount} Followers</h3>
-                  <h3>{info.followingCount} Followers</h3>
+                  <h3>{info.followers.length} Followers</h3>
+                  <h3>{info.following.length} Followers</h3>
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <textarea className="h-full text-sm cursor-default resize-none" value={info.bio} readOnly disabled></textarea>
+              <textarea
+                className="h-full text-sm cursor-default resize-none"
+                value={info.bio}
+                readOnly
+                disabled
+              ></textarea>
             </div>
           </div>
           <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">
@@ -555,8 +595,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
           </div>
         </div>
       )}
-
-      {/* div when edit is selected */}
     </section>
   );
 };

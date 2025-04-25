@@ -7,11 +7,10 @@ export interface IUserProfileInfo {
     accountType: string;
     name: string;
     rating: number;
-    ratingCount: number;
+    ratingCount: string[];
     followers: string[];
     following: string[];
-    followerCount: number;
-    followingCount: number;
+    likes: string[];
     securityQuestion: string;
     securityAnswer: string;
     bio: string;
@@ -33,15 +32,16 @@ export interface IPostItems{
     date: string;
     caption: string;
     image: string;
-    likes: number;
+    likes: number[];
     category: string;
     isPublished: boolean;
     isDeleted: boolean;
-    comments: ICommentInfo[]
+    comments: string[] | null
 }
 
 export interface ICommentInfo{
     id: number
+    postId: number
     username: string
     comment: string
 }
@@ -59,11 +59,10 @@ export interface INewUser {
     date: string;
     name: string;
     rating: number;
-    ratingCount: number;
+    ratingCount: string[];
     followers: string[];
     following: string[];
-    followerCount: number;
-    followingCount: number;
+    likes: number[];
     securityQuestion: string;
     securityAnswer: string;
     bio: string;
