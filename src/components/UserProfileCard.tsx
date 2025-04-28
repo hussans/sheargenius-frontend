@@ -59,7 +59,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const saveEdits = async () => {
     //Check if the file is inside of our state Variable
     if (!file) {
-      alert("Please select a file to upload.");
+      alert("Please select file to upload.");
       return;
     }
     //A Unique file name so data isn't being overwritten in our blob
