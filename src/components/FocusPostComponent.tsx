@@ -3,8 +3,10 @@ import {
   checkToken,
   fetchInfo,
   getCommentsbyId,
+  getToken,
   getUserData,
   setCategory,
+  toggleLikes,
 } from "@/utils/DataServices";
 import { ICommentInfo, IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
@@ -55,8 +57,12 @@ const FocusPostComponent = (data: IPostItems) => {
     fetchProfileData(username, data.id);
   }, [newComment, data.id, username]);
 
-  const addLike = () => {
-    setLikes(likes + 1);
+  const addLike = async() => {
+    if (!checkToken()) {
+      router.push("/login");
+    } else {
+      await toggleLikes(data.id,fetchInfo().username,getToken())
+    }
   };
 
   const addComment = async () => {
@@ -123,12 +129,12 @@ const FocusPostComponent = (data: IPostItems) => {
                   <button>
                     <img
                       className="w-[25px] cursor-pointer"
-                      src="./icons/heart.png"
+                      src={data.likes.includes(fetchInfo().username) ? "./icons/heartliked.png" : "./icons/heart.png"}
                       alt="Heart Like Button Icon"
                       onClick={addLike}
                     />
                   </button>
-                  <p className="font-[NeueMontreal-Medium] text-lg">{likes}</p>
+                  <p className="font-[NeueMontreal-Medium] text-lg">{data.likes.length}</p>
                 </div>
                 <div className="flex flex-row gap-2">
                   <img

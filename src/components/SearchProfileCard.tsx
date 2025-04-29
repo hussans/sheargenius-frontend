@@ -14,7 +14,8 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
     }
     else
     {
-      await toggleFollowers(fetchInfo().username,data.username,getToken())
+      await toggleFollowers(fetchInfo().username,data.username,getToken());
+      window.location.reload();
     }
   }
   
@@ -70,8 +71,8 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             </div>
             <h2>{data.name}</h2>
             <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-              <h3>{data.followers.length} Followers</h3>
-              <h3>{data.following.length} Followers</h3>
+              <h3>{data.followers.length} {data.followers.length==1?"Follower":"Followers"}</h3>
+              <h3>{data.following.length} Following</h3>
             </div>
           </div>
         </div>

@@ -342,12 +342,32 @@ export const updatePostItem = async (post: IPostItems, token: string) => {
 
 export const toggleFollowers = async (userFollowing: string, userFollowed: string, token: string) => {
   const res = await fetch(`${url}User/ToggleFollowers?followingUser=${userFollowing}&followedUser=${userFollowed}`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify({ userFollowing, userFollowed }),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return false;
+  }
+  const data = await res.json();
+  //returns true and successfully added post to backend
+  return data.success;
+};
+
+export const toggleLikes = async (postId: number, username: string, token: string) => {
+  const res = await fetch(`${url}Post/ToggleLikes?postId=${postId}&username=${username}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ postId, username }),
   });
   if (!res.ok) {
     const errorData = await res.json();

@@ -1,7 +1,6 @@
 import {
   blobUpload,
   editAccount,
-  getLoggedInUserData,
 } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";

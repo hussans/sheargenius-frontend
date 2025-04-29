@@ -2,18 +2,25 @@ import { ICommentInfo, IPostItems } from "@/utils/Interfaces";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import FocusPostComponent from "./FocusPostComponent";
-import { getCommentsbyId } from "@/utils/DataServices";
+import { fetchInfo, getCommentsbyId } from "@/utils/DataServices";
 
 const PostCard = (data: IPostItems) => {
   const [focus, setFocus] = useState<boolean>(false);
-  const [comments, setComments] = useState<ICommentInfo[]>([]);
-  
+  const [comments, setComments] = useState<ICommentInfo[]>([
+    {
+      id: 0,
+      postId: 0,
+      username: "",
+      comment: "",
+    },
+  ]);
+
   useEffect(() => {
-    const getCommentNumber = async() => {
+    const getCommentNumber = async () => {
       setComments(await getCommentsbyId(data.id));
-    }
-    getCommentNumber()
-  })
+    };
+    getCommentNumber();
+  });
 
   return (
     <div>
@@ -66,7 +73,11 @@ const PostCard = (data: IPostItems) => {
                 <button>
                   <img
                     className="w-[25px]"
-                    src="./icons/heart.png"
+                    src={
+                      data.likes.includes(fetchInfo().username)
+                        ? "./icons/heartliked.png"
+                        : "./icons/heart.png"
+                    }
                     alt="Heart Like Button Icon"
                   />
                 </button>
@@ -81,7 +92,7 @@ const PostCard = (data: IPostItems) => {
                   alt="Beacon Comment Icon"
                 />
                 <p className="font-[NeueMontreal-Medium] text-lg">
-                {comments != null ? comments.length : "0"}
+                  {comments != null ? comments.length : "0"}
                 </p>
               </div>
             </div>

@@ -7,7 +7,21 @@ import { getUserPosts } from "@/utils/DataServices";
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-  const [posts, setPosts] = useState<IPostItems[]>([]);
+  const [posts, setPosts] = useState<IPostItems[]>([
+    {
+    id: 0,
+    userId: 0,
+    publisherName: "",
+    date: "",
+    caption: "",
+    image: "/nofileselected.png",
+    likes: [],
+    category: "",
+    isPublished: false,
+    isDeleted: true,
+    comments: null
+    }
+  ]);
 
   useEffect(() => {
     const asyncGetPosts = async (id: number) => {
@@ -16,7 +30,7 @@ const PostFeed = (data: IUserProfileInfo) => {
       }
     };
     asyncGetPosts(data.id);
-  });
+  },[data.id]);
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -97,7 +111,7 @@ const PostFeed = (data: IUserProfileInfo) => {
       ) : (
         <div>
           <div className="grid grid-cols-4 gap-3">
-            {posts.map((post, idx) => (
+            {posts.filter(post => post.isDeleted == false).map((post, idx) => (
               <PostCard key={idx} {...post} />
             ))}
           </div>

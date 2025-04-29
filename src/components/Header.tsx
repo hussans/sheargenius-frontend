@@ -1,5 +1,6 @@
 import {
   fetchHaircut,
+  fetchInfo,
   getProfileUserData,
   setCategory,
 } from "@/utils/DataServices";
@@ -32,15 +33,19 @@ const Header = ({
   const handleSearch = async () => {
     console.log("Search..", query);
     setCategory(query);
+    localStorage.setItem("Category", query);
+
+    if (query == fetchInfo().username) {
+      router.push("/user-profile");
+      return;
+    }
     const result = await fetchHaircut(query);
     if (result !== undefined) {
       router.push("/directory");
-      return;
     } else {
       const profileData = await getProfileUserData(query);
       if (profileData !== null) {
         router.push("/search-profile");
-        return;
       } else {
         setError(true);
       }
@@ -81,7 +86,7 @@ const Header = ({
                 type="text"
                 placeholder="Search.."
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
                 onKeyDown={handleKeyDown}
                 className="bg-white font-[NeueMontreal-Medium] w-[500px] px-4 py-3 rounded-md outline-none"
               />
