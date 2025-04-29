@@ -49,45 +49,47 @@ const FocusPostComponent = (data: IPostItems) => {
     const fetchProfileData = async (username: string, id: number) => {
       setUserData(await getUserData(username));
       setComments(await getCommentsbyId(id));
-      console.log(await getCommentsbyId(id));
     };
     fetchProfileData(username, data.id);
-  }, [newComment,data.id,username]);
-   
+  }, [newComment, data.id, username]);
+
   const addLike = () => {
-    setLikes(likes+1)
-  }
+    setLikes(likes + 1);
+  };
 
   const addComment = async () => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      setError(false)
+      setError(false);
       const commentToAdd: ICommentInfo = {
         id: 0,
         postId: data.id,
         username: fetchInfo().username,
         comment: commentText,
       };
-      
+
       console.log(commentToAdd);
       addCommentToPost(commentToAdd);
-      setNewComment(!newComment)
-      setCommentText("")
+      setNewComment(!newComment);
+      setCommentText("");
       // comments?.push(commentToAdd);
     }
   };
 
   const viewMore = () => {
-    localStorage.setItem("Category", data.category);
+    setCategory(data.category)
     router.push("/directory");
   };
 
-  const gotoProfile = () => {
+  const gotoProfile = (username: string) => {
     setCategory(username);
-    localStorage.setItem("Category", username);
-    router.push("/search-profile");
-  } 
+    if (username == fetchInfo().username) {
+      router.push("/user-profile");
+    } else {
+      router.push("/search-profile");
+    }
+  };
 
   return (
     <div>
@@ -124,9 +126,7 @@ const FocusPostComponent = (data: IPostItems) => {
                       onClick={addLike}
                     />
                   </button>
-                  <p className="font-[NeueMontreal-Medium] text-lg">
-                    {likes}
-                  </p>
+                  <p className="font-[NeueMontreal-Medium] text-lg">{likes}</p>
                 </div>
                 <div className="flex flex-row gap-2">
                   <img
@@ -135,17 +135,24 @@ const FocusPostComponent = (data: IPostItems) => {
                     alt="Beacon Comment Icon"
                   />
                   <p className="font-[NeueMontreal-Medium] text-lg">
-                    {comments != null && comments.length != 0 ? comments.length : "0"}
+                    {comments != null && comments.length != 0
+                      ? comments.length
+                      : "0"}
                   </p>
                 </div>
               </div>
               <div className="flex gap-1">
-                <b className="cursor-pointer" onClick={gotoProfile}>{data.publisherName}</b>
+                <b
+                  className="cursor-pointer"
+                  onClick={() => gotoProfile(data.publisherName)}
+                >
+                  {data.publisherName}
+                </b>
                 <h3>{data.caption}</h3>
               </div>
               <div className="flex gap-1 text-sm">
                 <h3>category:</h3>
-              <h3>{data.category}</h3>
+                <h3>{data.category}</h3>
               </div>
             </div>
 
@@ -168,23 +175,34 @@ const FocusPostComponent = (data: IPostItems) => {
                 onChange={(e) => setCommentText(e.target.value)}
               />
               <div className="rounded-full w-8 h-8 flex justify-center place-items-center cursor-pointer">
-                <button onClick={commentText.trim() != "" ? addComment : () => setError(true)}>
+                <button
+                  onClick={
+                    commentText.trim() != "" ? addComment : () => setError(true)
+                  }
+                >
                   <Image
                     width={100}
                     height={100}
                     alt="comment icon"
                     src="/icons/beacon.png"
                     className="h-[25px] w-[25px] cursor-pointer p-1"
-                    />
+                  />
                 </button>
               </div>
             </div>
-            {error && (<h3 className="text-red-500 text-[12px]">Invalid Input</h3>)}
+            {error && (
+              <h3 className="text-red-500 text-[12px]">Invalid Input</h3>
+            )}
             <hr />
             {comments != null && comments.length != 0 ? (
               comments.map((entry, idx) => (
                 <div key={idx} className="flex gap-2">
-                  <b>{entry.username}</b>
+                  <b
+                    className="cursor-pointer"
+                    onClick={() => gotoProfile(entry.username)}
+                  >
+                    {entry.username}
+                  </b>
                   <h3>{entry.comment}</h3>
                 </div>
               ))
