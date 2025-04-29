@@ -42,7 +42,6 @@ const FocusPostComponent = (data: IPostItems) => {
   const [username] = useState<string>(data.publisherName);
   const [commentText, setCommentText] = useState<string>("");
   const [comments, setComments] = useState<ICommentInfo[] | null>(null);
-  const [likes, setLikes] = useState<number>(data.likes.length);
   const [newComment, setNewComment] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const router = useRouter();
