@@ -45,12 +45,14 @@ const AddPostComponent = () => {
     handleImage(e);
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
+      console.log(e.target.files[0]);
     }
   };
 
   //A Function that Handles the submitting of file to our backend
   const handleSubmit = async () => {
     //Check if the file is inside of our state Variable
+    console.log(file)
     if (!file) {
       alert("Please select a file to upload.");
       return;

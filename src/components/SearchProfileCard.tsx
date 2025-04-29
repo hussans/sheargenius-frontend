@@ -1,7 +1,23 @@
+import { checkToken, fetchInfo, getToken, toggleFollowers } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const SearchProfileCard = (data: IUserProfileInfo) => {
+    const router = useRouter();
+  
+  const follow = async() => {
+    if(!checkToken())
+    {
+      router.push("/login")
+      return;
+    }
+    else
+    {
+      await toggleFollowers(fetchInfo().username,data.username,getToken())
+    }
+  }
+  
   return (
     <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
       <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
@@ -70,7 +86,7 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             Schedule
           </button>
 
-          <button className="bg-blue-500 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+          <button className="bg-blue-500 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={follow}>
             Follow
           </button>
           

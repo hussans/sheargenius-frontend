@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* other config options here */
   images: {
+    // domains: ["aaronsblob123.blob.core.windows.net"]
     remotePatterns: [
       {
         protocol: 'https',

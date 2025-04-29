@@ -70,21 +70,27 @@ const FocusPostComponent = (data: IPostItems) => {
         username: fetchInfo().username,
         comment: commentText,
       };
+
       console.log(commentToAdd);
       addCommentToPost(commentToAdd);
       setNewComment(!newComment);
       setCommentText("");
+      // comments?.push(commentToAdd);
     }
   };
 
   const viewMore = () => {
-    setCategory(data.category);
+    setCategory(data.category)
     router.push("/directory");
   };
 
-  const gotoProfile = () => {
+  const gotoProfile = (username: string) => {
     setCategory(username);
-    router.push("/search-profile");
+    if (username == fetchInfo().username) {
+      router.push("/user-profile");
+    } else {
+      router.push("/search-profile");
+    }
   };
 
   return (
@@ -138,7 +144,10 @@ const FocusPostComponent = (data: IPostItems) => {
                 </div>
               </div>
               <div className="flex gap-1">
-                <b className="cursor-pointer" onClick={gotoProfile}>
+                <b
+                  className="cursor-pointer"
+                  onClick={() => gotoProfile(data.publisherName)}
+                >
                   {data.publisherName}
                 </b>
                 <h3>{data.caption}</h3>
@@ -190,7 +199,12 @@ const FocusPostComponent = (data: IPostItems) => {
             {comments != null && comments.length != 0 ? (
               comments.map((entry, idx) => (
                 <div key={idx} className="flex gap-2">
-                  <b>{entry.username}</b>
+                  <b
+                    className="cursor-pointer"
+                    onClick={() => gotoProfile(entry.username)}
+                  >
+                    {entry.username}
+                  </b>
                   <h3>{entry.comment}</h3>
                 </div>
               ))
