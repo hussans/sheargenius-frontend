@@ -3,6 +3,7 @@ import {
   checkToken,
   fetchInfo,
   getCommentsbyId,
+  getPostbyPostId,
   getToken,
   getUserData,
   setCategory,
@@ -44,6 +45,7 @@ const FocusPostComponent = (data: IPostItems) => {
   const [comments, setComments] = useState<ICommentInfo[] | null>(null);
   const [newComment, setNewComment] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [postData, setPostData] = useState<IPostItems>(data);
   const router = useRouter();
 
   useEffect(() => {
@@ -53,14 +55,15 @@ const FocusPostComponent = (data: IPostItems) => {
       //retireves comment by userID
       setComments(await getCommentsbyId(id));
     };
-    fetchProfileData(username, data.id);
-  }, [newComment, data.id, username]);
+    fetchProfileData(username, postData.id);
+  }, [newComment, postData.id, username]);
 
   const addLike = async() => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      await toggleLikes(data.id,fetchInfo().username,getToken())
+      await toggleLikes(postData.id,fetchInfo().username,getToken())
+      setPostData(await getPostbyPostId(postData.id))
     }
   };
 
@@ -71,7 +74,7 @@ const FocusPostComponent = (data: IPostItems) => {
       setError(false);
       const commentToAdd: ICommentInfo = {
         id: 0,
-        postId: data.id,
+        postId: postData.id,
         username: fetchInfo().username,
         comment: commentText,
       };
@@ -85,7 +88,7 @@ const FocusPostComponent = (data: IPostItems) => {
   };
 
   const viewMore = () => {
-    setCategory(data.category)
+    setCategory(postData.category)
     router.push("/directory");
   };
 
@@ -110,17 +113,17 @@ const FocusPostComponent = (data: IPostItems) => {
                 height={100}
                 src={userData.pfp != "" ? userData.pfp : "/nofileselected.png"}
                 className="w-6 rounded-full h-6"
-                alt={`${data.publisherName}'s profile pic`}
+                alt={`${postData.publisherName}'s profile pic`}
               />
 
-              <h2>{data.publisherName}</h2>
+              <h2>{postData.publisherName}</h2>
             </div>
             <Image
               width={100}
               height={100}
-              src={data.image}
+              src={postData.image}
               className="w-full"
-              alt={`${data.publisherName}'s post no.${data.id}`}
+              alt={`${postData.publisherName}'s post no.${postData.id}`}
             />
             <div className="flex flex-col p-3 w-full gap-1 bg-[#f5f5f5]">
               <div className="flex flex-row gap-5">
@@ -128,12 +131,12 @@ const FocusPostComponent = (data: IPostItems) => {
                   <button>
                     <img
                       className="w-[25px] cursor-pointer"
-                      src={data.likes.includes(fetchInfo().username) ? "./icons/heartliked.png" : "./icons/heart.png"}
+                      src={postData.likes.includes(fetchInfo().username) ? "./icons/heartliked.png" : "./icons/heart.png"}
                       alt="Heart Like Button Icon"
                       onClick={addLike}
                     />
                   </button>
-                  <p className="font-[NeueMontreal-Medium] text-lg">{data.likes.length}</p>
+                  <p className="font-[NeueMontreal-Medium] text-lg">{postData.likes.length}</p>
                 </div>
                 <div className="flex flex-row gap-2">
                   <img
@@ -151,15 +154,15 @@ const FocusPostComponent = (data: IPostItems) => {
               <div className="flex gap-1">
                 <b
                   className="cursor-pointer"
-                  onClick={() => gotoProfile(data.publisherName)}
+                  onClick={() => gotoProfile(postData.publisherName)}
                 >
-                  {data.publisherName}
+                  {postData.publisherName}
                 </b>
-                <h3>{data.caption}</h3>
+                <h3>{postData.caption}</h3>
               </div>
               <div className="flex gap-1 text-sm">
                 <h3>category:</h3>
-                <h3>{data.category}</h3>
+                <h3>{postData.category}</h3>
               </div>
             </div>
 

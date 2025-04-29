@@ -6,6 +6,7 @@ import {
 } from "@/utils/DataServices";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 interface HeaderProps {
   searchActive: boolean;
   setSearchActive: (active: boolean) => void;

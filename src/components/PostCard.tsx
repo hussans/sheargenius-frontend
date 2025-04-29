@@ -3,8 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import FocusPostComponent from "./FocusPostComponent";
 import { fetchInfo, getCommentsbyId } from "@/utils/DataServices";
+import { useRouter } from "next/navigation";
 
 const PostCard = (data: IPostItems) => {
+  const router = useRouter();
   const [focus, setFocus] = useState<boolean>(false);
   const [comments, setComments] = useState<ICommentInfo[]>([
     {
@@ -20,7 +22,7 @@ const PostCard = (data: IPostItems) => {
       setComments(await getCommentsbyId(data.id));
     };
     getCommentNumber();
-  });
+  },[router,data.id]);
 
   return (
     <div>

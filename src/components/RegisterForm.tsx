@@ -3,13 +3,15 @@ import { checkToken } from "@/utils/DataServices";
 // import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const [isHidden,setIsHidden] = useState(false)
+  const router = useRouter();
 
   useEffect(() => {
     setIsHidden(checkToken())
-  },[])
+  },[router])
 
   return (
     <div className={`bg-black w-full h-[825px] py-20 px-10 grid grid-cols-2 ${isHidden ? "hidden": ""}`}>

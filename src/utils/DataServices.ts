@@ -253,8 +253,19 @@ export const getUserPosts = async (id: number) => {
 
 //   const data = await res.json();
 //   return data;
-// /User/ToggleFollowers?followingUser=testuser2&followedUser=testuser
 // };
+
+export const getAllBarbers = async () => {
+  const res = await fetch(`${url}User/GetAllBarbers`)
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
+  }
+  const data = await res.json();
+  return data;
+};
 
 export const getPostItemsByUserId = async (userId: number) => {
   const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`)
@@ -263,6 +274,19 @@ export const getPostItemsByUserId = async (userId: number) => {
     const message = errorData.message;
     console.log(message);
     return [];
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+export const getPostbyPostId = async (postId: number) => {
+  const res = await fetch(`${url}Post/GetPostByPostId/${postId}`)
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return null;
   }
 
   const data = await res.json();
