@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       <section className="mt-16 sm:mt-20 lg:mt-24 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-5">
 
           <div id="barber-essentials" className="relative col-span-1 lg:col-span-2 rounded-lg overflow-hidden">
             <img
@@ -123,7 +123,7 @@ export default function Home() {
               src="./barberessentials.png"
               alt="Barber Essentials Background Image"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center p-4 text-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
               <img
                 className="w-[40px] sm:w-[50px] mb-3 sm:mb-5"
                 src="./icons/sheargenius-essentials.svg"
@@ -137,7 +137,7 @@ export default function Home() {
                   Create the best toolbox for success
                 </p>
               </div>
-              <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base hover:bg-opacity-80 hover:text-black active:bg-white transition-all duration-150">
+              <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base cursor-pointer transition-all duration-75 hover:bg-[#FFFFFF1A] hover:outline-2 hover:outline-white hover:text-white active:text-black active:bg-white active:outline-none">
                 EXPLORE
               </button>
             </div>
@@ -149,7 +149,7 @@ export default function Home() {
               src="./barberetiquette.jpg"
               alt="Barber Shop Cutting Area Background"
             />
-             <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">
+             <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">
               <div>
                 <p className="font-[NeueMontreal-Medium] text-white text-3xl sm:text-4xl lg:text-5xl leading-tight">
                   Barber Shop <br className="hidden sm:block"/> Etiquette
@@ -158,7 +158,7 @@ export default function Home() {
                   Make your next visit a breeze
                 </p>
               </div>
-               <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base hover:bg-opacity-80 hover:text-black active:bg-white transition-all duration-150">
+               <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base cursor-pointer transition-all duration-75 hover:bg-[#FFFFFF1A] hover:outline-2 hover:outline-white hover:text-white active:text-black active:bg-white active:outline-none">
                 LEARN MORE
               </button>
             </div>
@@ -170,7 +170,7 @@ export default function Home() {
               src="./barberitems.jpg"
               alt="Barber Clippers and Items Background"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">
               <div>
                 <p className="font-[NeueMontreal-Medium] text-white text-3xl sm:text-4xl lg:text-5xl leading-tight">
                   Clippers <br className="hidden sm:block"/> Crash Course
@@ -179,7 +179,7 @@ export default function Home() {
                   Learn basic terminology
                 </p>
               </div>
-              <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base hover:bg-opacity-80 hover:text-black active:bg-white transition-all duration-150">
+              <button className="font-[NeueMontreal-Medium] text-black bg-white px-8 py-2 sm:px-10 sm:py-3 rounded text-sm sm:text-base cursor-pointer transition-all duration-75 hover:bg-[#FFFFFF1A] hover:outline-2 hover:outline-white hover:text-white active:text-black active:bg-white active:outline-none">
                  BEGIN
               </button>
             </div>
