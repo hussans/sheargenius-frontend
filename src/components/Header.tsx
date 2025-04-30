@@ -60,9 +60,9 @@ const Header = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <img
-        className="w-full h-[724px] object-cover"
+        className="w-full h-[450px] sm:h-[550px] md:h-[650px] lg:h-[724px] object-cover"
         src="./sheargenius-banner.png"
         alt="Barber Shop Leather Chair Banner Image"
       />
@@ -71,25 +71,26 @@ const Header = ({
       )}
       <div
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 ${
-          searchActive ? "-translate-y-20" : "-translate-y-1/2"
-        } flex flex-col items-center transition-all duration-300 z-5`}
+          searchActive ? "-translate-y-16 sm:-translate-y-20" : "-translate-y-1/2"
+        } flex flex-col items-center transition-all duration-300 z-10 w-[90%] max-w-xl lg:max-w-2xl`}
       >
-        <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-8xl">
+        <h1 className="font-[NeueMontreal-Medium] text-[#FFFD71] text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-center leading-tight">
           {title || "ShearGenius"}
         </h1>
-        <p className="font-[NeueMontreal-Medium] text-white text-center text-xl">
-          {description || "A Hub For All Things Hair"}{" "}
+        <p className="font-[NeueMontreal-Medium] text-white text-center text-base sm:text-lg lg:text-xl mt-1 px-2">
+          {description || "A Hub For All Things Hair"}
         </p>
+
         {searchActive && (
-          <div className="mt-5 flex flex-col items-center gap-1">
-            <div className="flex items-center gap-1">
+          <div className="mt-4 sm:mt-5 flex flex-col items-center gap-2 w-full px-2">
+            <div className="flex items-center gap-1 sm:gap-2 w-full max-w-lg">
               <input
                 type="text"
                 placeholder="Search.."
                 value={query}
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}
                 onKeyDown={handleKeyDown}
-                className="bg-white font-[NeueMontreal-Medium] w-[500px] px-4 py-3 rounded-md outline-none"
+                className="bg-white font-[NeueMontreal-Medium] flex-grow w-full px-3 py-2 sm:px-4 sm:py-3 rounded-md outline-none text-sm sm:text-base"
               />
               <button
                 onClick={handleSearch}
@@ -97,12 +98,12 @@ const Header = ({
                 onMouseLeave={() => setSearchHovered(false)}
                 onMouseDown={() => setSearchHovered(false)}
                 onMouseUp={() => setSearchHovered(true)}
-                className={`p-3 rounded-md transition-colors duration-100 ${
+                className={`flex-shrink-0 p-2 sm:p-3 rounded-md transition-colors duration-100 ${
                   searchHovered ? "bg-white" : "bg-black"
                 }`}
               >
                 <img
-                  className="w-[25px]"
+                  className="w-[20px] sm:w-[25px]"
                   src={
                     searchHovered
                       ? "./icons/search.png"
@@ -113,17 +114,16 @@ const Header = ({
               </button>
               <button
                 onClick={() => setSearchActive(false)}
-                className="bg-transparent p-3 rounded-md"
+                className="bg-transparent flex-shrink-0 p-2 sm:p-3 rounded-md"
               >
                 <img
-                  className="w-[25px]"
+                  className="w-[20px] sm:w-[25px]"
                   src="./icons/cross-small-white.png"
                   alt="Closing x Icon"
                 />
               </button>
             </div>
-
-            <p className="font-[NeueMontreal-Medium] text-white">
+            <p className="font-[NeueMontreal-Medium] text-white text-xs sm:text-sm mt-1">
               {error ? "Invalid Search..." : "Search ShearGenius"}
             </p>
           </div>
