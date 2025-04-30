@@ -7,16 +7,22 @@ import {
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import RatingComponent from "./RatingComponent";
 
 const SearchProfileCard = (data: IUserProfileInfo) => {
   const [profileData, setProfileData] = useState<IUserProfileInfo>(data);
+  const [rate, setRate] = useState<boolean>(false);
+  const [rateName] = useState<string>(profileData.username);
+  const[rating,setRating] = useState<string>(String(data.rating/data.ratingCount.length))
   const router = useRouter();
 
+  
   useEffect(() => {
-    setProfileData(data) 
+    setProfileData(data)
+    setRating(String(Number(rating).toFixed(1)))
   },[router,data])
 
-  
+
   const follow = async () => {
     if (!checkToken()) {
       router.push("/login");
@@ -56,9 +62,10 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
                   profileData.accountType == "Barber" ? "flex gap-1" : "hidden"
                 }
               >
+                <p>{rating}</p>
                 <img
                   className="w-[15px] h-[15px] hover:drop-shadow-xl"
-                  src="./icons/star-empty.png"
+                  src="./icons/star.png"
                   alt="Star Icon"
                 />
                 <img
@@ -111,9 +118,22 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             {profileData.followers.includes(fetchInfo().username) ? "Unfollow":"Follow"}
           </button>
 
-          <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+          <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={() => setRate(!rate)}>
             Rate
           </button>
+          {rate && (
+        <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center z-50">
+          <div className="w-[50%] bg-white p-2 rounded-sm relative">
+            <h3
+              className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-2xl"
+              onClick={() => setRate(false)}
+            >
+              X
+            </h3>
+            <RatingComponent name={rateName}/>
+          </div>
+        </div>
+      )}
         </div>
         <div
           className={
