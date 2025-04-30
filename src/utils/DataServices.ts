@@ -77,6 +77,26 @@ export const addCommentToPost = async (comment:ICommentInfo) => {
   return data.success;
 };
 
+export const addRating = async (username:string,rating:number,userToRate:string) => {
+  const res = await fetch(`${url}User/AddRating?username=${username}&rating=${rating}&usertoRate=${userToRate}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({username,rating,userToRate}),
+  });
+  // if our response is not ok, we will run this block
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.json();
+  return data.success;
+};
+
 export const getCommentsbyId = async (id: number) => {
   const res = await fetch(`${url}Post/GetCommentsByPostId?id=${id}`);
   if (!res.ok) {

@@ -33,6 +33,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
       router.push("/user-profile");
     }
   };
+  
   return (
     <div className="bg-[#F5F5F5] w-full h-[440px] rounded-xl px-8 py-10">
       <div className="flex justify-between items-center">
