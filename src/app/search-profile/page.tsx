@@ -47,6 +47,7 @@ const SearchProfile = () => {
       <Navbar setSearchActive={setSearchActive} />
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
         <SearchProfileCard {...data} />
+        
         <PostFeed {...data} />
       </div>
       <Footer />

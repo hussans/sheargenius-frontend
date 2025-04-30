@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { Button } from "./ui/button";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
-import { getUserPosts } from "@/utils/DataServices";
+import { fetchInfo, getUserPosts } from "@/utils/DataServices";
 
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
@@ -106,7 +106,7 @@ const PostFeed = (data: IUserProfileInfo) => {
       </div>
       {posts.length == 0 ? (
         <div className="bg-[#F5F5F5] flex justify-center place-items-center h-24 mb-8">
-          <h3>Click the + above to create your first post!</h3>
+          <h3>{data.username == fetchInfo().username ? `Click the + above to create your first post!` : `No posts yet...`}</h3>
         </div>
       ) : (
         <div>

@@ -130,7 +130,7 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             >
               X
             </h3>
-            <RatingComponent name={rateName}/>
+            <RatingComponent />
           </div>
         </div>
       )}

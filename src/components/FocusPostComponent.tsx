@@ -12,7 +12,7 @@ import {
 import { ICommentInfo, IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const FocusPostComponent = (data: IPostItems) => {
   const [userData, setUserData] = useState<IUserProfileInfo>({
@@ -47,6 +47,11 @@ const FocusPostComponent = (data: IPostItems) => {
   const [error, setError] = useState<boolean>(false);
   const [postData, setPostData] = useState<IPostItems>(data);
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const gotoInput = () => {
+    inputRef.current?.focus();
+  };
 
   useEffect(() => {
     const fetchProfileData = async (username: string, id: number) => {
@@ -112,11 +117,11 @@ const FocusPostComponent = (data: IPostItems) => {
                 width={100}
                 height={100}
                 src={userData.pfp != "" ? userData.pfp : "/nofileselected.png"}
-                className="w-6 rounded-full h-6"
-                alt={`${postData.publisherName}'s profile pic`}
+                className="w-6 rounded-full h-6 cursor-pointer"
+                alt={`${postData.publisherName}'s profile pic`}  onClick={() => gotoProfile(postData.publisherName)}
               />
 
-              <h2>{postData.publisherName}</h2>
+              <h2  onClick={() => gotoProfile(postData.publisherName)} className="cursor-pointer">{postData.publisherName}</h2>
             </div>
             <Image
               width={100}
@@ -140,9 +145,10 @@ const FocusPostComponent = (data: IPostItems) => {
                 </div>
                 <div className="flex flex-row gap-2">
                   <img
-                    className="w-[25px] h-[25px]"
+                    className="w-[25px] h-[25px] cursor-pointer"
                     src="./icons/beacon.png"
                     alt="Beacon Comment Icon"
+                    onClick={gotoInput}
                   />
                   <p className="font-[NeueMontreal-Medium] text-lg">
                     {comments != null && comments.length != 0
@@ -178,6 +184,7 @@ const FocusPostComponent = (data: IPostItems) => {
             <div className="flex gap-1">
               <input
                 type="text"
+                ref={inputRef}
                 placeholder="Add a comment"
                 className="rounded-md bg-white text-sm p-1 w-full"
                 value={commentText}
@@ -194,7 +201,7 @@ const FocusPostComponent = (data: IPostItems) => {
                     width={100}
                     height={100}
                     alt="comment icon"
-                    src="/icons/beacon.png"
+                    src="/icons/addcomment.png"
                     className="h-[25px] w-[25px] cursor-pointer p-1"
                   />
                 </button>
