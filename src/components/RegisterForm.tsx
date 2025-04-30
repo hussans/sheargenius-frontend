@@ -2,14 +2,15 @@
 import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden,setIsHidden] = useState(false)
+  const router = useRouter();
 
   useEffect(() => {
-    const tokenExists = checkToken();
-    setIsHidden(tokenExists);
-  }, []);
+    setIsHidden(checkToken())
+  },[router])
 
   return (
     <div

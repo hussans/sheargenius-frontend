@@ -255,14 +255,20 @@ export const getUserPosts = async (id: number) => {
 //   return data;
 // };
 
-export const getPostItemsByUserId = async (userId: number, token: string) => {
-  const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+export const getAllBarbers = async () => {
+  const res = await fetch(`${url}User/GetAllBarbers`)
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return [];
+  }
+  const data = await res.json();
+  return data;
+};
+
+export const getPostItemsByUserId = async (userId: number) => {
+  const res = await fetch(`${url}Post/GetPostsByUserId/${userId}`)
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -274,14 +280,21 @@ export const getPostItemsByUserId = async (userId: number, token: string) => {
   return data;
 };
 
-export const getPostItemsByCategory = async (category: string, token: string) => {
-  const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+export const getPostbyPostId = async (postId: number) => {
+  const res = await fetch(`${url}Post/GetPostByPostId/${postId}`)
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return null;
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+export const getPostItemsByCategory = async (category: string) => {
+  const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`)
   if (!res.ok) {
     const errorData = await res.json();
     const message = errorData.message;
@@ -292,6 +305,24 @@ export const getPostItemsByCategory = async (category: string, token: string) =>
   const data = await res.json();
   return data;
 };
+// export const getPostItemsByCategory = async (category: string, token: string) => {
+//   const res = await fetch(`${url}Post/GetPostsbyCategory/${category}`, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: "Bearer " + token,
+//     },
+//   });
+//   if (!res.ok) {
+//     const errorData = await res.json();
+//     const message = errorData.message;
+//     console.log(message);
+//     return [];
+//   }
+
+//   const data = await res.json();
+//   return data;
+// };
 
 export const addPostItem = async (post: IPostItems, token: string) => {
   const res = await fetch(`${url}Post/AddPost`, {
@@ -321,6 +352,46 @@ export const updatePostItem = async (post: IPostItems, token: string) => {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify(post),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return false;
+  }
+  const data = await res.json();
+  //returns true and successfully added post to backend
+  return data.success;
+};
+
+export const toggleFollowers = async (userFollowing: string, userFollowed: string, token: string) => {
+  const res = await fetch(`${url}User/ToggleFollowers?followingUser=${userFollowing}&followedUser=${userFollowed}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ userFollowing, userFollowed }),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.log(message);
+    return false;
+  }
+  const data = await res.json();
+  //returns true and successfully added post to backend
+  return data.success;
+};
+
+export const toggleLikes = async (postId: number, username: string, token: string) => {
+  const res = await fetch(`${url}Post/ToggleLikes?postId=${postId}&username=${username}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ postId, username }),
   });
   if (!res.ok) {
     const errorData = await res.json();
