@@ -12,11 +12,10 @@ import RatingComponent from "./RatingComponent";
 const SearchProfileCard = (data: IUserProfileInfo) => {
   const [profileData, setProfileData] = useState<IUserProfileInfo>(data);
   const [rate, setRate] = useState<boolean>(false);
-  const [rateName] = useState<string>(profileData.username);
   const[rating,setRating] = useState<string>(String(data.rating/data.ratingCount.length))
   const router = useRouter();
 
-  
+
   useEffect(() => {
     setProfileData(data)
     setRating(String(Number(rating).toFixed(1)))
@@ -36,6 +35,8 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
       window.location.reload();
     }
   };
+
+  const loggedInUsername = fetchInfo()?.username || '';
 
   return (
     <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
@@ -65,27 +66,27 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
                 <p>{rating}</p>
                 <img
                   className="w-[15px] h-[15px] hover:drop-shadow-xl"
-                  src="./icons/star.png"
+                  src="/icons/star.png"
                   alt="Star Icon"
                 />
                 <img
                   className="w-[15px] h-[15px]"
-                  src="./icons/star-empty.png"
+                  src="/icons/star-empty.png"
                   alt="Star Icon"
                 />
                 <img
                   className="w-[15px] h-[15px]"
-                  src="./icons/star-empty.png"
+                  src="/icons/star-empty.png"
                   alt="Star Icon"
                 />
                 <img
                   className="w-[15px] h-[15px]"
-                  src="./icons/star-empty.png"
+                  src="/icons/star-empty.png"
                   alt="Star Icon"
                 />
                 <img
                   className="w-[15px] h-[15px]"
-                  src="./icons/star-empty.png"
+                  src="/icons/star-empty.png"
                   alt="Empty Star Icon"
                 />
               </div>
@@ -110,30 +111,33 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
           <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
             Schedule
           </button>
-
           <button
             className="bg-blue-500 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
             onClick={follow}
           >
-            {profileData.followers.includes(fetchInfo().username) ? "Unfollow":"Follow"}
+            {profileData.followers.includes(loggedInUsername) ? "Unfollow":"Follow"}
           </button>
-
           <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={() => setRate(!rate)}>
             Rate
           </button>
-          {rate && (
-        <div className="fixed top-0 left-0 h-screen w-screen bg-[#f5f5f596] flex justify-center place-items-center z-50">
-          <div className="w-[50%] bg-white p-2 rounded-sm relative">
-            <h3
-              className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-2xl"
-              onClick={() => setRate(false)}
-            >
-              X
-            </h3>
-            <RatingComponent />
-          </div>
-        </div>
-      )}
+           {rate && (
+            <div className="fixed inset-0 h-screen w-screen bg-black/60 flex justify-center items-center z-50 p-4">
+              <div className="w-[100%] max-w-md sm:w-[70%] md:w-[60%] lg:w-[50%] bg-white p-4 pt-10 sm:pt-12 rounded-lg relative shadow-md">
+                <button
+                  className="absolute top-2 left-2 p-1 rounded-full text-slate-600 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors"
+                  onClick={() => setRate(false)}
+                  aria-label="Close Rating Modal"
+                >
+                  <img
+                      className="w-5 h-5 sm:w-6 sm:h-6"
+                      src="/icons/cross-small.png"
+                      alt="Close"
+                  />
+                </button>
+                <RatingComponent usernameToRate={profileData.username} />
+              </div>
+            </div>
+          )}
         </div>
         <div
           className={

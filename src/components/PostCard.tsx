@@ -58,13 +58,6 @@ const PostCard = (data: IPostItems) => {
             <p className="font-[NeueMontreal-Medium] text-[#949DA4]">
               {data.publisherName}
             </p>
-            <button>
-              <img
-                className="w-[15px]"
-                src="./icons/info.png"
-                alt="Information Icon"
-              />
-            </button>
           </div>
           <div className="flex justify-between items-center mt-3">
             <p className="font-[NeueMontreal-Medium] text-black text-lg">
