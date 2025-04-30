@@ -96,24 +96,28 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   }, []);
 
   useEffect(() => {
-  }, [isOpen]);
+    if(isOpen) {
+        setIsOpen(false);
+        setOpenCategory(null);
+    }
+  }, [path]);
 
 
   return (
     <div className="relative">
-      <nav className="fixed top-0 left-0 w-full z-30 bg-white text-black text-sm font-[NeueMontreal-Medium] border-b-2">
-        <div className="max-w-[100%] mx-auto px-10">
+      <nav className="fixed top-0 left-0 w-full z-30 bg-white text-black text-sm font-[NeueMontreal-Medium] border-b-2 border-gray-200">
+        <div className="max-w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center flex-row">
               <div className="flex items-center gap-1.5 flex-shrink-0">
-                <Link href="/">
+                <Link href="/" className="flex items-center gap-1.5">
                   <img
                     className="w-[33px]"
-                    src="./icons/sheargenius-logo.svg"
+                    src="/icons/sheargenius-logo.svg"
                     alt="ShearGenius Logo"
                   />
+                  SHEARGENIUS
                 </Link>
-                <Link href="/"> SHEARGENIUS </Link>
               </div>
             </div>
             <div className="hidden md:block">
@@ -130,7 +134,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                    <button className="cursor-pointer">
                     <img
                       className="relative w-[17px]"
-                      src="./icons/plus.png"
+                      src="/icons/plus.png"
                       alt="Plus Icon"
                       onClick={addPostClick}
                     />
@@ -141,14 +145,14 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                   >
                     <img
                       className="relative w-[17px]"
-                      src="./icons/search.png"
+                      src="/icons/search.png"
                       alt="Search Icon"
                     />
                   </button>
                   <button className="cursor-pointer" onClick={profileClick}>
                     <img
                       className="relative w-[17px]"
-                      src="./icons/user.png"
+                      src="/icons/user.png"
                       alt="User Profile Figure Icon"
                     />
                   </button>
@@ -163,16 +167,16 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
           </div>
         </div>
       </nav>
-      <div className="h-[64px]"></div>
+      <div className="h-16"></div>
 
       {addPost && (
-         <div className="fixed top-0 left-0 h-screen bg-[#f5f5f596] w-full flex justify-center place-items-center z-60">
-           <div className="w-[50%] bg-white rounded-lg relative">
-             <button className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
+         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+           <div className="w-[90%] max-w-xl md:w-[70%] lg:w-[50%] bg-white rounded-lg relative">
+             <button className="absolute top-2 right-2 p-1 rounded-full text-slate-600 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors" onClick={() => setAddPost(false)} aria-label="Close Add Post Modal">
                 <img
-                  className="w-[25px] hover:bg-gray-100 hover:rounded-sm"
-                  src="./icons/cross-small.png"
-                  alt="Closing X Button"
+                  className="w-[25px]"
+                  src="/icons/cross-small.png"
+                  alt="Close"
                 />
              </button>
              <AddPostComponent/>
@@ -182,17 +186,18 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
       {isOpen && (
         <>
-          <div className="fixed top-0 left-0 w-full min-h-screen bg-[#FFFFFF80] z-40" onClick={toggleSidebar}></div>
-          <div className="fixed top-0 right-0 bg-white min-h-full w-[500px] z-50 px-10 pb-10 shadow-lg overflow-y-auto">
-            <div className="flex items-center justify-between h-16">
+          <div className="fixed inset-0 w-full min-h-screen bg-black/40 z-40" onClick={toggleSidebar}></div>
+          <div className="fixed top-0 right-0 bg-white min-h-full w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-[500px] z-50 px-4 sm:px-6 md:px-8 lg:px-10 pb-10 shadow-lg overflow-y-auto">
+            <div className="flex items-center justify-between h-16 border-b border-gray-200 mb-6">
                <button
                  onClick={toggleSidebar}
-                 className="cursor-pointer hover:bg-gray-200 active:bg-transparent"
+                 className="p-2 -ml-2 cursor-pointer hover:bg-gray-100 active:bg-transparent rounded-full"
+                 aria-label="Close Menu"
                >
                  <img
                    className="w-[25px]"
-                   src="./icons/cross-small.png"
-                   alt="Closing X Button"
+                   src="/icons/cross-small.png"
+                   alt="Close"
                  />
                </button>
                <div className="flex font-[NeueMontreal-Medium] text-sm items-center gap-6">
@@ -210,7 +215,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     <button className="cursor-pointer">
                      <img
                        className="relative w-[17px] z-50"
-                       src="./icons/plus.png"
+                       src="/icons/plus.png"
                        alt="Plus Icon"
                        onClick={addPostClick}
                      />
@@ -221,35 +226,31 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                    >
                      <img
                        className="relative w-[17px] z-50"
-                       src="./icons/search.png"
+                       src="/icons/search.png"
                        alt="Search Icon"
                      />
                    </button>
                     <button className="cursor-pointer" onClick={profileClick}>
                      <img
                        className="relative w-[17px] z-50"
-                       src="./icons/user.png"
+                       src="/icons/user.png"
                        alt="User Profile Figure Icon"
                      />
                    </button>
                  </div>
                </div>
              </div>
-            <div className="mt-10 space-y-5">
+            <div className="space-y-5">
               <div className="ml-2">
                 <button
                   onClick={() => toggleCategory("fades")}
-                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600"
+                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600 w-full justify-between"
                 >
                   FADES
                   <img
                     className="w-[20px]"
-                    src={
-                      openCategory === "fades"
-                        ? "./icons/minus-small.png"
-                        : "./icons/plus-small.png"
-                    }
-                    alt={openCategory === "fades" ? "Minus Icon" : "Plus Icon"}
+                    src={ openCategory === "fades" ? "/icons/minus-small.png" : "/icons/plus-small.png" }
+                    alt={openCategory === "fades" ? "Collapse" : "Expand"}
                   />
                 </button>
                 {openCategory === "fades" && (
@@ -269,19 +270,13 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
               <div className="ml-2">
                 <button
                   onClick={() => toggleCategory("skin-fades")}
-                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600"
+                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600 w-full justify-between"
                 >
                   SKIN FADES
                   <img
                     className="w-[20px]"
-                    src={
-                      openCategory === "skin-fades"
-                        ? "./icons/minus-small.png"
-                        : "./icons/plus-small.png"
-                    }
-                    alt={
-                      openCategory === "skin-fades" ? "Minus Icon" : "Plus Icon"
-                    }
+                    src={ openCategory === "skin-fades" ? "/icons/minus-small.png" : "/icons/plus-small.png"}
+                    alt={ openCategory === "skin-fades" ? "Collapse" : "Expand"}
                   />
                 </button>
                 {openCategory === "skin-fades" && (
@@ -295,17 +290,13 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
               <div className="ml-2">
                 <button
                   onClick={() => toggleCategory("styles")}
-                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600"
+                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600 w-full justify-between"
                 >
                   STYLES
                   <img
                     className="w-[20px]"
-                    src={
-                      openCategory === "styles"
-                        ? "./icons/minus-small.png"
-                        : "./icons/plus-small.png"
-                    }
-                    alt={openCategory === "styles" ? "Minus Icon" : "Plus Icon"}
+                    src={ openCategory === "styles" ? "/icons/minus-small.png" : "/icons/plus-small.png" }
+                    alt={openCategory === "styles" ? "Collapse" : "Expand"}
                   />
                 </button>
                 {openCategory === "styles" && (
@@ -327,25 +318,17 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
               <div className="ml-2">
                 <button
                   onClick={() => toggleCategory("general-knowledge")}
-                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600"
+                  className="font-[NeueMontreal-Medium] text-xl flex items-center gap-1 cursor-pointer hover:text-gray-600 w-full justify-between"
                 >
                   GENERAL KNOWLEDGE
                   <img
                     className="w-[20px]"
-                    src={
-                      openCategory === "general-knowledge"
-                        ? "./icons/minus-small.png"
-                        : "./icons/plus-small.png"
-                    }
-                    alt={
-                      openCategory === "general-knowledge"
-                        ? "Minus Icon"
-                        : "Plus Icon"
-                    }
+                    src={ openCategory === "general-knowledge" ? "/icons/minus-small.png" : "/icons/plus-small.png" }
+                    alt={ openCategory === "general-knowledge" ? "Collapse" : "Expand" }
                   />
                 </button>
                 {openCategory === "general-knowledge" && (
-                  <div className="mt-2 ml-8 space-y-1">
+                   <div className="mt-2 ml-8 space-y-1">
                      <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Clippers Crash Course</Link>
                      <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Barber Essentials</Link>
                      <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Barber Shop Etiquette</Link>
