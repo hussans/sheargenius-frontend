@@ -122,7 +122,7 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
           </button>
            {rate && (
             <div className="fixed inset-0 h-screen w-screen bg-black/60 flex justify-center items-center z-50 p-4">
-              <div className="w-[100%] max-w-md sm:w-[70%] md:w-[60%] lg:w-[50%] bg-white p-4 pt-10 sm:pt-12 rounded-sm relative shadow-md">
+              <div className="w-[100%] max-w-md sm:w-[70%] md:w-[60%] lg:w-[50%] bg-white p-4 pt-10 sm:pt-12 rounded-lg relative shadow-md">
                 <button
                   className="absolute top-2 left-2 p-1 rounded-full text-slate-600 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors"
                   onClick={() => setRate(false)}
