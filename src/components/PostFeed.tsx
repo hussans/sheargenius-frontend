@@ -2,23 +2,35 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { Button } from "./ui/button";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
-import { getUserPosts } from "@/utils/DataServices";
+import { fetchInfo, getUserPosts } from "@/utils/DataServices";
 
 const PostFeed = (data: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Most Recent");
-  const [posts, setPosts] = useState<IPostItems[]>([]);
+  const [posts, setPosts] = useState<IPostItems[]>([
+    {
+    id: 0,
+    userId: 0,
+    publisherName: "",
+    date: "",
+    caption: "",
+    image: "/nofileselected.png",
+    likes: [],
+    category: "",
+    isPublished: false,
+    isDeleted: true,
+    comments: null
+    }
+  ]);
 
   useEffect(() => {
     const asyncGetPosts = async (id: number) => {
       if (id != 0) {
         setPosts(await getUserPosts(id));
-        console.log(await getUserPosts(id));
-        console.log(await getUserPosts(id));
       }
     };
     asyncGetPosts(data.id);
-  }, [data.id]);
+  },[data.id]);
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -94,12 +106,12 @@ const PostFeed = (data: IUserProfileInfo) => {
       </div>
       {posts.length == 0 ? (
         <div className="bg-[#F5F5F5] flex justify-center place-items-center h-24 mb-8">
-          <h3>Click the + above to create your first post!</h3>
+          <h3>{data.username == fetchInfo().username ? `Click the + above to create your first post!` : `No posts yet...`}</h3>
         </div>
       ) : (
         <div>
           <div className="grid grid-cols-4 gap-3">
-            {posts.map((post, idx) => (
+            {posts.filter(post => post.isDeleted == false).map((post, idx) => (
               <PostCard key={idx} {...post} />
             ))}
           </div>

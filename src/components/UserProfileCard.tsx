@@ -1,8 +1,6 @@
-// import { loggedInData } from "@/utils/DataServices";
 import {
   blobUpload,
   editAccount,
-  getLoggedInUserData,
 } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
@@ -59,7 +57,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const saveEdits = async () => {
     //Check if the file is inside of our state Variable
     if (!file) {
-      alert("Please select a file to upload.");
+      alert("Please select file to upload.");
       return;
     }
     //A Unique file name so data isn't being overwritten in our blob
@@ -111,7 +109,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
       } else {
         alert("Editing Failed");
       }
-      await getLoggedInUserData(info.username);
     }
   };
 

@@ -1,5 +1,6 @@
 import {
   fetchHaircut,
+  fetchInfo,
   getProfileUserData,
   setCategory,
 } from "@/utils/DataServices";
@@ -35,6 +36,10 @@ const Header = ({
     setCategory(query);
     localStorage.setItem("Category", query);
 
+    if (query == fetchInfo().username) {
+      router.push("/user-profile");
+      return;
+    }
     const result = await fetchHaircut(query);
     if (result !== undefined) {
       router.push("/directory");
@@ -83,7 +88,7 @@ const Header = ({
                 type="text"
                 placeholder="Search.."
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
                 onKeyDown={handleKeyDown}
                 className="bg-white font-[NeueMontreal-Medium] flex-grow w-full px-3 py-2 sm:px-4 sm:py-3 rounded-md outline-none text-sm sm:text-base"
               />

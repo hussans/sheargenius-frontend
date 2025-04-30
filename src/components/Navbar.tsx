@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkToken, getCategory, setCategory } from "@/utils/DataServices";
+import { checkToken, setCategory } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
 
 interface NavbarProps {
@@ -14,8 +14,26 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   const [addPost, setAddPost] = useState(false);
   const [activeTab, setActiveTab] = useState<"explore">("explore");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const path = usePathname();
   const router = useRouter();
 
+  useEffect(() => {
+    const handleOpenNavbarCategory = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.category) {
+        setIsOpen(true);
+        setOpenCategory(detail.category);
+        setActiveTab("explore");
+      }
+    };
+    window.addEventListener("openNavbarCategory", handleOpenNavbarCategory);
+    return () => {
+      window.removeEventListener(
+        "openNavbarCategory",
+        handleOpenNavbarCategory
+      );
+    };
+  }, [router]);
   const toggleSidebar = () =>
     setIsOpen((prev) => {
       if (prev) {
@@ -42,9 +60,6 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       setOpenCategory(null);
     }
   };
-
-  const path = usePathname();
-  console.log(path);
 
   const handleHaircutLinkClick = (haircutName: string) => {
     setCategory(haircutName);
@@ -76,28 +91,8 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     }
   };
 
-  useEffect(() => {
-    const handleOpenNavbarCategory = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail?.category) {
-        setIsOpen(true);
-        setOpenCategory(detail.category);
-        setActiveTab("explore");
-      }
-    };
-
-    window.addEventListener("openNavbarCategory", handleOpenNavbarCategory);
-    return () => {
-      window.removeEventListener(
-        "openNavbarCategory",
-        handleOpenNavbarCategory
-      );
-    };
-  }, []);
-
-  useEffect(() => {
-  }, [isOpen]);
-
+  // useEffect(() => {
+  // }, [isOpen]);
 
   return (
     <div className="relative">
@@ -127,7 +122,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                   </button>
                 </div>
                 <div className="flex items-center gap-6">
-                   <button className="cursor-pointer">
+                  <button className="cursor-pointer">
                     <img
                       className="relative w-[17px]"
                       src="./icons/plus.png"
@@ -155,86 +150,105 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 </div>
               </div>
             </div>
-             <div className="md:hidden">
-               <button onClick={toggleSidebar} className="p-2">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
-               </button>
-             </div>
+            <div className="md:hidden">
+              <button onClick={toggleSidebar} className="p-2">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
       <div className="h-[64px]"></div>
 
       {addPost && (
-         <div className="fixed top-0 left-0 h-screen bg-[#f5f5f596] w-full flex justify-center place-items-center z-60">
-           <div className="w-[50%] bg-white rounded-lg relative">
-             <button className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl" onClick={() => setAddPost(false)}>
-                <img
-                  className="w-[25px] hover:bg-gray-100 hover:rounded-sm"
-                  src="./icons/cross-small.png"
-                  alt="Closing X Button"
-                />
-             </button>
-             <AddPostComponent/>
-           </div>
-         </div>
-       )}
+        <div className="fixed top-0 left-0 h-screen bg-[#f5f5f596] w-full flex justify-center place-items-center z-60">
+          <div className="w-[50%] bg-white rounded-lg relative">
+            <button
+              className="text-slate-600 hover:text-black cursor-pointer absolute top-2 left-3 text-xl"
+              onClick={() => setAddPost(false)}
+            >
+              <img
+                className="w-[25px] hover:bg-gray-100 hover:rounded-sm"
+                src="./icons/cross-small.png"
+                alt="Closing X Button"
+              />
+            </button>
+            <AddPostComponent />
+          </div>
+        </div>
+      )}
 
       {isOpen && (
         <>
-          <div className="fixed top-0 left-0 w-full min-h-screen bg-[#FFFFFF80] z-40" onClick={toggleSidebar}></div>
+          <div
+            className="fixed top-0 left-0 w-full min-h-screen bg-[#FFFFFF80] z-40"
+            onClick={toggleSidebar}
+          ></div>
           <div className="fixed top-0 right-0 bg-white min-h-full w-[500px] z-50 px-10 pb-10 shadow-lg overflow-y-auto">
             <div className="flex items-center justify-between h-16">
-               <button
-                 onClick={toggleSidebar}
-                 className="cursor-pointer hover:bg-gray-200 active:bg-transparent"
-               >
-                 <img
-                   className="w-[25px]"
-                   src="./icons/cross-small.png"
-                   alt="Closing X Button"
-                 />
-               </button>
-               <div className="flex font-[NeueMontreal-Medium] text-sm items-center gap-6">
-                 <div className="flex items-center gap-4">
-                   <button
-                     onClick={() => handleTabClick("explore")}
-                     className={`relative block cursor-pointer z-50 ${
-                       activeTab === "explore" ? activeClass : ""
-                     }`}
-                   >
-                     EXPLORE
-                   </button>
-                 </div>
-                 <div className="flex items-center gap-6">
-                    <button className="cursor-pointer">
-                     <img
-                       className="relative w-[17px] z-50"
-                       src="./icons/plus.png"
-                       alt="Plus Icon"
-                       onClick={addPostClick}
-                     />
-                   </button>
-                   <button
-                     className="cursor-pointer"
-                     onClick={handleSearchClick}
-                   >
-                     <img
-                       className="relative w-[17px] z-50"
-                       src="./icons/search.png"
-                       alt="Search Icon"
-                     />
-                   </button>
-                    <button className="cursor-pointer" onClick={profileClick}>
-                     <img
-                       className="relative w-[17px] z-50"
-                       src="./icons/user.png"
-                       alt="User Profile Figure Icon"
-                     />
-                   </button>
-                 </div>
-               </div>
-             </div>
+              <button
+                onClick={toggleSidebar}
+                className="cursor-pointer hover:bg-gray-200 active:bg-transparent"
+              >
+                <img
+                  className="w-[25px]"
+                  src="./icons/cross-small.png"
+                  alt="Closing X Button"
+                />
+              </button>
+              <div className="flex font-[NeueMontreal-Medium] text-sm items-center gap-6">
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => handleTabClick("explore")}
+                    className={`relative block cursor-pointer z-50 ${
+                      activeTab === "explore" ? activeClass : ""
+                    }`}
+                  >
+                    EXPLORE
+                  </button>
+                </div>
+                <div className="flex items-center gap-6">
+                  <button className="cursor-pointer">
+                    <img
+                      className="relative w-[17px] z-50"
+                      src="./icons/plus.png"
+                      alt="Plus Icon"
+                      onClick={addPostClick}
+                    />
+                  </button>
+                  <button
+                    className="cursor-pointer"
+                    onClick={handleSearchClick}
+                  >
+                    <img
+                      className="relative w-[17px] z-50"
+                      src="./icons/search.png"
+                      alt="Search Icon"
+                    />
+                  </button>
+                  <button className="cursor-pointer" onClick={profileClick}>
+                    <img
+                      className="relative w-[17px] z-50"
+                      src="./icons/user.png"
+                      alt="User Profile Figure Icon"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className="mt-10 space-y-5">
               <div className="ml-2">
                 <button
@@ -254,16 +268,61 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 </button>
                 {openCategory === "fades" && (
                   <div className="mt-2 ml-8 space-y-1">
-                     <button onClick={() => handleHaircutLinkClick("Drop Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Drop Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Taper Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Taper Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Burst Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Burst Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Burst Taper Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Burst Taper Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Hard Part Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Hard Part Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Crop Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Crop Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Pompadour Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Pompadour Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Undercut Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Undercut Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Temp Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Temp Fade</button>
-                   </div>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Drop Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Drop Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Taper Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Taper Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Burst Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Burst Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Burst Taper Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Burst Taper Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Hard Part Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Hard Part Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Crop Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Crop Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Pompadour Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Pompadour Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Undercut Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Undercut Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Temp Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Temp Fade
+                    </button>
+                  </div>
                 )}
               </div>
               <div className="ml-2">
@@ -286,10 +345,25 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 </button>
                 {openCategory === "skin-fades" && (
                   <div className="mt-2 ml-8 space-y-1">
-                     <button onClick={() => handleHaircutLinkClick("Low Skin Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Low Skin Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("Mid Skin Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Mid Skin Fade</button>
-                     <button onClick={() => handleHaircutLinkClick("High Skin Fade")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">High Skin Fade</button>
-                   </div>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Low Skin Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Low Skin Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Mid Skin Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Mid Skin Fade
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("High Skin Fade")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      High Skin Fade
+                    </button>
+                  </div>
                 )}
               </div>
               <div className="ml-2">
@@ -310,18 +384,74 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 </button>
                 {openCategory === "styles" && (
                   <div className="mt-2 ml-8 space-y-1">
-                     <button onClick={() => handleHaircutLinkClick("Taper Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Taper Cut</button>
-                     <button onClick={() => handleHaircutLinkClick("Crew Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Crew Cut</button>
-                     <button onClick={() => handleHaircutLinkClick("Buzz Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Buzz Cut</button>
-                     <button onClick={() => handleHaircutLinkClick("Mullet")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Mullet Cut</button>
-                     <button onClick={() => handleHaircutLinkClick("Cornrows")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Cornrows</button>
-                     <button onClick={() => handleHaircutLinkClick("Dread Locs")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Dreadlocks</button>
-                     <button onClick={() => handleHaircutLinkClick("Braids")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Braids</button>
-                     <button onClick={() => handleHaircutLinkClick("Short Layer")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Short Layer</button>
-                     <button onClick={() => handleHaircutLinkClick("Blowouts")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Blowouts</button>
-                     <button onClick={() => handleHaircutLinkClick("Fringe Cut")} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Fringe Cut</button>
-                     <Link href="/styles-more" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">More</Link>
-                   </div>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Taper Cut")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Taper Cut
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Crew Cut")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Crew Cut
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Buzz Cut")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Buzz Cut
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Mullet")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Mullet Cut
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Cornrows")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Cornrows
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Dread Locs")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Dreadlocks
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Braids")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Braids
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Short Layer")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Short Layer
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Blowouts")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Blowouts
+                    </button>
+                    <button
+                      onClick={() => handleHaircutLinkClick("Fringe Cut")}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Fringe Cut
+                    </button>
+                    <Link
+                      href="/styles-more"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      More
+                    </Link>
+                  </div>
                 )}
               </div>
               <div className="ml-2">
@@ -346,17 +476,77 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                 </button>
                 {openCategory === "general-knowledge" && (
                   <div className="mt-2 ml-8 space-y-1">
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Clippers Crash Course</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Barber Essentials</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Barber Shop Etiquette</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Proper Hygiene</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Hair Growth Essentials</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">More About ShearGenius</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Why Men&#39;s Hair?</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Credits</Link>
-                     <Link href="/generalknowledge" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Contact</Link>
-                     <Link href="/login" onClick={toggleSidebar} className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600">Create An Account</Link>
-                   </div>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Clippers Crash Course
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Barber Essentials
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Barber Shop Etiquette
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Proper Hygiene
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Hair Growth Essentials
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      More About ShearGenius
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Why Men&#39;s Hair?
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Credits
+                    </Link>
+                    <Link
+                      href="/generalknowledge"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Contact
+                    </Link>
+                    <Link
+                      href="/login"
+                      onClick={toggleSidebar}
+                      className="font-[NeueMontreal-Medium] block text-md hover:text-gray-600"
+                    >
+                      Create An Account
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>

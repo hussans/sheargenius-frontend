@@ -6,8 +6,8 @@ import PostCard from "@/components/PostCard";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getAllPosts } from "@/utils/DataServices";
-import { IPostItems } from "@/utils/Interfaces";
+import { getAllBarbers, getAllPosts } from "@/utils/DataServices";
+import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 
 
 export default function Home() {
@@ -54,6 +54,7 @@ export default function Home() {
       },
     ]);
 
+    const [barbers, setBarbers] = useState<IUserProfileInfo[]>([])
   useEffect(() => {
     const asyncGetPosts = async() => {
       const fetchedPosts = await getAllPosts();
@@ -64,7 +65,12 @@ export default function Home() {
         setPosts([]);
       }
     }
+    const setBarberPreviews = async() => {
+      const allBarbers = await getAllBarbers()
+      setBarbers(allBarbers.slice(0,3))
+    }
     asyncGetPosts()
+    setBarberPreviews()
   },[searchActive])
 
   return (
@@ -102,10 +108,21 @@ export default function Home() {
               Curated by the community, for the community
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="mt-10">
+            {/* <div className="grid lg:grid-cols-3 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-3 gap-3">
               <ProfileCard />
               <ProfileCard />
-              <ProfileCard />
+              <div className="lg:col-span-1 md:col-span-full">
+                <ProfileCard />
+              </div>
+            </div> */}
+            <div className="grid grid-cols-3 gap-3">
+              {barbers.map((barber,idx) => (
+                <div key={idx}>
+                  <ProfileCard {...barber}/>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
