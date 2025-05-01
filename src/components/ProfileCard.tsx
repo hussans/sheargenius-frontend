@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
   // const[rating] = useState<number>(data.rating/data.ratingCount.length)
-  const [rating] = useState<number>(data.rating);
+  const [rating,setRating] = useState<string>("0");
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -23,7 +23,9 @@ const ProfileCard = (data: IUserProfileInfo) => {
       setPicSRCs(srcs);
     };
     previewPosts();
-  }, [rating]);
+    const division_result = data.rating / data.ratingCount.length
+    setRating(String(Math.round(division_result * 10) / 10))
+  }, [data.id]);
 
   const gotoProfile = (barber: string) => {
     if (!checkToken()) {
@@ -33,7 +35,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
       router.push("/user-profile");
     }
   };
-  
+
   return (
     <div className="bg-[#F5F5F5] w-full h-[440px] rounded-xl px-8 py-10">
       <div className="flex justify-between items-center">
@@ -55,14 +57,21 @@ const ProfileCard = (data: IUserProfileInfo) => {
             </p>
           </div>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 place-items-center">
           <p className="text-xl">{rating}</p>
+          <Image
+                  className="w-[15px] h-[15px] hover:drop-shadow-xl"
+                  src="/icons/star.png"
+                  alt="Star Icon"
+                  width={100}
+                  height={100}
+                />
         </div>
       </div>
       <hr className="my-10" />
-      <div className="grid grid-cols-3 gap-1">
         {picSRCs.length > 0 ? (
           picSRCs.map((pic: string, idx: number) => (
+            <div className="grid grid-cols-3 gap-1">
             <div key={idx} className="bg-white rounded-sm w-full h-[130px]">
               <Image
                 src={pic}
@@ -72,15 +81,13 @@ const ProfileCard = (data: IUserProfileInfo) => {
                 className="object-cover w-full h-full rounded-sm"
               />
             </div>
+      </div>
           ))
         ) : (
-          <div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
-          </div>
+          <div className="h-[130px] flex justify-center place-items-center">
+            <p>No Posts yet...</p>
+         </div>
         )}
-      </div>
       <div className="mt-5">
         <button
           className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"

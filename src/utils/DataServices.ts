@@ -3,6 +3,7 @@ import {
   IHaircutInterface,
   INewUser,
   IPostItems,
+  IRatingInterface,
   IUserInfo,
   IUserProfileInfo,
 } from "./Interfaces";
@@ -77,13 +78,13 @@ export const addCommentToPost = async (comment:ICommentInfo) => {
   return data.success;
 };
 
-export const addRating = async (username:string,rating:number,userToRate:string) => {
-  const res = await fetch(`${url}User/AddRating?username=${username}&rating=${rating}&usertoRate=${userToRate}`, {
+export const addRating = async (rating:IRatingInterface) => {
+  const res = await fetch(`${url}/User/AddRating`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({username,rating,userToRate}),
+    body: JSON.stringify(rating),
   });
   // if our response is not ok, we will run this block
   if (!res.ok) {
@@ -464,3 +465,8 @@ export const blobUpload = async (params: FormData)=> {
       return null;
   }
 };
+
+export const presetEmail = (email:string) => {
+  if (typeof window === 'undefined') return;
+  sessionStorage.setItem("presetEmail",email);
+}

@@ -100,3 +100,9 @@ export interface IHaircutInterface {
       step4: string;
     };
   }
+
+  export interface IRatingInterface {
+    rating: number,
+    username:string,
+    userToRate:string
+  }

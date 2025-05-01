@@ -1,8 +1,11 @@
 'use client'
+import { presetEmail } from "@/utils/DataServices";
 import Link from "next/link";
-import React from "react";
-
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 const Footer = () => {
+  const [email,setEmail] = useState<string>("")
+  const router = useRouter();
   const openNavbarCategory = (category: string) => {
     window.dispatchEvent(
       new CustomEvent("openNavbarCategory", { detail: { category } })
@@ -17,6 +20,8 @@ const Footer = () => {
   };
 
   const handleCreateAccountClick = () => {
+    presetEmail(email)
+    router.push("/register")
     console.log("Create account clicked - implement logic");
   };
 
@@ -124,6 +129,7 @@ const Footer = () => {
               type="text"
               placeholder="email"
               aria-label="Email for account creation"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <button
               onClick={handleCreateAccountClick}

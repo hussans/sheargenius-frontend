@@ -12,15 +12,15 @@ import RatingComponent from "./RatingComponent";
 const SearchProfileCard = (data: IUserProfileInfo) => {
   const [profileData, setProfileData] = useState<IUserProfileInfo>(data);
   const [rate, setRate] = useState<boolean>(false);
-  const[rating,setRating] = useState<string>(String(data.rating/data.ratingCount.length))
+  // const [error, setError] = useState<boolean>(false);
+  const [rating, setRating] = useState<string>("0");
   const router = useRouter();
 
-
   useEffect(() => {
-    setProfileData(data)
-    setRating(String(Number(rating).toFixed(1)))
-  },[router,data])
-
+    setProfileData(data);
+    const division_result = data.rating / data.ratingCount.length
+    setRating(String(Math.round(division_result * 10) / 10))
+  }, [rating, data]);
 
   const follow = async () => {
     if (!checkToken()) {
@@ -36,7 +36,17 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
     }
   };
 
-  const loggedInUsername = fetchInfo()?.username || '';
+  const openRate = () => {
+    if (!profileData.ratingCount.includes(fetchInfo().username)) {
+      setRate(true);
+    } else {
+      //need front-end styling for when error is set to true
+      // setError(true);
+      alert(`you have already rated ${profileData.username}`)
+    }
+  };
+
+  const loggedInUsername = fetchInfo()?.username || "";
 
   return (
     <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
@@ -60,7 +70,9 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
               </h3>
               <div
                 className={
-                  profileData.accountType == "Barber" ? "flex gap-1" : "hidden"
+                  profileData.accountType == "Barber"
+                    ? "flex gap-1 place-items-center"
+                    : "hidden"
                 }
               >
                 <p>{rating}</p>
@@ -68,26 +80,6 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
                   className="w-[15px] h-[15px] hover:drop-shadow-xl"
                   src="/icons/star.png"
                   alt="Star Icon"
-                />
-                <img
-                  className="w-[15px] h-[15px]"
-                  src="/icons/star-empty.png"
-                  alt="Star Icon"
-                />
-                <img
-                  className="w-[15px] h-[15px]"
-                  src="/icons/star-empty.png"
-                  alt="Star Icon"
-                />
-                <img
-                  className="w-[15px] h-[15px]"
-                  src="/icons/star-empty.png"
-                  alt="Star Icon"
-                />
-                <img
-                  className="w-[15px] h-[15px]"
-                  src="/icons/star-empty.png"
-                  alt="Empty Star Icon"
                 />
               </div>
             </div>
@@ -115,12 +107,22 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             className="bg-blue-500 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
             onClick={follow}
           >
-            {profileData.followers.includes(loggedInUsername) ? "Unfollow":"Follow"}
+            {profileData.followers.includes(loggedInUsername)
+              ? "Unfollow"
+              : "Follow"}
           </button>
-          <button className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75" onClick={() => setRate(!rate)}>
+          <button
+            className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
+            onClick={openRate}
+          >
             Rate
           </button>
-           {rate && (
+          {/* {error && (
+            <p className="text-red-600 pt-2">
+              you have already rated {profileData.username}
+            </p>
+          )} */}
+          {rate && (
             <div className="fixed inset-0 h-screen w-screen bg-black/60 flex justify-center items-center z-50 p-4">
               <div className="w-[100%] max-w-md sm:w-[70%] md:w-[60%] lg:w-[50%] bg-white p-4 pt-10 sm:pt-12 rounded-lg relative shadow-md">
                 <button
@@ -129,9 +131,9 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
                   aria-label="Close Rating Modal"
                 >
                   <img
-                      className="w-5 h-5 sm:w-6 sm:h-6"
-                      src="/icons/cross-small.png"
-                      alt="Close"
+                    className="w-5 h-5 sm:w-6 sm:h-6"
+                    src="/icons/cross-small.png"
+                    alt="Close"
                   />
                 </button>
                 <RatingComponent usernameToRate={profileData.username} />

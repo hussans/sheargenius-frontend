@@ -1,12 +1,14 @@
 "use client"
-import { checkToken } from "@/utils/DataServices";
+import { checkToken, presetEmail } from "@/utils/DataServices";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const [isHidden,setIsHidden] = useState(false)
+  const [isHidden,setIsHidden] = useState<boolean>(false)
+  const [email,setEmail] = useState<string>("")
   const router = useRouter();
+
 
   useEffect(() => {
     setIsHidden(checkToken())
@@ -36,9 +38,10 @@ const RegisterForm = () => {
             type="text"
             placeholder="email"
             aria-label="Email for account creation"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Link href={"./register"} passHref legacyBehavior>
-            <a className="bg-[#1500FF] block font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white text-center text-sm sm:text-base hover:bg-white hover:text-[#1500FF] active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-150">
+            <a className="bg-[#1500FF] block font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white text-center text-sm sm:text-base hover:bg-white hover:text-[#1500FF] active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-150" onClick={() => presetEmail(email)}>
               Create Account
             </a>
           </Link>

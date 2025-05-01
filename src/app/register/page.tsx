@@ -244,6 +244,18 @@ const Register = () => {
   const secondaryButtonClass =
     "bg-gray-200 text-black py-2 px-4 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-gray-300 active:bg-gray-400 cursor-pointer transition-colors duration-150";
 
+    const findPresetEmail = () => {
+      if (typeof window === 'undefined') return ""; // Prevents error on server
+
+      let sessionStorageData = sessionStorage.getItem('presetEmail');
+  
+      if (sessionStorageData == null) {
+          return "";
+      }
+  
+      return sessionStorageData;
+    }
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
       <div className="fixed top-4 left-4 sm:top-6 sm:left-6 z-20">
@@ -315,6 +327,7 @@ const Register = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   aria-label="Email"
+                  value={findPresetEmail()}
                 />
               </div>
               <div className="flex flex-col">

@@ -1,7 +1,4 @@
-import {
-  blobUpload,
-  editAccount,
-} from "@/utils/DataServices";
+import { blobUpload, editAccount, setCategory } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +10,8 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [openFollowing, setOpenFollowing] = useState(false);
+  const [openFollowers, setOpenFollowers] = useState(false);
   const [name, setName] = useState<string>(info.name);
   const [email, setEmail] = useState<string>(info.email);
   const [pfp] = useState<string>(info.pfp);
@@ -25,8 +24,14 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [zip, setZip] = useState<string>(info.zip);
   const [bio, setBio] = useState<string>(info.bio);
   const [file, setFile] = useState<File | null>(null);
+  // const [rating, setRating] = useState<string>("");
   // const [data] = useState<IUserProfileInfo>({...info});
   const router = useRouter();
+
+  const setRatingNum = () => {
+    const division_result = info.rating / info.ratingCount.length;
+    return String(Math.round(division_result * 10) / 10);
+  };
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -98,7 +103,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
         isDeleted: info.isDeleted,
       };
       const result = await editAccount(newEditedUser);
-      console.log(newEditedUser)
+      console.log(newEditedUser);
       if (result) {
         console.log("Editing Success");
         sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
@@ -149,6 +154,11 @@ const UserProfileCard = (info: IUserProfileInfo) => {
       };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
+  };
+
+  const goToProfile = (name: string) => {
+    setCategory(name);
+    router.push("/search-profile");
   };
 
   const states = [
@@ -457,40 +467,68 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   </h3>
                   <div
                     className={
-                      info.accountType == "Barber" ? "flex gap-1" : "hidden"
+                      info.accountType == "Barber"
+                        ? "flex gap-1 place-items-center"
+                        : "hidden"
                     }
                   >
+                    <p>{info.ratingCount.length != 0 ? setRatingNum() : "0"}</p>
                     <img
                       className="w-[15px] h-[15px] hover:drop-shadow-xl"
-                      src="./icons/star-empty.png"
+                      src="./icons/star.png"
                       alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Empty Star Icon"
                     />
                   </div>
                 </div>
                 <h2>{info.name}</h2>
                 <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-                  <h3>{info.followers.length} Followers</h3>
-                  <h3>{info.following.length} Followers</h3>
+                  <div className="relative">
+                    <h3
+                      className="cursor-pointer"
+                      onClick={() => setOpenFollowers(true)}
+                    >
+                      {info.followers.length} Following
+                    </h3>
+                    {/* {openFollowers && (
+                      <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                        {info.followers.map((user, index) => (
+                          <div key={index} className="flex justify-between">
+                            <h3 className="text-xl">{user}</h3>
+                            <button
+                              className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                              onClick={() => goToProfile(user)}
+                            >
+                              go to profile
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )} */}
+                  </div>
+
+                  <div className="relative">
+                    <h3
+                      className="cursor-pointer"
+                      onClick={() => setOpenFollowing(true)}
+                    >
+                      {info.following.length} Following
+                    </h3>
+                    {/* {openFollowing && (
+                      <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                        {info.following.map((user, index) => (
+                          <div key={index} className="flex justify-between">
+                            <h3 className="text-xl">{user}</h3>
+                            <button
+                              className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                              onClick={() => goToProfile(user)}
+                            >
+                              go to profile
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )} */}
+                  </div>
                 </div>
               </div>
             </div>
