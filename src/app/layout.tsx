@@ -14,17 +14,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><link
-  rel="icon"
-  href="/sheargeniuspng.png"
-  type="image/png"
-  sizes="32x32"
-/></head>
-      <body
-        className={`antialiased`}
-      >
-        {children}
-      </body>
+      <head>
+        <link
+          rel="icon"
+          href="/sheargeniuspng.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.chtlConfig = { chatbotId: "8615718816" };`,
+          }}
+        ></script>
+        <script async data-id="8615718816" id="chtl-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+      </head>
+      <body className={`antialiased`}>{children}</body>
     </html>
   );
-};
+}
