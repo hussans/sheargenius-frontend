@@ -25,7 +25,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
     previewPosts();
     const division_result = data.rating / data.ratingCount.length
     setRating(String(Math.round(division_result * 10) / 10))
-  }, [data.id]);
+  }, [data.id,data.rating,data.ratingCount.length]);
 
   const gotoProfile = (barber: string) => {
     if (!checkToken()) {
@@ -71,8 +71,8 @@ const ProfileCard = (data: IUserProfileInfo) => {
       <hr className="my-10" />
         {picSRCs.length > 0 ? (
           picSRCs.map((pic: string, idx: number) => (
-            <div className="grid grid-cols-3 gap-1">
-            <div key={idx} className="bg-white rounded-sm w-full h-[130px]">
+            <div key={idx} className="grid grid-cols-3 gap-1">
+            <div className="bg-white rounded-sm w-full h-[130px]">
               <Image
                 src={pic}
                 alt={`Preview ${idx + 1}`}

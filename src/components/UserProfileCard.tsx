@@ -1,4 +1,4 @@
-import { blobUpload, editAccount, setCategory } from "@/utils/DataServices";
+import { blobUpload, editAccount } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,8 +10,8 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [openFollowing, setOpenFollowing] = useState(false);
-  const [openFollowers, setOpenFollowers] = useState(false);
+  // const [openFollowing, setOpenFollowing] = useState(false);
+  // const [openFollowers, setOpenFollowers] = useState(false);
   const [name, setName] = useState<string>(info.name);
   const [email, setEmail] = useState<string>(info.email);
   const [pfp] = useState<string>(info.pfp);
@@ -156,10 +156,10 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     }
   };
 
-  const goToProfile = (name: string) => {
-    setCategory(name);
-    router.push("/search-profile");
-  };
+  // const goToProfile = (name: string) => {
+  //   setCategory(name);
+  //   router.push("/search-profile");
+  // };
 
   const states = [
     "Alabama",
@@ -485,7 +485,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   <div className="relative">
                     <h3
                       className="cursor-pointer"
-                      onClick={() => setOpenFollowers(true)}
+                      // onClick={() => setOpenFollowers(true)}
                     >
                       {info.followers.length} Following
                     </h3>
@@ -509,7 +509,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   <div className="relative">
                     <h3
                       className="cursor-pointer"
-                      onClick={() => setOpenFollowing(true)}
+                      // onClick={() => setOpenFollowing(true)}
                     >
                       {info.following.length} Following
                     </h3>

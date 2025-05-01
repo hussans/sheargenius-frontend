@@ -247,7 +247,7 @@ const Register = () => {
     const findPresetEmail = () => {
       if (typeof window === 'undefined') return ""; // Prevents error on server
 
-      let sessionStorageData = sessionStorage.getItem('presetEmail');
+      const sessionStorageData = sessionStorage.getItem('presetEmail');
   
       if (sessionStorageData == null) {
           return "";

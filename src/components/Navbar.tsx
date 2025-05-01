@@ -100,7 +100,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
         setIsOpen(false);
         setOpenCategory(null);
     }
-  }, [path]);
+  }, [path,isOpen]);
 
 
   return (

@@ -13,7 +13,6 @@ const RatingComponent = ({ usernameToRate }: RatingComponentProps) => {
 
   const rate = async () => {
     if (selectedIndex != null) {
-      const star = selectedIndex + 1;
       const rating:IRatingInterface = {
         rating:selectedIndex+1,
         username:fetchInfo().username,
