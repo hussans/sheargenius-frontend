@@ -101,3 +101,11 @@ export interface HaircutInterface {
       step4: string;
     };
   }
+
+  export interface Schedule {
+    id: number; 
+    username: string;
+    days: string[];
+    times: string[];
+  }
+  

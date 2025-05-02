@@ -252,3 +252,24 @@ export const setCategory = (cat: string) => {
 export const getCategory = () => {
   return localStorage.getItem("searchQuery") as string
 };
+
+// ===================================
+export const getPostsByLocation = async (location: string, token: string) => {
+  const res = await fetch(`${url}Post/GetPostsByLocation/${location}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.error(message);
+    return [];
+  }
+
+  const data = await res.json();
+  return data;
+};
