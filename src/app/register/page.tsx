@@ -8,8 +8,8 @@ import {
 } from "@/utils/DataServices";
 import { INewUser, IToken } from "@/utils/Interfaces";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const Register = () => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
@@ -31,6 +31,7 @@ const Register = () => {
   const [securityAnswer, setSecurityAnswer] = useState<string>("");
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams()
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -244,6 +245,13 @@ const Register = () => {
   const secondaryButtonClass =
     "bg-gray-200 text-black py-2 px-4 rounded-md font-[NeueMontreal-Medium] text-sm hover:bg-gray-300 active:bg-gray-400 cursor-pointer transition-colors duration-150";
 
+  useEffect(() => {
+      if (searchParams.size != 0 && searchParams.get("presetEmail"))
+      {
+        setEmail(searchParams.get("presetEmail") || "")
+      }
+  },[searchParams])
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
       <div className="fixed top-4 left-4 sm:top-6 sm:left-6 z-20">
@@ -308,14 +316,25 @@ const Register = () => {
                   {" "}
                   Email{" "}
                 </p>
-                <input
+                {searchParams.get("presetEmail") ?  
+                (<input
                   className={inputBaseClass}
                   type="email"
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
+                  value= {searchParams.get("presetEmail") || ""}
+                />)
+                : 
+                (<input
+                  className={inputBaseClass}
+                  type="email"
+                  placeholder="Email"
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                   aria-label="Email"
                 />
+                )}
+                
               </div>
               <div className="flex flex-col">
                 <p className="font-[NeueMontreal-Medium] text-sm pb-1">

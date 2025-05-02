@@ -1,12 +1,17 @@
 "use client";
-import { loggedInData } from '@/utils/DataServices'
-import React from 'react'
+import Navbar from "@/components/Navbar";
+import StylistAIComponent from "@/components/StylistAIComponent";
+import React, { useState } from "react";
 
 const Explore = () => {
-  console.log(loggedInData())
+  const [searchActive, setSearchActive] = useState(false);
+  console.log(searchActive);
   return (
-    <div>Explore</div>
-  )
-}
+    <div className="min-h-screen">
+      <Navbar setSearchActive={setSearchActive} />
+      <StylistAIComponent />
+    </div>
+  );
+};
 
-export default Explore
+export default Explore;

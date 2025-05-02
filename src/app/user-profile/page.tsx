@@ -5,6 +5,9 @@ import UserProfileCard from "@/components/UserProfileCard";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import PostFeed from "@/components/PostFeed";
 import Footer from "@/components/Footer";
+import { useSearchParams } from "next/navigation";
+import { fetchInfo, getUserData } from "@/utils/DataServices";
+import SearchProfileCard from "@/components/SearchProfileCard";
 
 const UserProfile = () => {
   const [searchActive, setSearchActive] = useState(false);
@@ -17,10 +20,10 @@ const UserProfile = () => {
     accountType: "",
     name: "",
     rating: 0,
-    ratingCount: [""],
-    followers: [""],
-    following: [""],
-    likes: [""],
+    ratingCount: [],
+    followers: [],
+    following: [],
+    likes: [],
     securityQuestion: "",
     securityAnswer: "",
     bio: "",
@@ -30,21 +33,27 @@ const UserProfile = () => {
     city: "",
     state: "",
     zip: "",
-    pfp: "",
+    pfp: "./nofileselected.png",
     isDeleted: false,
   });
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      sessionStorage.getItem("AccountInfo")
-    ) {
-      setAccountData(JSON.parse(sessionStorage.getItem("AccountInfo") || "{}"));
+    const getInfo = async() => {
+      if(searchParams.get("u")) setAccountData(await getUserData(searchParams.get("u")||""))
     }
-  }, [searchActive]);
+    getInfo()
+  }, [searchActive,searchParams]);
+  // useEffect(() => {
+  //   if (
+  //     typeof window !== "undefined" &&
+  //     sessionStorage.getItem("AccountInfo")
+  //   ) {
+  //     setAccountData(JSON.parse(sessionStorage.getItem("AccountInfo") || "{}"));
+  //   }
+  // }, [searchActive]);
 
   // console.log(accountData);
-  console.log(searchActive);
 
   // const router = useRouter();
 
@@ -55,7 +64,11 @@ const UserProfile = () => {
     <div>
       <Navbar setSearchActive={setSearchActive} />
       <div className="flex min-h-screen flex-col gap-2 font-[NeueMontreal-Medium] mx-5">
+        {accountData.username == fetchInfo().username ? 
         <UserProfileCard {...accountData} />
+      :
+        <SearchProfileCard {...accountData}/>
+        }
         <PostFeed {...accountData} />
       </div>
       <Footer />

@@ -1,13 +1,13 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import ProfileCard from "@/components/ProfileCard";
-import CreateAccPopup from "@/components/RegisterForm";
 import PostCard from "@/components/PostCard";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getAllBarbers, getAllPosts } from "@/utils/DataServices";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
+import RegisterForm from "@/components/RegisterForm";
 
 
 export default function Home() {
@@ -80,7 +80,6 @@ export default function Home() {
       <header id="page-header">
         <Header searchActive={searchActive} setSearchActive={setSearchActive} />
       </header>
-
       <main className="px-4 sm:px-6 lg:px-8">
 
         <section id="top-posts" className="mt-12 sm:mt-16 lg:mt-20">
@@ -128,7 +127,7 @@ export default function Home() {
       </main>
 
       <section id="create-account" className="mt-16 sm:mt-20 lg:mt-24 xl:mt-44">
-        <CreateAccPopup />
+        <RegisterForm/>
       </section>
 
       <section className="mt-16 sm:mt-20 lg:mt-24 px-4 sm:px-6 lg:px-8">
@@ -204,7 +203,6 @@ export default function Home() {
 
         </div>
       </section>
-
       <footer className="mt-16 sm:mt-20 lg:mt-25">
         <Footer />
       </footer>

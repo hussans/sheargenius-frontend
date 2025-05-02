@@ -55,6 +55,9 @@ const Login = () => {
     }
   };
 
+  const clearStorage = () =>{
+    if(sessionStorage.getItem("presetEmail") != null) sessionStorage.removeItem("presetEmail")
+  }
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
       <div className="fixed top-4 left-4 sm:top-6 sm:left-6 z-10">
@@ -130,7 +133,7 @@ const Login = () => {
                   Don&#39;t have an account?
                   <Link
                     className="text-[#1500FF] active:text-[#3F5CFF] hover:underline ml-1"
-                    href={"./register"}
+                    href={"./register"} onClick={() => clearStorage()}
                   >
                     Sign Up
                   </Link>

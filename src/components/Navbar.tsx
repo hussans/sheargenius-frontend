@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkToken, getCategory, setCategory } from "@/utils/DataServices";
+import { checkToken, fetchInfo } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
 
 interface NavbarProps {
@@ -45,11 +45,16 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   console.log(path);
 
   const handleHaircutLinkClick = (haircutName: string) => {
-    setCategory(haircutName);
+    // setCategory(haircutName);
+    const queryParams = new URLSearchParams({
+      h: haircutName,
+    }).toString();
     if (path == "/directory") {
       window.location.reload();
     }
-    router.push("/directory");
+    router.push(`/directory?${queryParams}`);
+    setIsOpen(false);
+    setOpenCategory(null);
     closeSidebar();
   };
 
@@ -57,7 +62,10 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
   const profileClick = () => {
     if (checkToken()) {
-      router.push("/user-profile");
+      const queryParams = new URLSearchParams({
+        u: fetchInfo().username,
+      }).toString();
+      router.push(`/user-profile?${queryParams}`);
     } else {
       router.push("/login");
     }
@@ -92,11 +100,16 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
   }, []);
 
   useEffect(() => {
+
     if(isSidebarOpen) {
        closeSidebar();
+
+    if (isOpen) {
+      setIsOpen(false);
+      setOpenCategory(null);
+
     }
   }, [path]);
-
 
   return (
     <div className="relative">
@@ -134,7 +147,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                   </button>
                 </div>
                 <div className="flex items-center gap-6">
-                   <button className="cursor-pointer">
+                  <button className="cursor-pointer">
                     <img
                       className="relative"
                       style={{ width: '17px', height: '17px', flexShrink: 0 }}
@@ -183,6 +196,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       <div className="h-16"></div>
 
       {addPost && (
+
          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 p-4">
            <div className="w-[90%] max-w-xl md:w-[70%] lg:w-[50%] bg-white rounded-lg relative">
              <button className="absolute top-2 right-2 p-1 rounded-full text-slate-600 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors" onClick={() => setAddPost(false)} aria-label="Close Add Post Modal">
@@ -196,6 +210,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
            </div>
          </div>
        )}
+
 
       {isSidebarOpen && (
         <>
@@ -370,6 +385,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     </div>
                     )}
                 </div>
+
               </div>
             )}
 

@@ -3,9 +3,12 @@ import {
   IHaircutInterface,
   INewUser,
   IPostItems,
+  IRatingInterface,
   IUserInfo,
   IUserProfileInfo,
 } from "./Interfaces";
+
+const APIKEY = process.env.NEXT_PUBLIC_API_KEY
 
 const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
@@ -64,6 +67,26 @@ export const addCommentToPost = async (comment:ICommentInfo) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(comment),
+  });
+  // if our response is not ok, we will run this block
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.json();
+  return data.success;
+};
+
+export const addRating = async (rating:IRatingInterface) => {
+  const res = await fetch(`${url}/User/AddRating`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rating),
   });
   // if our response is not ok, we will run this block
   if (!res.ok) {
@@ -443,4 +466,54 @@ export const blobUpload = async (params: FormData)=> {
       console.log('Failed to upload file.');
       return null;
   }
+};
+
+export const chatBot = async(prompt:string) =>{
+  try{
+  const response: Response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${APIKEY}`,
+    "HTTP-Referer": "https://sheargenius.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
+    "X-Title": "ShearGenius", // Optional. Site title for rankings on openrouter.ai.
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    "model": "deepseek/deepseek-r1:free",
+    "messages": [
+      {
+        role: "user",
+        content: prompt
+      }
+    ]
+  })
+});
+  const data = await response.json();
+  console.log(data)
+  return data.choices?.[0]?.message.content;
+} catch (error) {
+  console.error("Error in chatBot function:", error);
+  return "Error in chatBot function:"+ error;
+}
+};
+
+// ===================================
+export const getPostsByLocation = async (location: string, token: string) => {
+  const res = await fetch(`${url}Post/GetPostsByLocation/${location}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    const message = errorData.message;
+    console.error(message);
+    return [];
+  }
+
+  const data = await res.json();
+  return data;
 };

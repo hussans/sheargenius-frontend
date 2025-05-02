@@ -1,7 +1,6 @@
 import {
   checkToken,
   getPostItemsByUserId,
-  setCategory,
 } from "@/utils/DataServices";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
@@ -10,7 +9,8 @@ import { useRouter } from "next/navigation";
 
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
-  const [rating] = useState<number>(data.rating);
+  // const[rating] = useState<number>(data.rating/data.ratingCount.length)
+  const [rating, setRating] = useState<string>("0");
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -25,7 +25,9 @@ const ProfileCard = (data: IUserProfileInfo) => {
       }
     };
     previewPosts();
-  }, [rating]);
+    const division_result = data.rating / data.ratingCount.length;
+    setRating(String(Math.round(division_result * 10) / 10));
+  }, [data.id, data.rating, data.ratingCount.length]);
 
   const renderStars = (averageRating: number | null | undefined) => {
     const validRating = typeof averageRating === 'number' ? averageRating : 0;
@@ -49,11 +51,13 @@ const ProfileCard = (data: IUserProfileInfo) => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      router.push(`/user-profile/${username}`);
+      // setCategory(barber);
+      const queryParams = new URLSearchParams({
+        u: barber,
+      }).toString();
+      router.push(`/user-profile?${queryParams}`);
     }
   };
-
-  if (!data) return null;
 
   return (
     <div className="bg-[#F5F5F5] w-full h-[440px] rounded-xl px-8 py-10">
@@ -75,15 +79,17 @@ const ProfileCard = (data: IUserProfileInfo) => {
             </p>
           </div>
         </div>
+
         <div className="flex gap-1">
            {renderStars(rating)}
+
         </div>
       </div>
       <hr className="my-10" />
-      <div className="grid grid-cols-3 gap-1">
-        {picSRCs.length > 0 ? (
-          picSRCs.map((pic: string, idx: number) => (
-            <div key={idx} className="bg-white rounded-sm w-full h-[130px]">
+      {picSRCs.length > 0 ? (
+        picSRCs.map((pic: string, idx: number) => (
+          <div key={idx} className="grid grid-cols-3 gap-1">
+            <div className="bg-white rounded-sm w-full h-[130px]">
               <Image
                 src={pic || '/placeholder-image.png'}
                 alt={`Preview ${idx + 1}`}
@@ -92,15 +98,18 @@ const ProfileCard = (data: IUserProfileInfo) => {
                 className="object-cover w-full h-full rounded-sm"
               />
             </div>
+
           ))
         ) : (
           <div className="flex flex-row col-span-3">
             <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
             <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
             <div className="bg-gray-200 rounded-sm w-full h-[130px]"></div>
+
           </div>
-        )}
-      </div>
+        )
+ 
+      }
       <div className="mt-5">
         <button
           className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"

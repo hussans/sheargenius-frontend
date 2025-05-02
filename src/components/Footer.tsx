@@ -1,8 +1,10 @@
 'use client'
 import Link from "next/link";
-import React from "react";
-
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 const Footer = () => {
+  const [email,setEmail] = useState<string>("")
+  const router = useRouter();
   const openNavbarCategory = (category: string) => {
     window.dispatchEvent(
       new CustomEvent("openNavbarCategory", { detail: { category } })
@@ -16,9 +18,12 @@ const Footer = () => {
     }
   };
 
-  const handleCreateAccountClick = () => {
-    console.log("Create account clicked - implement logic");
-  };
+  const gotoCreate = () => {
+    const queryParams = new URLSearchParams({ 
+      presetEmail: email,  
+    }).toString();
+    router.push(`/register?${queryParams}`);
+  }
 
   return (
     <div className="bg-black w-full min-h-[350px] px-4 sm:px-6 lg:px-8 py-8 sm:py-10 text-xs sm:text-sm">
@@ -124,9 +129,10 @@ const Footer = () => {
               type="text"
               placeholder="email"
               aria-label="Email for account creation"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <button
-              onClick={handleCreateAccountClick}
+              onClick={gotoCreate}
               className="bg-[#1500FF] font-[NeueMontreal-Medium] rounded-sm text-white px-5 py-2.5 sm:py-3 text-sm hover:bg-blue-700 active:bg-blue-800 transition-colors duration-150 w-full lg:w-auto"
             >
               CREATE ACCOUNT

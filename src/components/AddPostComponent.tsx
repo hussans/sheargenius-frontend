@@ -7,6 +7,7 @@ import {
   getToken,
 } from "@/utils/DataServices";
 import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const categoryTitles = async () => {
@@ -28,13 +29,14 @@ const AddPostComponent = () => {
   );
   const [haircuts, setHaircuts] = useState<string[]>([]);
   const [file, setFile] = useState<File | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTitles = async () => {
       setHaircuts(await categoryTitles());
     };
     fetchTitles();
-  });
+  },[router]);
 
   const handleStyle = (cut: string) => {
     setStyle(cut);

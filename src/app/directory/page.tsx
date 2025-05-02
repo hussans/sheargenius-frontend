@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import PostCard from "@/components/PostCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
 import {
   fetchHaircut,
-  getCategory,
   getPostItemsByCategory,
 } from "@/utils/DataServices";
 import Header from "@/components/Header";
+import { useSearchParams } from "next/navigation";
 
 export default function DirectoryPage() {
   const [haircut, setHaircut] = useState<IHaircutInterface>({
@@ -70,10 +70,10 @@ export default function DirectoryPage() {
   ]);
 
   const [searchActive, setSearchActive] = useState(false);
-
+  const searchParameters = useSearchParams()
   useEffect(() => {
     const fetchData = async () => {
-      const category = getCategory();
+      const category = searchParameters.get("h");
 
       if (category) {
         try {
@@ -108,6 +108,7 @@ export default function DirectoryPage() {
   }, []);
 
   return (
+    <Suspense>
     <div className="bg-white min-h-screen w-full">
       <nav>
         <Navbar setSearchActive={setSearchActive} />
@@ -120,13 +121,9 @@ export default function DirectoryPage() {
           description={haircut.description || "A Hub For All Things Hair"}
         />
       </header>
-
        {haircut && haircut.id !== 0 && haircut.name !== "Directory" && haircut.name !== "Error" && haircut.name !== "Not Found" ? (
          <div className="container mt-20 px-4 mx-auto">
            <div>
-             <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
-               {haircut.name} Examples
-             </h2>
              <div className="flex flex-col md:flex-row gap-12 justify-evenly items-center">
                <img
                  src={haircut.photo1}
@@ -143,7 +140,7 @@ export default function DirectoryPage() {
            </div>
 
            <div className="mt-28">
-             <h2 className="text-2xl font-bold mb-10 text-center font-[NeueMontreal-Medium]">
+             <h2 className="text-2xl mb-10 font-[NeueMontreal-Medium]">
                Related Posts
              </h2>
              {posts && posts.length > 0 && posts[0].id !== 0 ? (
@@ -172,10 +169,10 @@ export default function DirectoryPage() {
               <div className="flex flex-col lg:flex-row justify-center items-start gap-12 mt-20">
               {haircut.howTo?.step1 && (
                  <div className="w-full lg:w-1/3 text-left">
-                 <h3 className="text-2xl font-bold mb-4 font-[NeueMontreal-Medium]">
+                 <h3 className="text-2xl mb-4 font-[NeueMontreal-Medium]">
                    How To:
                  </h3>
-                 <ul className="text-lg space-y-2 font-bold font-[NeueMontreal-Medium]">
+                 <ul className="text-lg space-y-2 font-[NeueMontreal-Medium]">
                    {haircut.howTo.step1 && <li>1. {haircut.howTo.step1}</li>}
                    {haircut.howTo.step2 && <li>2. {haircut.howTo.step2}</li>}
                    {haircut.howTo.step3 && <li>3. {haircut.howTo.step3}</li>}
@@ -212,6 +209,6 @@ export default function DirectoryPage() {
       <div className="mt-24">
         <Footer />
       </div>
-    </div>
+    </div></Suspense>
   );
 }
