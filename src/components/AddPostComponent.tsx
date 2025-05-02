@@ -17,7 +17,6 @@ const categoryTitles = async () => {
   data.haircuts.map((haircut: IHaircutInterface) => {
     titles.push(haircut.name);
   });
-  console.log(titles)
   return titles;
 };
 

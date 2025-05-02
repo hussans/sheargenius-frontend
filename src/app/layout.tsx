@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ChatbotComponent from "@/components/ChatbotComponent";
 // import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
@@ -21,12 +22,7 @@ export default function RootLayout({
           type="image/png"
           sizes="32x32"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.chtlConfig = { chatbotId: "8615718816" };`,
-          }}
-        ></script>
-        <script async data-id="8615718816" id="chtl-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+        <ChatbotComponent/>
       </head>
       <body className={`antialiased`}>{children}</body>
     </html>

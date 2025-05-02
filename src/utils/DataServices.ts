@@ -470,3 +470,32 @@ export const presetEmail = (email:string) => {
   if (typeof window === 'undefined') return;
   sessionStorage.setItem("presetEmail",email);
 }
+
+export const chatBot = async(prompt:string) =>{
+  try{
+  const response: Response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer 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",
+    "HTTP-Referer": "https://sheargenius.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
+    "X-Title": "ShearGenius", // Optional. Site title for rankings on openrouter.ai.
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    "model": "deepseek/deepseek-r1:free",
+    "messages": [
+      {
+        role: "user",
+        content: prompt
+      }
+    ]
+  })
+});
+  const data = await response.json();
+  console.log(data)
+  return data.choices?.[0]?.message.content;
+} catch (error) {
+  console.error("Error in chatBot function:", error);
+  return "Error in chatBot function:"+ error;
+}
+};
