@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import PostCard from "@/components/PostCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { IHaircutInterface, IPostItems } from "@/utils/Interfaces";
 import {
   fetchHaircut,
-  getCategory,
   getPostItemsByCategory,
 } from "@/utils/DataServices";
 import Header from "@/components/Header";
+import { useSearchParams } from "next/navigation";
 
 export default function DirectoryPage() {
   const [haircut, setHaircut] = useState<IHaircutInterface>({
@@ -70,10 +70,10 @@ export default function DirectoryPage() {
   ]);
 
   const [searchActive, setSearchActive] = useState(false);
-
+  const searchParameters = useSearchParams()
   useEffect(() => {
     const fetchData = async () => {
-      const category = getCategory();
+      const category = searchParameters.get("h");
 
       if (category) {
         try {
@@ -108,6 +108,7 @@ export default function DirectoryPage() {
   }, []);
 
   return (
+    <Suspense>
     <div className="bg-white min-h-screen w-full">
       <nav>
         <Navbar setSearchActive={setSearchActive} />
@@ -208,6 +209,6 @@ export default function DirectoryPage() {
       <div className="mt-24">
         <Footer />
       </div>
-    </div>
+    </div></Suspense>
   );
 }

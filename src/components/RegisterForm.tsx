@@ -1,18 +1,24 @@
-"use client"
-import { checkToken, presetEmail } from "@/utils/DataServices";
+"use client";
+import { checkToken } from "@/utils/DataServices";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const [isHidden,setIsHidden] = useState<boolean>(false)
-  const [email,setEmail] = useState<string>("")
+  const [isHidden, setIsHidden] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
   const router = useRouter();
 
-
   useEffect(() => {
-    setIsHidden(checkToken())
-  },[router])
+    setIsHidden(checkToken());
+  }, [router]);
+
+  const gotoCreate = () => {
+    const queryParams = new URLSearchParams({
+      presetEmail: email,
+    }).toString();
+    router.push(`/register?${queryParams}`);
+  };
 
   return (
     <div
@@ -40,11 +46,14 @@ const RegisterForm = () => {
             aria-label="Email for account creation"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Link href={"./register"} passHref legacyBehavior>
-            <a className="bg-[#1500FF] block font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white text-center text-sm sm:text-base hover:bg-white hover:text-[#1500FF] active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-150" onClick={() => presetEmail(email)}>
-              Create Account
-            </a>
-          </Link>
+
+          <button
+            className="bg-[#1500FF] block font-[NeueMontreal-Medium] w-full px-5 py-3 rounded-sm text-white text-center text-sm sm:text-base hover:bg-white hover:text-[#1500FF] active:bg-[#1500FF] active:text-white cursor-pointer transition-all duration-150"
+            onClick={gotoCreate}
+          >
+            Create Account
+          </button>
+
           <div className="flex justify-center items-center mt-2">
             <p className="font-[NeueMontreal-Medium] text-white text-xs sm:text-sm">
               Already have an account?

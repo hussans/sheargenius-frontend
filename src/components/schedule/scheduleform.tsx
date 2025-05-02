@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Schedule } from "@/utils/Interfaces"; 
 import { fetchInfo } from "@/utils/fetchInfo"; 
-import { setSchedule } from "@/lib/api"; 
+// import { setSchedule } from "@/lib/api"; 
 
 
 const daysOfWeek = [
@@ -56,8 +56,8 @@ const handleSubmit = async () => {
     console.log("Submitting schedule:", payload);
   
     try {
-      const response = await setSchedule(payload);
-      console.log("Schedule successfully submitted:", response);
+      // const response = await setSchedule(payload);
+      // console.log("Schedule successfully submitted:", response);
     
     } catch (error) {
       console.error("Failed to submit schedule:", error);

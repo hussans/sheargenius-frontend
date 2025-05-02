@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ChatbotComponent from "@/components/ChatbotComponent";
+import { Suspense } from "react";
 // import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
@@ -24,7 +25,11 @@ export default function RootLayout({
         />
         <ChatbotComponent/>
       </head>
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <Suspense>
+        {children}
+        </Suspense>
+        </body>
     </html>
   );
 }

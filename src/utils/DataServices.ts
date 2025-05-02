@@ -468,11 +468,6 @@ export const blobUpload = async (params: FormData)=> {
   }
 };
 
-export const presetEmail = (email:string) => {
-  if (typeof window === 'undefined') return;
-  sessionStorage.setItem("presetEmail",email);
-}
-
 export const chatBot = async(prompt:string) =>{
   try{
   const response: Response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
