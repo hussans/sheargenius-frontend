@@ -24,12 +24,14 @@ export default function GeneralKnowledge() {
       <div className="items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[NeueMontreal-Medium]">
         <div className="flex flex-row">
           <div className="w-[16rem]">
-            <div className="fixed">
+            <div className="sticky top-24 self-start">
               <QuickLinks />
             </div>
+
           </div>
           <div className="w-full max-w-4xl mx-auto flex flex-col gap-6">
-            <Card className="flex flex-row justify-between p-4">
+          <Card className="flex flex-col md:flex-row justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="clipper-crash-course">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -64,10 +66,12 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/barber_utensils_wide.png"
                 alt="barber equipment"
-                className="rounded-lg"
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row-reverse justify-between  p-4">
+            <Card className="flex flex-col-reverse md:flex-row-reverse justify-between gap-4 p-4">
+
+
               <div>
                 <CardTitle id="barber-essentials">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -113,10 +117,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/clippers.jpg"
                 alt="trimmers"
-                className="rounded-lg"
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row justify-between  p-4">
+            <Card className="flex flex-col md:flex-row justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="barber-shop-etiquette">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -149,10 +154,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/barbershop.jpg"
                 alt="barbershop"
-                className="rounded-lg"
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row-reverse justify-between  p-4">
+            <Card className="flex flex-col-reverse md:flex-row-reverse justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="proper-hygiene">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -186,10 +192,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/shower.jpg"
                 alt="shower"
-                className="rounded-lg"
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row justify-between  p-4">
+            <Card className="flex flex-col md:flex-row justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="hair-growth-essentials">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -224,10 +231,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/oil.jpg"
                 alt="hair oil"
-                className="rounded-lg"
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row-reverse justify-between  p-4">
+            <Card className="flex flex-col-reverse md:flex-row-reverse justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="why-mens-hair">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -260,10 +268,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/comb.jpg"
                 alt="haircut"
-                className="rounded-lg" //w-160 h-96
+                className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row justify-between  p-4">
+            <Card className="flex flex-col md:flex-row justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="beard-care-essentials">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -303,10 +312,11 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/beard.jpg"
                 alt="hair oil"
-                className="rounded-lg"
+                 className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
-            <Card className="flex flex-row-reverse justify-betweenjustify-between p-4">
+            <Card className="flex flex-col-reverse md:flex-row-reverse justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="haircuts-for-face-shapes">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -336,11 +346,12 @@ export default function GeneralKnowledge() {
                 height={96}
                 src="/faceshape.jpg"
                 alt="haircuts"
-                className="rounded-lg"
+               className="rounded-lg w-full md:w-[160px] h-auto object-cover"
               />
             </Card>
 
-            <Card className="flex flex-row justify-between  p-4">
+            <Card className="flex flex-col md:flex-row justify-between gap-4 p-4">
+
               <div>
                 <CardTitle id="credits">
                   <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
@@ -396,7 +407,7 @@ export default function GeneralKnowledge() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs">Hassan</p>
+                    <p className="text-xs">Hassan Sajid</p>
                     <div className="flex gap-2">
                       <a href="#">
                         <Image
@@ -425,7 +436,8 @@ export default function GeneralKnowledge() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </SidebarProvider>
   );
 }
+

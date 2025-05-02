@@ -120,7 +120,6 @@ export default function DirectoryPage() {
           description={haircut.description || "A Hub For All Things Hair"}
         />
       </header>
-
        {haircut && haircut.id !== 0 && haircut.name !== "Directory" && haircut.name !== "Error" && haircut.name !== "Not Found" ? (
          <div className="container mt-20 px-4 mx-auto">
            <div>

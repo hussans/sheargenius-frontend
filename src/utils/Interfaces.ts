@@ -101,6 +101,13 @@ export interface IHaircutInterface {
     };
   }
 
+  export interface Schedule {
+    id: number; 
+    username: string;
+    days: string[];
+    times: string[];
+  }
+  
   export interface IRatingInterface {
     rating: number,
     username:string,
