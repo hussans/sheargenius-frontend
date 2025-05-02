@@ -8,6 +8,8 @@ import {
   IUserProfileInfo,
 } from "./Interfaces";
 
+import { AIapikey } from "./keys";
+
 const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
 const blobURL = "https://aaronsblob123.blob.core.windows.net/aaronsblob"
@@ -476,7 +478,7 @@ export const chatBot = async(prompt:string) =>{
   const response: Response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   method: "POST",
   headers: {
-    "Authorization": "Bearer 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",
+    "Authorization": `Bearer ${AIapikey}`,
     "HTTP-Referer": "https://sheargenius.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
     "X-Title": "ShearGenius", // Optional. Site title for rankings on openrouter.ai.
     "Content-Type": "application/json"
