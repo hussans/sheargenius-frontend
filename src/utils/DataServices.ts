@@ -8,7 +8,7 @@ import {
   IUserProfileInfo,
 } from "./Interfaces";
 
-import { AIapikey } from "./keys";
+const APIKEY = process.env.NEXT_PUBLIC_API_KEY
 
 const url = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/";
 // this variable will be used in our getPost by user id fetch when we set them up
@@ -478,7 +478,7 @@ export const chatBot = async(prompt:string) =>{
   const response: Response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   method: "POST",
   headers: {
-    "Authorization": `Bearer ${AIapikey}`,
+    "Authorization": `Bearer ${APIKEY}`,
     "HTTP-Referer": "https://sheargenius.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
     "X-Title": "ShearGenius", // Optional. Site title for rankings on openrouter.ai.
     "Content-Type": "application/json"
