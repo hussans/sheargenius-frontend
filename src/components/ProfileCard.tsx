@@ -7,55 +7,76 @@ import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
-  // const[rating] = useState<number>(data.rating/data.ratingCount.length)
   const [rating] = useState<number>(data.rating);
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
     const previewPosts = async () => {
-      const posts = await getPostItemsByUserId(data.id);
-      const srcs: string[] = [];
-      posts.map((post: IPostItems) => {
-        srcs.push(post.image);
-      });
-      setPicSRCs(srcs);
+      if (data && data.id) {
+          const posts = await getPostItemsByUserId(data.id);
+          const srcs: string[] = [];
+          posts.map((post: IPostItems) => {
+            srcs.push(post.image);
+          });
+          setPicSRCs(srcs.slice(0, 3));
+      }
     };
     previewPosts();
   }, [rating]);
 
-  const gotoProfile = (barber: string) => {
+  const renderStars = (averageRating: number | null | undefined) => {
+    const validRating = typeof averageRating === 'number' ? averageRating : 0;
+    const roundedRating = Math.round(validRating);
+    const stars = [];
+
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <img
+          key={i}
+          className="w-[15px] h-[15px]"
+          src={i <= roundedRating ? "/icons/star.png" : "/icons/star-empty.png"}
+          alt={i <= roundedRating ? "Filled Star" : "Empty Star"}
+        />
+      );
+    }
+    return <div className="flex items-center gap-1">{stars}</div>; 
+  };
+
+  const gotoProfile = (username: string) => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      setCategory(barber);
-      router.push("/user-profile");
+      router.push(`/user-profile/${username}`);
     }
   };
+
+  if (!data) return null;
+
   return (
     <div className="bg-[#F5F5F5] w-full h-[440px] rounded-xl px-8 py-10">
       <div className="flex justify-between items-center">
         <div className="flex flex-row gap-3 items-center">
           <Image
-            className="bg-white rounded-full w-[75px] h-[75px] text-xs flex justify-center items-center text-center"
+            className="bg-white rounded-full w-[75px] h-[75px] text-xs flex justify-center items-center text-center object-cover"
             width={100}
             height={100}
-            src={data.pfp}
-            alt={`${data.username}'s profile pic`}
+            src={data.pfp || '/placeholder-pfp.png'}
+            alt={`${data.username || 'User'}'s profile pic`}
           />
-
           <div className="mt-3">
             <p className="font-[NeueMontreal-Medium] text-xl">
-              {data.username}
+              {data.username || 'Username'}
             </p>
             <p className="font-[NeueMontreal-Medium] text-sm text-[#949DA4]">
-              {data.city}, {data.state}
+              {(data.city && data.state) ? `${data.city}, ${data.state}` : ''}
             </p>
           </div>
         </div>
         <div className="flex gap-1">
-          <p className="text-xl">{rating}</p>
+           {renderStars(rating)}
         </div>
       </div>
       <hr className="my-10" />
@@ -64,7 +85,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
           picSRCs.map((pic: string, idx: number) => (
             <div key={idx} className="bg-white rounded-sm w-full h-[130px]">
               <Image
-                src={pic}
+                src={pic || '/placeholder-image.png'}
                 alt={`Preview ${idx + 1}`}
                 width={130}
                 height={130}
@@ -73,10 +94,10 @@ const ProfileCard = (data: IUserProfileInfo) => {
             </div>
           ))
         ) : (
-          <div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
-            <div className="bg-white rounded-sm w-[full] h-[130px]"></div>
+          <div className="flex flex-row col-span-3">
+            <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
+            <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
+            <div className="bg-gray-200 rounded-sm w-full h-[130px]"></div>
           </div>
         )}
       </div>

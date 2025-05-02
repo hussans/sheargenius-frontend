@@ -116,7 +116,7 @@ export default function Home() {
                 <ProfileCard />
               </div>
             </div> */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid lg:grid-cols-3 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-3 gap-3">
               {barbers.map((barber,idx) => (
                 <div key={idx}>
                   <ProfileCard {...barber}/>
