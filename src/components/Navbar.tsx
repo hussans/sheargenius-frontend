@@ -53,7 +53,6 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       window.location.reload();
     }
     router.push(`/directory?${queryParams}`);
-    setIsOpen(false);
     setOpenCategory(null);
     closeSidebar();
   };
@@ -103,12 +102,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
     if(isSidebarOpen) {
        closeSidebar();
-
-    if (isOpen) {
-      setIsOpen(false);
-      setOpenCategory(null);
-
-    }
+}
   }, [path]);
 
   return (

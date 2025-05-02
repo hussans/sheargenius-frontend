@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
   // const[rating] = useState<number>(data.rating/data.ratingCount.length)
-  const [rating, setRating] = useState<string>("0");
+  const [rating, setRating] = useState<number>(data.rating);
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
     };
     previewPosts();
     const division_result = data.rating / data.ratingCount.length;
-    setRating(String(Math.round(division_result * 10) / 10));
+    setRating(Math.round(division_result * 10) / 10);
   }, [data.id, data.rating, data.ratingCount.length]);
 
   const renderStars = (averageRating: number | null | undefined) => {
@@ -53,7 +53,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
     } else {
       // setCategory(barber);
       const queryParams = new URLSearchParams({
-        u: barber,
+        u: username,
       }).toString();
       router.push(`/user-profile?${queryParams}`);
     }
@@ -86,9 +86,9 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </div>
       </div>
       <hr className="my-10" />
-      {picSRCs.length > 0 ? (
+      {picSRCs.length > 0 ? 
         picSRCs.map((pic: string, idx: number) => (
-          <div key={idx} className="grid grid-cols-3 gap-1">
+          (<div key={idx} className="grid grid-cols-3 gap-1">
             <div className="bg-white rounded-sm w-full h-[130px]">
               <Image
                 src={pic || '/placeholder-image.png'}
@@ -98,18 +98,15 @@ const ProfileCard = (data: IUserProfileInfo) => {
                 className="object-cover w-full h-full rounded-sm"
               />
             </div>
-
-          ))
-        ) : (
-          <div className="flex flex-row col-span-3">
+          </div>)
+        )) : 
+          (<div className="flex flex-row col-span-3">
             <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
             <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
             <div className="bg-gray-200 rounded-sm w-full h-[130px]"></div>
 
           </div>
-        )
- 
-      }
+        )}
       <div className="mt-5">
         <button
           className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
@@ -119,6 +116,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </button>
       </div>
     </div>
+    
   );
 };
 
