@@ -1,28 +1,37 @@
-// import { loggedInData } from "@/utils/DataServices";
-import { editAccount, getLoggedInUserData } from "@/utils/DataServices";
+import { blobUpload, editAccount } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-// import { FileInput } from "flowbite-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const UserProfileCard = (data: IUserProfileInfo) => {
+const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState<string>(data.name);
-  const [email, setEmail] = useState<string>(data.email);
-  const [pfp, setPfp] = useState<string>(data.pfp);
-  const [accountType, setAccountType] = useState<string>(data.accountType);
-  const [shopName, setShopName] = useState<string>(data.shopName);
-  const [address, setAddress] = useState<string>(data.address);
-  const [city, setCity] = useState<string>(data.city);
-  const [state, setState] = useState<string>(data.state);
-  const [zip, setZip] = useState<string>(data.zip);
-  const [bio, setBio] = useState<string>(data.bio);
-
+  // const [openFollowing, setOpenFollowing] = useState(false);
+  // const [openFollowers, setOpenFollowers] = useState(false);
+  const [name, setName] = useState<string>(info.name);
+  const [email, setEmail] = useState<string>(info.email);
+  const [pfp] = useState<string>(info.pfp);
+  const [pfpPreview, setPfpPreview] = useState<string>(info.pfp);
+  const [accountType, setAccountType] = useState<string>(info.accountType);
+  const [shopName, setShopName] = useState<string>(info.shopName);
+  const [address, setAddress] = useState<string>(info.address);
+  const [city, setCity] = useState<string>(info.city);
+  const [state, setState] = useState<string>(info.state);
+  const [zip, setZip] = useState<string>(info.zip);
+  const [bio, setBio] = useState<string>(info.bio);
+  const [file, setFile] = useState<File | null>(null);
+  // const [rating, setRating] = useState<string>("");
+  // const [data] = useState<IUserProfileInfo>({...info});
   const router = useRouter();
+
+  const setRatingNum = () => {
+    const division_result = info.rating / info.ratingCount.length;
+    return String(Math.round(division_result * 10) / 10);
+  };
 
   const toggleDropDown = () => {
     setDropDownOpen(!isDropDownOpen);
@@ -51,43 +60,61 @@ const UserProfileCard = (data: IUserProfileInfo) => {
   };
 
   const saveEdits = async () => {
-    const newEditedUser: IUserProfileInfo = {
-      id: 0,
-      username: data.username,
-      salt: data.salt,
-      hash: data.hash,
-      date: data.date,
-      accountType: accountType,
-      name: name,
-      rating: data.rating,
-      ratingCount: data.ratingCount,
-      followers: data.followers,
-      following: data.following,
-      followerCount: data.followerCount,
-      followingCount: data.followingCount,
-      securityQuestion: data.securityQuestion,
-      securityAnswer: data.securityAnswer,
-      bio: bio,
-      email: email,
-      shopName: shopName,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-      pfp: pfp,
-      isDeleted: data.isDeleted,
-    };
-    // console.log(newEditedUser);
-    const result = await editAccount(newEditedUser);
-    if (result) {
-      console.log("Editing Success");
-      sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
-      router.push("/user-profile");
-      cancelEdit();
-    } else {
-      alert("Editing Failed");
+    //Check if the file is inside of our state Variable
+    if (!file) {
+      alert("Please select file to upload.");
+      return;
     }
-    await getLoggedInUserData(data.username);
+    //A Unique file name so data isn't being overwritten in our blob
+    const uniqueFileName = `${Date.now()}-${file.name}`;
+
+    //New Form Data Object to append our file and file name
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", uniqueFileName);
+
+    //Finally passing that formData into our Backend
+    const uploadedUrl = await blobUpload(formData);
+
+    if (uploadedUrl) {
+      const newEditedUser: IUserProfileInfo = {
+        id: 0,
+        username: info.username,
+        salt: info.salt,
+        hash: info.hash,
+        date: info.date,
+        accountType: accountType,
+        name: name,
+        rating: info.rating,
+        ratingCount: info.ratingCount,
+        followers: info.followers,
+        following: info.following,
+        likes: info.likes,
+        securityQuestion: info.securityQuestion,
+        securityAnswer: info.securityAnswer,
+        bio: bio,
+        email: email,
+        shopName: shopName,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        pfp: uploadedUrl,
+        isDeleted: info.isDeleted,
+      };
+      const result = await editAccount(newEditedUser);
+      console.log(newEditedUser);
+      if (result) {
+        console.log("Editing Success");
+        sessionStorage.setItem("AccountInfo", JSON.stringify(newEditedUser));
+        // router.push("/user-profile");
+        // setData(newEditedUser);
+        cancelEdit();
+        window.location.reload();
+      } else {
+        alert("Editing Failed");
+      }
+    }
   };
 
   const logout = () => {
@@ -108,18 +135,31 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImage(e);
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
+
     const file = e.target.files?.[0];
 
     if (file) {
       //when this files if turned into a string this on load function will run
       reader.onload = () => {
-        setPfp(String(reader.result)); //once the file is read we will store the result into our setter function
+        setPfpPreview(String(reader.result)); //once the file is read we will store the result into our setter function
       };
       reader.readAsDataURL(file); //this converts the file into a bas64-encoded string
     }
   };
+
+  // const goToProfile = (name: string) => {
+  //   setCategory(name);
+  //   router.push("/search-profile");
+  // };
 
   const states = [
     "Alabama",
@@ -178,6 +218,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
     <section className="font-[NeueMontreal-Medium]">
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/* div when edit is selected */}
           <button
             className="w-fit cursor-pointer text-slate-500 hover:text-black text-2xl px-3"
             onClick={cancelEdit}
@@ -188,9 +229,11 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             <h2 className="text-2xl">Edit Profile</h2>
           </div>
           <div className="flex relative justify-center">
-            <img
-              src={pfp}
-              alt={`${data.username} profile pic`}
+            <Image
+              width={100}
+              height={100}
+              src={pfp == pfpPreview ? info.pfp : pfpPreview}
+              alt={`${info.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
             />
             <label
@@ -209,7 +252,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               id="pictureSelect"
               accept="image/*,.pdf"
               className="hidden"
-              onChange={handleImage}
+              onChange={handleFileChange}
             />
           </div>
           <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 grid-rows-[1fr]">
@@ -223,7 +266,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                   className="bg-[#f0ebeb] p-2 rounded-sm"
                   type="text"
                   placeholder="Username"
-                  value={data.username}
+                  value={info.username}
                   disabled
                 />
               </div>
@@ -304,10 +347,13 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <p className="font-[NeueMontreal-Medium] text-sm"> Bio - 150 max characters </p>
+              <p className="font-[NeueMontreal-Medium] text-sm">
+                {" "}
+                Bio - 150 max characters{" "}
+              </p>
 
               <textarea
-                className="bg-white p-2 rounded-sm h-full"
+                className="bg-white p-2 rounded-sm h-full resize-none"
                 placeholder="Bio Here..."
                 value={bio}
                 maxLength={150}
@@ -315,7 +361,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
               ></textarea>
             </div>
             <div className="flex flex-col">
-              {data.accountType == "Barber" || accountType == "Barber" ? (
+              {info.accountType == "Barber" || accountType == "Barber" ? (
                 <div className="flex flex-col gap-1">
                   <p className="font-[NeueMontreal-Medium] text-sm pb-1">
                     {" "}
@@ -402,64 +448,98 @@ const UserProfileCard = (data: IUserProfileInfo) => {
         </div>
       ) : (
         <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
+          {/*div when edit is not selected*/}
           <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
             <div className="flex sm:gap-7 gap-3 h-[125px]">
               <img
-                src={data.pfp}
-                alt={`${data.username} profile pic`}
+                src={info.pfp != "" ? info.pfp : "/nofileselected.png"}
+                alt={`${info.username} profile pic`}
                 className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
               />
               <div className="flex flex-col sm:gap-1">
                 <h4 className="text-slate-500 sm:text-sm text-xs">
-                  Joined: {data.date}
+                  Joined: {info.date}
                 </h4>
                 <div className="flex gap-3 place-items-center">
-                  <h2 className="sm:text-3xl text-xl h-fit">{data.username}</h2>
+                  <h2 className="sm:text-3xl text-xl h-fit">{info.username}</h2>
                   <h3 className="sm:text-base text-xs text-slate-400">
-                    {data.accountType}
+                    {info.accountType}
                   </h3>
                   <div
                     className={
-                      data.accountType == "Barber" ? "flex gap-1" : "hidden"
+                      info.accountType == "Barber"
+                        ? "flex gap-1 place-items-center"
+                        : "hidden"
                     }
                   >
+                    <p>{info.ratingCount.length != 0 ? setRatingNum() : "0"}</p>
                     <img
                       className="w-[15px] h-[15px] hover:drop-shadow-xl"
-                      src="./icons/star-empty.png"
+                      src="./icons/star.png"
                       alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Star Icon"
-                    />
-                    <img
-                      className="w-[15px] h-[15px]"
-                      src="./icons/star-empty.png"
-                      alt="Empty Star Icon"
                     />
                   </div>
                 </div>
-                <h2>{data.name}</h2>
+                <h2>{info.name}</h2>
                 <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-                  <h3>{data.followerCount} Followers</h3>
-                  <h3>{data.followingCount} Followers</h3>
+                  <div className="relative">
+                    <h3
+                      className="cursor-pointer"
+                      // onClick={() => setOpenFollowers(true)}
+                    >
+                      {info.followers.length} Following
+                    </h3>
+                    {/* {openFollowers && (
+                      <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                        {info.followers.map((user, index) => (
+                          <div key={index} className="flex justify-between">
+                            <h3 className="text-xl">{user}</h3>
+                            <button
+                              className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                              onClick={() => goToProfile(user)}
+                            >
+                              go to profile
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )} */}
+                  </div>
+
+                  <div className="relative">
+                    <h3
+                      className="cursor-pointer"
+                      // onClick={() => setOpenFollowing(true)}
+                    >
+                      {info.following.length} Following
+                    </h3>
+                    {/* {openFollowing && (
+                      <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                        {info.following.map((user, index) => (
+                          <div key={index} className="flex justify-between">
+                            <h3 className="text-xl">{user}</h3>
+                            <button
+                              className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                              onClick={() => goToProfile(user)}
+                            >
+                              go to profile
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )} */}
+                  </div>
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-2 bg-white p-2 rounded-sm w-full h-[150px]">
               <h3>Bio</h3>
-              <textarea className="h-full text-sm" value={data.bio} readOnly></textarea>
+              <textarea
+                className="h-full text-sm cursor-default resize-none"
+                value={info.bio}
+                readOnly
+                disabled
+              ></textarea>
             </div>
           </div>
           <div className="w-[40%] sm:w-[30%] flex flex-col sm:gap-2 gap-5">
@@ -511,7 +591,7 @@ const UserProfileCard = (data: IUserProfileInfo) => {
                         <div className="flex gap-3 justify-between">
                           <button
                             className="bg-red-600 w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75 text-sm"
-                            onClick={() => deleteAccount(data)}
+                            onClick={() => deleteAccount(info)}
                           >
                             Yes, delete account
                           </button>
@@ -533,25 +613,23 @@ const UserProfileCard = (data: IUserProfileInfo) => {
             </div>
             <div
               className={
-                data.accountType == "Barber"
+                info.accountType == "Barber"
                   ? "flex flex-col bg-white p-2 rounded-sm w-full h-[150px]"
                   : "hidden"
               }
             >
               <h3>Location</h3>
-              <h2 className="text-lg">{data.shopName}</h2>
-              <h2>{data.address}</h2>
+              <h2 className="text-lg">{info.shopName}</h2>
+              <h2>{info.address}</h2>
               <div className="flex gap-1">
-                <h2>{data.city},</h2>
-                <h2>{data.state}</h2>
+                <h2>{info.city},</h2>
+                <h2>{info.state}</h2>
               </div>
-              <h2>{data.zip}</h2>
+              <h2>{info.zip}</h2>
             </div>
           </div>
         </div>
       )}
-
-      {/* div when edit is selected */}
     </section>
   );
 };

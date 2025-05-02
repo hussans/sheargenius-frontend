@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ChatbotComponent from "@/components/ChatbotComponent";
 // import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
@@ -14,17 +15,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><link
-  rel="icon"
-  href="/sheargeniuspng.png"
-  type="image/png"
-  sizes="32x32"
-/></head>
-      <body
-        className={`antialiased`}
-      >
-        {children}
-      </body>
+      <head>
+        <link
+          rel="icon"
+          href="/sheargeniuspng.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <ChatbotComponent/>
+      </head>
+      <body className={`antialiased`}>{children}</body>
     </html>
   );
-};
+}

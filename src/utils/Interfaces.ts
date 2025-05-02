@@ -7,11 +7,10 @@ export interface IUserProfileInfo {
     accountType: string;
     name: string;
     rating: number;
-    ratingCount: number;
+    ratingCount: string[];
     followers: string[];
     following: string[];
-    followerCount: number;
-    followingCount: number;
+    likes: string[];
     securityQuestion: string;
     securityAnswer: string;
     bio: string;
@@ -27,23 +26,24 @@ export interface IUserProfileInfo {
 
 
 export interface IPostItems{
-    Id: number;
-    UserId: number;
-    PublisherName: string;
-    Date: string;
-    Caption: string;
-    Image: string;
-    Likes: number;
-    Category: string;
-    IsPublished: boolean;
-    IsDeleted: boolean;
-    Comments: ICommentInfo[]
+    id: number;
+    userId: number;
+    publisherName: string;
+    date: string;
+    caption: string;
+    image: string;
+    likes: number[];
+    category: string;
+    isPublished: boolean;
+    isDeleted: boolean;
+    comments: string[] | null
 }
 
 export interface ICommentInfo{
-    Id: number
-    Username: string
-    Comment: string
+    id: number
+    postId: number
+    username: string
+    comment: string
 }
 
 export interface IUserInfo {
@@ -59,11 +59,10 @@ export interface INewUser {
     date: string;
     name: string;
     rating: number;
-    ratingCount: number;
+    ratingCount: string[];
     followers: string[];
     following: string[];
-    followerCount: number;
-    followingCount: number;
+    likes: number[];
     securityQuestion: string;
     securityAnswer: string;
     bio: string;
@@ -87,7 +86,7 @@ export interface IToken {
     token: string
 }
 
-export interface HaircutInterface {
+export interface IHaircutInterface {
     id: number;
     name: string;
     description: string;
@@ -109,3 +108,8 @@ export interface HaircutInterface {
     times: string[];
   }
   
+  export interface IRatingInterface {
+    rating: number,
+    username:string,
+    userToRate:string
+  }
