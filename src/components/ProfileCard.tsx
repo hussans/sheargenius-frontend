@@ -88,7 +88,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
       <hr className="my-10" />
       {picSRCs.length > 0 ? 
         picSRCs.map((pic: string, idx: number) => (
-          (<div key={idx} className="grid grid-cols-3 gap-1">
+          (<div key={idx} className="flex flex-row col-span-3">
             <div className="bg-white rounded-sm w-full h-[130px]">
               <Image
                 src={pic || '/placeholder-image.png'}
