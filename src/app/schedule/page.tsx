@@ -1,4 +1,4 @@
-// app/schedule/page.tsx
+
 
 import React from 'react';
 import ScheduleForm from '@/components/schedule/scheduleform';
