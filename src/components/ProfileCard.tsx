@@ -90,7 +90,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
       {picSRCs.length > 0 ? 
         picSRCs.map((pic: string, idx: number) => (
           (
-            <div className="bg-white rounded-sm w-[130px] h-[130px]">
+            <div key={idx} className="bg-white rounded-sm w-[130px] h-[130px]">
               <Image
                 src={pic || '/placeholder-image.png'}
                 alt={`Preview ${idx + 1}`}
