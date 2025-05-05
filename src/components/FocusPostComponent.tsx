@@ -224,7 +224,7 @@ const FocusPostComponent = (data: IPostItems) => {
             )}
             <hr />
             {comments != null && comments.length != 0 ? (
-              comments.map((entry, idx) => (
+              comments.reverse().map((entry, idx) => (
                 <div key={idx} className="flex gap-2">
                   <b
                     className="cursor-pointer"
