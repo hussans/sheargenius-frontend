@@ -6,7 +6,6 @@ import {
   getPostbyPostId,
   getToken,
   getUserData,
-  setCategory,
   toggleLikes,
 } from "@/utils/DataServices";
 import { ICommentInfo, IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
@@ -63,12 +62,12 @@ const FocusPostComponent = (data: IPostItems) => {
     fetchProfileData(username, postData.id);
   }, [newComment, postData.id, username]);
 
-  const addLike = async() => {
+  const addLike = async () => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      await toggleLikes(postData.id,fetchInfo().username,getToken())
-      setPostData(await getPostbyPostId(postData.id))
+      await toggleLikes(postData.id, fetchInfo().username, getToken());
+      setPostData(await getPostbyPostId(postData.id));
     }
   };
 
@@ -93,17 +92,18 @@ const FocusPostComponent = (data: IPostItems) => {
   };
 
   const viewMore = () => {
-    setCategory(postData.category)
-    router.push("/directory");
+    // setCategory(postData.category)
+    const queryParams = new URLSearchParams({
+      h: postData.category,
+    }).toString();
+    router.push(`/directory?${queryParams}`);
   };
 
   const gotoProfile = (username: string) => {
-    setCategory(username);
-    if (username == fetchInfo().username) {
-      router.push("/user-profile");
-    } else {
-      router.push("/search-profile");
-    }
+    const queryParams = new URLSearchParams({
+      u: username,
+    }).toString();
+    router.push(`/user-profile?${queryParams}`);
   };
 
   return (
@@ -118,10 +118,16 @@ const FocusPostComponent = (data: IPostItems) => {
                 height={100}
                 src={userData.pfp != "" ? userData.pfp : "/nofileselected.png"}
                 className="w-6 rounded-full h-6 cursor-pointer"
-                alt={`${postData.publisherName}'s profile pic`}  onClick={() => gotoProfile(postData.publisherName)}
+                alt={`${postData.publisherName}'s profile pic`}
+                onClick={() => gotoProfile(postData.publisherName)}
               />
 
-              <h2  onClick={() => gotoProfile(postData.publisherName)} className="cursor-pointer">{postData.publisherName}</h2>
+              <h2
+                onClick={() => gotoProfile(postData.publisherName)}
+                className="cursor-pointer"
+              >
+                {postData.publisherName}
+              </h2>
             </div>
             <Image
               width={100}
@@ -136,12 +142,18 @@ const FocusPostComponent = (data: IPostItems) => {
                   <button>
                     <img
                       className="w-[25px] cursor-pointer"
-                      src={postData.likes.includes(fetchInfo().username) ? "./icons/heartliked.png" : "./icons/heart.png"}
+                      src={
+                        postData.likes.includes(fetchInfo().username)
+                          ? "./icons/heartliked.png"
+                          : "./icons/heart.png"
+                      }
                       alt="Heart Like Button Icon"
                       onClick={addLike}
                     />
                   </button>
-                  <p className="font-[NeueMontreal-Medium] text-lg">{postData.likes.length}</p>
+                  <p className="font-[NeueMontreal-Medium] text-lg">
+                    {postData.likes.length}
+                  </p>
                 </div>
                 <div className="flex flex-row gap-2">
                   <img
@@ -212,7 +224,7 @@ const FocusPostComponent = (data: IPostItems) => {
             )}
             <hr />
             {comments != null && comments.length != 0 ? (
-              comments.map((entry, idx) => (
+              comments.reverse().map((entry, idx) => (
                 <div key={idx} className="flex gap-2">
                   <b
                     className="cursor-pointer"

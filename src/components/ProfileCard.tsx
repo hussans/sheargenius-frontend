@@ -1,38 +1,61 @@
 import {
   checkToken,
   getPostItemsByUserId,
-  setCategory,
 } from "@/utils/DataServices";
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
   // const[rating] = useState<number>(data.rating/data.ratingCount.length)
-  const [rating,setRating] = useState<string>("0");
+  const [rating, setRating] = useState<number>(data.rating);
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
     const previewPosts = async () => {
-      const posts = await getPostItemsByUserId(data.id);
-      const srcs: string[] = [];
-      posts.map((post: IPostItems) => {
-        srcs.push(post.image);
-      });
-      setPicSRCs(srcs);
+      if (data && data.id) {
+          const posts = await getPostItemsByUserId(data.id);
+          const srcs: string[] = [];
+          posts.map((post: IPostItems) => {
+            srcs.push(post.image);
+          });
+          setPicSRCs(srcs.slice(0, 3));
+      }
     };
     previewPosts();
-    const division_result = data.rating / data.ratingCount.length
-    setRating(String(Math.round(division_result * 10) / 10))
-  }, [data.id,data.rating,data.ratingCount.length]);
+    const division_result = data.rating / data.ratingCount.length;
+    setRating(Math.round(division_result * 10) / 10);
+  }, [data.id, data.rating, data.ratingCount.length]);
 
-  const gotoProfile = (barber: string) => {
+  const renderStars = (averageRating: number | null | undefined) => {
+    const validRating = typeof averageRating === 'number' ? averageRating : 0;
+    const roundedRating = Math.round(validRating);
+    const stars = [];
+
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <img
+          key={i}
+          className="w-[15px] h-[15px]"
+          src={i <= roundedRating ? "/icons/star.png" : "/icons/star-empty.png"}
+          alt={i <= roundedRating ? "Filled Star" : "Empty Star"}
+        />
+      );
+    }
+    return <div className="flex items-center gap-1">{stars}</div>; 
+  };
+
+  const gotoProfile = (username: string) => {
     if (!checkToken()) {
       router.push("/login");
     } else {
-      setCategory(barber);
-      router.push("/user-profile");
+      // setCategory(barber);
+      const queryParams = new URLSearchParams({
+        u: username,
+      }).toString();
+      router.push(`/user-profile?${queryParams}`);
     }
   };
 
@@ -41,53 +64,50 @@ const ProfileCard = (data: IUserProfileInfo) => {
       <div className="flex justify-between items-center">
         <div className="flex flex-row gap-3 items-center">
           <Image
-            className="bg-white rounded-full w-[75px] h-[75px] text-xs flex justify-center items-center text-center"
+            className="bg-white rounded-full w-[75px] h-[75px] text-xs flex justify-center items-center text-center object-cover"
             width={100}
             height={100}
-            src={data.pfp}
-            alt={`${data.username}'s profile pic`}
+            src={data.pfp || '/placeholder-pfp.png'}
+            alt={`${data.username || 'User'}'s profile pic`}
           />
-
           <div className="mt-3">
             <p className="font-[NeueMontreal-Medium] text-xl">
-              {data.username}
+              {data.username || 'Username'}
             </p>
             <p className="font-[NeueMontreal-Medium] text-sm text-[#949DA4]">
-              {data.city}, {data.state}
+              {(data.city && data.state) ? `${data.city}, ${data.state}` : ''}
             </p>
           </div>
         </div>
-        <div className="flex gap-1 place-items-center">
-          <p className="text-xl">{rating}</p>
-          <Image
-                  className="w-[15px] h-[15px] hover:drop-shadow-xl"
-                  src="/icons/star.png"
-                  alt="Star Icon"
-                  width={100}
-                  height={100}
-                />
+
+        <div className="flex gap-1">
+           {renderStars(rating)}
+
         </div>
       </div>
       <hr className="my-10" />
-        {picSRCs.length > 0 ? (
-          picSRCs.map((pic: string, idx: number) => (
-            <div key={idx} className="grid grid-cols-3 gap-1">
-            <div className="bg-white rounded-sm w-full h-[130px]">
+      <div className="flex flex-row gap-1">
+      {picSRCs.length > 0 ? 
+        picSRCs.map((pic: string, idx: number) => (
+          (
+            <div key={idx} className="bg-white rounded-sm w-[130px] h-[130px]">
               <Image
-                src={pic}
+                src={pic || '/placeholder-image.png'}
                 alt={`Preview ${idx + 1}`}
                 width={130}
                 height={130}
                 className="object-cover w-full h-full rounded-sm"
               />
-            </div>
-      </div>
-          ))
-        ) : (
-          <div className="h-[130px] flex justify-center place-items-center">
-            <p>No Posts yet...</p>
-         </div>
+            
+          </div>)
+        )) : 
+          (
+            <h3 className="flex justify-center text-center bg-gray-200 rounded-sm w-full h-[130px] mr-1">No posts yet...</h3>
+
+
+        
         )}
+        </div>
       <div className="mt-5">
         <button
           className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
@@ -97,6 +117,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </button>
       </div>
     </div>
+    
   );
 };
 

@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+
 import { ISchedule } from "@/utils/Interfaces";
 import { setSchedule } from "@/lib/api";
 import { fetchInfo } from '@/utils/DataServices';
 import { useRouter } from 'next/navigation';
+
 
 const daysOfWeek = [
   'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
@@ -46,6 +48,7 @@ const ScheduleForm = () => {
       await setSchedule(payload);
       alert("✅ Your schedule has been successfully saved!");
       router.push('/user-profile');
+
     } catch (error) {
       console.error("Failed to submit schedule:", error);
       alert("❌ There was an error saving your schedule. Please try again.");

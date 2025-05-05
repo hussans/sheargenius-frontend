@@ -4,6 +4,7 @@ const ChatbotComponent = () => {
   return (
    
     <script
+    
     dangerouslySetInnerHTML={{
       __html: `
         window.chtlConfig = { chatbotId: "8615718816" };
