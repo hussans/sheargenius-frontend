@@ -308,20 +308,18 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   >
                     {accountType}
                     <img
-                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
-                        isDropDownOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       src="./icons/dropdown.png"
                       alt="Drop Down Icon"
                     />
                   </div>
                   {isDropDownOpen && (
                     <div
-                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${
-                        isDropDownOpen
+                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${isDropDownOpen
                           ? "opacity-100 visible"
                           : "opacity-0 invisible"
-                      }`}
+                        }`}
                     >
                       <div
                         onClick={() => setType("User")}
@@ -396,20 +394,18 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                       >
                         {state}
                         <img
-                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
-                            isDropDownOpen2 ? "rotate-180" : "rotate-0"
-                          }`}
+                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen2 ? "rotate-180" : "rotate-0"
+                            }`}
                           src="./icons/dropdown.png"
                           alt="Drop Down Icon"
                         />
                       </div>
                       {isDropDownOpen2 && (
                         <div
-                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${
-                            isDropDownOpen2
+                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${isDropDownOpen2
                               ? "opacity-100 visible"
                               : "opacity-0 invisible"
-                          }`}
+                            }`}
                         >
                           <div>
                             {states.map((state) => (
@@ -485,7 +481,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   <div className="relative">
                     <h3
                       className="cursor-pointer"
-                      // onClick={() => setOpenFollowers(true)}
+                    // onClick={() => setOpenFollowers(true)}
                     >
                       {info.followers.length} Following
                     </h3>
@@ -509,7 +505,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   <div className="relative">
                     <h3
                       className="cursor-pointer"
-                      // onClick={() => setOpenFollowing(true)}
+                    // onClick={() => setOpenFollowing(true)}
                     >
                       {info.following.length} Following
                     </h3>
@@ -555,11 +551,10 @@ const UserProfileCard = (info: IUserProfileInfo) => {
               </button>
               {isDropDownOpen && (
                 <div
-                  className={`rounded-md border-gray-300 bg-white p-2 absolute top-[175px] w-[28%] shadow-md transition-all duration-700 flex flex-col gap-2 ${
-                    isDropDownOpen
+                  className={`rounded-md border-gray-300 bg-white p-2 absolute top-[175px] w-[28%] shadow-md transition-all duration-700 flex flex-col gap-2 ${isDropDownOpen
                       ? "opacity-100 visible"
                       : "opacity-0 invisible"
-                  }`}
+                    }`}
                 >
                   <button
                     className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
@@ -607,9 +602,12 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   )}
                 </div>
               )}
-              <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
-                My Schedule
-              </button>
+              <Link href="/schedule">
+                <button className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75">
+                  My Schedule
+                </button>
+              </Link>
+
             </div>
             <div
               className={

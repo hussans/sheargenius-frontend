@@ -1,10 +1,9 @@
 'use client';
-
 import React, { useState } from 'react';
-import { Schedule } from "@/utils/Interfaces"; 
-import { fetchInfo } from "@/utils/fetchInfo"; 
-import { setSchedule } from "@/lib/api"; 
-
+import { ISchedule } from "@/utils/Interfaces";
+import { setSchedule } from "@/lib/api";
+import { fetchInfo } from '@/utils/DataServices';
+import { useRouter } from 'next/navigation';
 
 const daysOfWeek = [
   'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
@@ -18,6 +17,7 @@ const timeSlots = Array.from({ length: 17 }, (_, i) => {
 });
 
 const ScheduleForm = () => {
+  const router = useRouter();
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
   const [editMode, setEditMode] = useState(false);
@@ -34,96 +34,101 @@ const ScheduleForm = () => {
     );
   };
 
-//   const handleSubmit = () => {
-//     const payload = {
-//       days: selectedDays,
-//       times: selectedTimes,
-//     };
-
-//     console.log('Submitting schedule:', payload);
-    
-//   };
-
-
-const handleSubmit = async () => {
-    const payload: Schedule = {
-      id: 0, 
-      username: fetchInfo().username, 
+  const handleSubmit = async () => {
+    const payload: ISchedule = {
+      id: 0,
+      username: fetchInfo().username,
       days: selectedDays,
       times: selectedTimes,
     };
-  
-    console.log("Submitting schedule:", payload);
-  
+
     try {
-      const response = await setSchedule(payload);
-      console.log("Schedule successfully submitted:", response);
-    
+      await setSchedule(payload);
+      alert("✅ Your schedule has been successfully saved!");
+      router.push('/user-profile');
     } catch (error) {
       console.error("Failed to submit schedule:", error);
-     
+      alert("❌ There was an error saving your schedule. Please try again.");
     }
   };
-  
-
-
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Set Your Barber Schedule</h2>
-
-      <div className="mb-4">
-        <p className="font-semibold mb-2">Available Days:</p>
-        <div className="flex flex-wrap gap-2">
-          {daysOfWeek.map((day) => (
-            <button
-              key={day}
-              onClick={() => toggleDay(day)}
-              className={`px-3 py-2 rounded border ${
-                selectedDays.includes(day)
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-black'
-              }`}
-            >
-              {day.slice(0, 3)}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <p className="font-semibold mb-2">Available Time Slots:</p>
-        <div className="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
-          {timeSlots.map((time) => (
-            <button
-              key={time}
-              onClick={() => toggleTime(time)}
-              className={`px-2 py-1 rounded border text-sm ${
-                selectedTimes.includes(time)
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-black'
-              }`}
-            >
-              {time}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex gap-4 mt-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+      <div className="relative bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 w-full max-w-2xl">
+        
+        
         <button
-          onClick={handleSubmit}
-          className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800"
+          onClick={() => router.push('/user-profile')}
+          className="absolute top-4 right-4 text-gray-600 dark:text-white hover:text-black text-2xl font-bold"
+          aria-label="Close"
         >
-          {editMode ? 'Update Schedule' : 'Submit Schedule'}
+          ×
         </button>
 
-        <button
-          onClick={() => setEditMode(!editMode)}
-          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-        >
-          {editMode ? 'Cancel Edit' : 'Edit Schedule'}
-        </button>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+          {editMode ? 'Edit Your Barber Schedule' : 'Set Your Barber Schedule'}
+        </h2>
+
+        
+        <div className="mb-6">
+          <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+            Available Days
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {daysOfWeek.map((day) => (
+              <button
+                key={day}
+                onClick={() => toggleDay(day)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium border transition ${
+                  selectedDays.includes(day)
+                    ? 'bg-black text-white'
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white'
+                }`}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
+        </div>
+
+       
+        <div className="mb-6">
+          <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+            Available Time Slots
+          </p>
+          <div className="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
+            {timeSlots.map((time) => (
+              <button
+                key={time}
+                onClick={() => toggleTime(time)}
+                className={`px-3 py-1 rounded-lg text-sm font-medium border transition ${
+                  selectedTimes.includes(time)
+                    ? 'bg-black text-white'
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white'
+                }`}
+              >
+                {time}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        
+        <div className="flex justify-center gap-4 mt-6">
+          <button
+            onClick={handleSubmit}
+            className="px-5 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl shadow"
+          >
+            {editMode ? 'Update Schedule' : 'Submit Schedule'}
+          </button>
+
+          <button
+            onClick={() => setEditMode(!editMode)}
+            className="px-5 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl shadow"
+          >
+            {editMode ? 'Cancel Edit' : 'Edit Schedule'}
+          </button>
+        </div>
       </div>
     </div>
   );

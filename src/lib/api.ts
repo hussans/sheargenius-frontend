@@ -1,17 +1,27 @@
-import { Schedule } from "@/utils/Interfaces";
+import { ISchedule } from "@/utils/Interfaces";
 
-const BASE_URL = "http://localhost:5277/Schedule"; 
+const BASE_URL = "https://sheargenius-awakhjcph2deb6b9.westus-01.azurewebsites.net/"; 
 
-export const setSchedule = async (schedule: Schedule): Promise<any> => {
-  const res = await fetch(`${BASE_URL}/SetSchedule`, {
+export const setSchedule = async (schedule: ISchedule)  => {
+    console.log(schedule);
+  const res = await fetch(`${BASE_URL}Schedule/SetSchedule`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(schedule),
   });
-  return res.json();
+  if (!res.ok) {
+    const data = await res.json();
+    const message = data.message;
+    console.log(message);
+    return data.success;
+  }
+
+  const data = await res.text();
+  return data;
 };
 
-export const getScheduleByUsername = async (username: string): Promise<Schedule[]> => {
+
+export const getScheduleByUsername = async (username: string): Promise<ISchedule[]> => {
   const res = await fetch(`${BASE_URL}/GetSheduleByUsername/${username}`);
   return res.json();
 };
