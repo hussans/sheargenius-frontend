@@ -86,9 +86,10 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </div>
       </div>
       <hr className="my-10" />
+      <div className="flex flex-row gap-1">
       {picSRCs.length > 0 ? 
         picSRCs.map((pic: string, idx: number) => (
-          (<div key={idx} className="flex flex-row gap-1">
+          (
             <div className="bg-white rounded-sm w-[130px] h-[130px]">
               <Image
                 src={pic || '/placeholder-image.png'}
@@ -97,16 +98,16 @@ const ProfileCard = (data: IUserProfileInfo) => {
                 height={130}
                 className="object-cover w-full h-full rounded-sm"
               />
-            </div>
+            
           </div>)
         )) : 
-          (<div className="flex flex-row col-span-3">
-            <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
-            <div className="bg-gray-200 rounded-sm w-full h-[130px] mr-1"></div>
-            <div className="bg-gray-200 rounded-sm w-full h-[130px]"></div>
+          (
+            <h3 className="flex justify-center text-center bg-gray-200 rounded-sm w-full h-[130px] mr-1">No posts yet...</h3>
 
-          </div>
+
+        
         )}
+        </div>
       <div className="mt-5">
         <button
           className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
