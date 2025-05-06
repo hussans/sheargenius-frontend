@@ -13,13 +13,15 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
   const [profileData, setProfileData] = useState<IUserProfileInfo>(data);
   const [rate, setRate] = useState<boolean>(false);
   // const [error, setError] = useState<boolean>(false);
+  const [openFollowing, setOpenFollowing] = useState(false);
+  const [openFollowers, setOpenFollowers] = useState(false);
   const [rating, setRating] = useState<string>("0");
   const router = useRouter();
 
   useEffect(() => {
     setProfileData(data);
-    const division_result = data.rating / data.ratingCount.length
-    setRating(String(Math.round(division_result * 10) / 10))
+    const division_result = data.rating / data.ratingCount.length;
+    setRating(String(Math.round(division_result * 10) / 10));
   }, [rating, data]);
 
   const follow = async () => {
@@ -42,11 +44,33 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
     } else {
       //need front-end styling for when error is set to true
       // setError(true);
-      alert(`you have already rated ${profileData.username}`)
+      alert(`you have already rated ${profileData.username}`);
     }
   };
 
   const loggedInUsername = fetchInfo()?.username || "";
+
+  const goToProfile = (name: string) => {
+    const queryParams = new URLSearchParams({
+      u: name,
+    }).toString();
+    router.push(`/user-profile?${queryParams}`);
+  };
+
+  const closeMenus = (b: boolean) => {
+    setOpenFollowers(b);
+    setOpenFollowing(b);
+  };
+
+  const setFollowers = () => {
+    setOpenFollowers(true);
+    setOpenFollowing(false);
+  };
+
+  const setFollowing = () => {
+    setOpenFollowers(false);
+    setOpenFollowing(true);
+  };
 
   return (
     <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
@@ -85,13 +109,54 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
             </div>
             <h2>{profileData.name}</h2>
             <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
-              <h3>
-                {profileData.followers.length}{" "}
-                {profileData.followers.length == 1 ? "Follower" : "Followers"}
-              </h3>
               <div className="relative">
-              <h3>{profileData.following.length} Following</h3>
-              <div className="absolute"></div>
+                <h3
+                // onClick={() => setOpenFollowers(true)}
+                >
+                  {profileData.followers.length} Followers
+                </h3>
+                <div
+                  className="absolute top-0 bottom-0 w-full h-full cursor-pointer "
+                  onClick={() => setFollowers()}
+                ></div>
+                {openFollowers && profileData.followers.length !== 0 && (
+                  <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                    {profileData.followers.map((user, index) => (
+                      <div key={index} className="flex justify-between">
+                        <h3 className="text-xl">{user}</h3>
+                        <button
+                          className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                          onClick={() => goToProfile(user)}
+                        >
+                          go to profile
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="relative">
+                <h3>{profileData.following.length} Following</h3>
+                <div
+                  className="absolute top-0 bottom-0 w-full h-full cursor-pointer "
+                  onClick={() => setFollowing()}
+                ></div>
+                {openFollowing && profileData.following.length !== 0 && (
+                  <div className="absolute p-2 rounded-md border-1 bg-white w-60">
+                    {profileData.following.map((user, index) => (
+                      <div key={index} className="flex justify-between">
+                        <h3 className="text-xl">{user}</h3>
+                        <button
+                          className="cursor-pointer hover:text-white hover:bg-black px-2 border-1"
+                          onClick={() => goToProfile(user)}
+                        >
+                          go to profile
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
