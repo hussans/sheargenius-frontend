@@ -73,7 +73,12 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
   };
 
   return (
-    <div className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5">
+    <div
+      className="flex gap-2 bg-[#F5F5F5] rounded-b-sm p-5"
+      onClick={
+        openFollowers || openFollowing ? () => closeMenus(false) : undefined
+      }
+    >
       <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
         <div className="flex sm:gap-7 gap-3 h-[125px]">
           <img
