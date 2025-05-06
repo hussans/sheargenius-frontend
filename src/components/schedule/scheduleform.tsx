@@ -47,7 +47,10 @@ const ScheduleForm = () => {
     try {
       await setSchedule(payload);
       alert("✅ Your schedule has been successfully saved!");
-      router.push('/user-profile');
+      const queryParams = new URLSearchParams({
+        u: fetchInfo().username,
+      }).toString();
+      router.push(`/user-profile?${queryParams}`);
 
     } catch (error) {
       console.error("Failed to submit schedule:", error);
@@ -55,13 +58,20 @@ const ScheduleForm = () => {
     }
   };
 
+  const backToProfile = (username:string) => {
+    const queryParams = new URLSearchParams({
+      u: username,
+    }).toString();
+    router.push(`/user-profile?${queryParams}`);
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
       <div className="relative bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 w-full max-w-2xl">
         
         
         <button
-          onClick={() => router.push('/user-profile')}
+          onClick={() => backToProfile(fetchInfo().username)}
           className="absolute top-4 right-4 text-gray-600 dark:text-white hover:text-black text-2xl font-bold"
           aria-label="Close"
         >
