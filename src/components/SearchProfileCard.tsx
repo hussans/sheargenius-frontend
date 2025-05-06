@@ -89,7 +89,10 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
                 {profileData.followers.length}{" "}
                 {profileData.followers.length == 1 ? "Follower" : "Followers"}
               </h3>
+              <div className="relative">
               <h3>{profileData.following.length} Following</h3>
+              <div className="absolute"></div>
+              </div>
             </div>
           </div>
         </div>

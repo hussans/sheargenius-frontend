@@ -10,8 +10,8 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const [isDropDownOpen2, setDropDownOpen2] = useState(false);
   const [openState, setOpenState] = useState(false);
   const [edit, setEdit] = useState(false);
-  // const [openFollowing, setOpenFollowing] = useState(false);
-  // const [openFollowers, setOpenFollowers] = useState(false);
+  const [openFollowing, setOpenFollowing] = useState(false);
+  const [openFollowers, setOpenFollowers] = useState(false);
   const [name, setName] = useState<string>(info.name);
   const [email, setEmail] = useState<string>(info.email);
   const [pfp] = useState<string>(info.pfp);
@@ -156,10 +156,27 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     }
   };
 
-  // const goToProfile = (name: string) => {
-  //   setCategory(name);
-  //   router.push("/search-profile");
-  // };
+  const goToProfile = (name: string) => {
+    const queryParams = new URLSearchParams({
+      u: name,
+    }).toString();
+    router.push(`/user-profile?${queryParams}`);
+  };
+
+  const closeMenus = (b:boolean) => {
+    setOpenFollowers(b)
+    setOpenFollowing(b)
+  }
+
+  const setFollowers = () => {
+    setOpenFollowers(true)
+    setOpenFollowing(false)
+  }
+
+  const setFollowing = () => {
+    setOpenFollowers(false)
+    setOpenFollowing(true)
+  }
 
   const states = [
     "Alabama",
@@ -215,7 +232,10 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   ];
 
   return (
-    <section className="font-[NeueMontreal-Medium]">
+    <section
+      className="font-[NeueMontreal-Medium]"
+      onClick={openFollowers || openFollowing ? () => closeMenus(false) : undefined}
+    >
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
           {/* div when edit is selected */}
@@ -308,18 +328,20 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   >
                     {accountType}
                     <img
-                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen ? "rotate-180" : "rotate-0"
-                        }`}
+                      className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
+                        isDropDownOpen ? "rotate-180" : "rotate-0"
+                      }`}
                       src="./icons/dropdown.png"
                       alt="Drop Down Icon"
                     />
                   </div>
                   {isDropDownOpen && (
                     <div
-                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${isDropDownOpen
+                      className={`rounded-md border-gray-300 bg-white p-3 absolute top-[45px] w-[100%] shadow-md transition-all duration-700 ${
+                        isDropDownOpen
                           ? "opacity-100 visible"
                           : "opacity-0 invisible"
-                        }`}
+                      }`}
                     >
                       <div
                         onClick={() => setType("User")}
@@ -394,18 +416,20 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                       >
                         {state}
                         <img
-                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${isDropDownOpen2 ? "rotate-180" : "rotate-0"
-                            }`}
+                          className={`w-[25px] m-0 p-0 transition-transform duration-500 ${
+                            isDropDownOpen2 ? "rotate-180" : "rotate-0"
+                          }`}
                           src="./icons/dropdown.png"
                           alt="Drop Down Icon"
                         />
                       </div>
                       {isDropDownOpen2 && (
                         <div
-                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${isDropDownOpen2
+                          className={`rounded-md border-gray-300 bg-white p-3 absolute z-30 w-[100%] shadow-md transition-all duration-700 h-64 overflow-scroll ${
+                            isDropDownOpen2
                               ? "opacity-100 visible"
                               : "opacity-0 invisible"
-                            }`}
+                          }`}
                         >
                           <div>
                             {states.map((state) => (
@@ -480,12 +504,12 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                 <div className="sm:text-base text-xs flex sm:gap-12 gap-2">
                   <div className="relative">
                     <h3
-                      className="cursor-pointer"
                     // onClick={() => setOpenFollowers(true)}
                     >
-                      {info.followers.length} Following
+                      {info.followers.length} Followers
                     </h3>
-                    {/* {openFollowers && (
+                    <div className="absolute top-0 bottom-0 w-full h-full cursor-pointer " onClick={() => setFollowers()}></div>
+                    {openFollowers && info.followers.length !== 0 && (
                       <div className="absolute p-2 rounded-md border-1 bg-white w-60">
                         {info.followers.map((user, index) => (
                           <div key={index} className="flex justify-between">
@@ -499,17 +523,16 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                           </div>
                         ))}
                       </div>
-                    )} */}
+                    )}
                   </div>
-
+                  
                   <div className="relative">
                     <h3
-                      className="cursor-pointer"
-                    // onClick={() => setOpenFollowing(true)}
                     >
                       {info.following.length} Following
                     </h3>
-                    {/* {openFollowing && (
+                    <div className="absolute top-0 bottom-0 w-full h-full cursor-pointer " onClick={() => setFollowing()}></div>
+                    {openFollowing && info.following.length !== 0 && (
                       <div className="absolute p-2 rounded-md border-1 bg-white w-60">
                         {info.following.map((user, index) => (
                           <div key={index} className="flex justify-between">
@@ -523,7 +546,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                           </div>
                         ))}
                       </div>
-                    )} */}
+                    )}
                   </div>
                 </div>
               </div>
@@ -551,10 +574,11 @@ const UserProfileCard = (info: IUserProfileInfo) => {
               </button>
               {isDropDownOpen && (
                 <div
-                  className={`rounded-md border-gray-300 bg-white p-2 absolute top-[175px] w-[28%] shadow-md transition-all duration-700 flex flex-col gap-2 ${isDropDownOpen
+                  className={`rounded-md border-gray-300 bg-white p-2 absolute top-[175px] w-[28%] shadow-md transition-all duration-700 flex flex-col gap-2 ${
+                    isDropDownOpen
                       ? "opacity-100 visible"
                       : "opacity-0 invisible"
-                    }`}
+                  }`}
                 >
                   <button
                     className="bg-black w-full text-white font-[NeueMontreal-Regular] py-1 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white active:outline-0 cursor-pointer transition-all duration-75"
@@ -607,7 +631,6 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                   My Schedule
                 </button>
               </Link>
-
             </div>
             <div
               className={

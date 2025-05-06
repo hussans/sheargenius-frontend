@@ -31,7 +31,7 @@ const StylistAIComponent = () => {
     setResult(
       `${await chatBot(
         `Recommend one hairstyle out of these hairstyles (${await categoryTitles()}) from this prompt: "${question}" Keep the answer short, but casual with a brief explanation of why the selected haircut suits their needs. Stringify the response and make it sound natural and remove the quotation marks. When selecting a haircut, use the name verbatim.`
-      )} Search for this cut with the search icon above.`
+      )}`
     );
   };
 
