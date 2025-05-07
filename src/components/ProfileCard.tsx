@@ -5,7 +5,7 @@ import {
 import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
@@ -49,7 +49,7 @@ const ProfileCard = (data: IUserProfileInfo) => {
 
   const gotoProfile = (username: string) => {
     if (!checkToken()) {
-      router.push("/login");
+      redirect("/login");
     } else {
       // setCategory(barber);
       const queryParams = new URLSearchParams({
@@ -86,11 +86,11 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </div>
       </div>
       <hr className="my-10" />
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row justify-between gap-1">
       {picSRCs.length > 0 ? 
         picSRCs.map((pic: string, idx: number) => (
           (
-            <div key={idx} className="bg-white rounded-sm w-[130px] h-[130px]">
+            <div key={idx} className="bg-white rounded-sm w-full aspect-square">
               <Image
                 src={pic || '/placeholder-image.png'}
                 alt={`Preview ${idx + 1}`}

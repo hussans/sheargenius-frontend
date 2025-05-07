@@ -10,7 +10,7 @@ import {
 } from "@/utils/DataServices";
 import { ICommentInfo, IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 const FocusPostComponent = (data: IPostItems) => {
@@ -64,7 +64,7 @@ const FocusPostComponent = (data: IPostItems) => {
 
   const addLike = async () => {
     if (!checkToken()) {
-      router.push("/login");
+      redirect("/login");
     } else {
       await toggleLikes(postData.id, fetchInfo().username, getToken());
       setPostData(await getPostbyPostId(postData.id));
@@ -73,7 +73,7 @@ const FocusPostComponent = (data: IPostItems) => {
 
   const addComment = async () => {
     if (!checkToken()) {
-      router.push("/login");
+      redirect("/login");
     } else {
       setError(false);
       const commentToAdd: ICommentInfo = {

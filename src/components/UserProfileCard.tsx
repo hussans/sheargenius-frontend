@@ -2,7 +2,7 @@ import { blobUpload, editAccount } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const UserProfileCard = (info: IUserProfileInfo) => {
@@ -120,7 +120,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   const logout = () => {
     sessionStorage.removeItem("AccountInfo");
     localStorage.removeItem("token");
-    router.push("/login");
+    redirect("/login");
   };
 
   const deleteAccount = async (model: IUserProfileInfo) => {
@@ -129,7 +129,7 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     if (result) {
       sessionStorage.removeItem("AccountInfo");
       localStorage.removeItem("token");
-      router.push("/login");
+      redirect("/login");
     } else {
       alert("deletion failed");
     }

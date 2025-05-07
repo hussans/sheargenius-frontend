@@ -8,7 +8,7 @@ import {
 } from "@/utils/DataServices";
 import { INewUser, IToken } from "@/utils/Interfaces";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Register = () => {
@@ -138,8 +138,7 @@ const Register = () => {
         alert(
           "Account created, but automatic login failed. Please log in manually."
         );
-        router.push("/login");
-        return;
+        redirect("/login");
       }
 
       if (token) {
@@ -158,7 +157,7 @@ const Register = () => {
               );
               localStorage.removeItem("Token");
               sessionStorage.removeItem("AccountInfo");
-              router.push("/login");
+              redirect("/login");
             }
           } catch (err) {
             console.error(
@@ -173,7 +172,7 @@ const Register = () => {
       } else {
         console.log("Automatic login was unsuccessful after registration.");
         alert("Account created successfully! Please log in.");
-        router.push("/login");
+        redirect("/login");
       }
     } else {
       alert("Username already exists or another error occurred.");

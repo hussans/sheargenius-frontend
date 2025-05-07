@@ -63,7 +63,7 @@ const Header = ({
     <div className="relative overflow-hidden">
       <img
         className="w-full h-[450px] sm:h-[550px] md:h-[650px] lg:h-[724px] object-cover"
-        src="./sheargenius-banner.png"
+        src="./webpsheargenius-banner.webp"
         alt="Barber Shop Leather Chair Banner Image"
       />
       {searchActive && (

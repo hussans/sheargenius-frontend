@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { checkToken, fetchInfo } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
 
@@ -66,7 +66,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       }).toString();
       router.push(`/user-profile?${queryParams}`);
     } else {
-      router.push("/login");
+      redirect("/login");
     }
     if (isSidebarOpen) closeSidebar();
   };
@@ -75,8 +75,8 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     if (checkToken()) {
       setAddPost(true);
     } else {
-      router.push("/login");
       if (isSidebarOpen) closeSidebar();
+      router.push("/login");
     }
   };
 

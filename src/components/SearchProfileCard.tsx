@@ -5,7 +5,7 @@ import {
   toggleFollowers,
 } from "@/utils/DataServices";
 import { IUserProfileInfo } from "@/utils/Interfaces";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import RatingComponent from "./RatingComponent";
 
@@ -26,7 +26,7 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
 
   const follow = async () => {
     if (!checkToken()) {
-      router.push("/login");
+      redirect("/login");
       return;
     } else {
       await toggleFollowers(
