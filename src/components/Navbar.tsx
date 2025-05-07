@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { checkToken, fetchInfo } from "@/utils/DataServices";
 import AddPostComponent from "./AddPostComponent";
+import { CircleUserRound, Plus, Search, X } from "lucide-react";
 
 interface NavbarProps {
   setSearchActive: (active: boolean) => void;
@@ -107,7 +108,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
 
   return (
     <div className="relative">
-      <nav className="fixed top-0 left-0 w-full z-30 bg-white text-black text-sm font-[NeueMontreal-Medium] border-b-2 border-gray-200">
+      <nav className="fixed top-0 left-0 w-full z-30 bg-white text-black text-sm font-[NeueMontreal-Medium]">
         <div className="max-w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center flex-row">
@@ -129,45 +130,29 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                     onClick={() => handleTabClick("schedule")}
                     className="relative block cursor-pointer"
                   >
-                    <span className="hidden sm:inline">SCHEDULE</span>
-                    <span className="inline sm:hidden">SCHED</span>
+                    <span className="hidden min-[425px]:inline">SCHEDULE</span>
+                    <span className="inline min-[425px]:hidden">SCHED</span>
                   </button>
                   <button
                     onClick={() => handleTabClick("explore")}
                     className="relative block cursor-pointer"
                   >
-                    <span className="hidden sm:inline">EXPLORE</span>
-                    <span className="inline sm:hidden">EXPLOR</span>
+                    <span className="hidden min-[425px]:inline">EXPLORE</span>
+                    <span className="inline min-[425px]:hidden">EXP</span>
                   </button>
                 </div>
                 <div className="flex items-center gap-6">
-                  <button className="cursor-pointer">
-                    <img
-                      className="relative"
-                      style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                      src="/icons/plus.png"
-                      alt="Plus Icon"
-                      onClick={addPostClick}
-                    />
+                  <button className="cursor-pointer" onClick={addPostClick}>
+                    <Plus size={24} />
                   </button>
                   <button
                     className="cursor-pointer"
                     onClick={handleSearchClick}
                   >
-                    <img
-                      className="relative"
-                      style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                      src="/icons/search.png"
-                      alt="Search Icon"
-                    />
+                    <Search size={22} />
                   </button>
                   <button className="cursor-pointer" onClick={profileClick}>
-                    <img
-                      className="relative"
-                      style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                      src="/icons/user.png"
-                      alt="User Profile Figure Icon"
-                    />
+                    <CircleUserRound size={22} />
                   </button>
                 </div>
               </div>
@@ -194,11 +179,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 p-4">
            <div className="w-[90%] max-w-xl md:w-[70%] lg:w-[50%] bg-white rounded-lg relative">
              <button className="absolute top-2 right-2 p-1 rounded-full text-slate-600 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors" onClick={() => setAddPost(false)} aria-label="Close Add Post Modal">
-                <img
-                  style={{ width: '25px', height: '25px', flexShrink: 0 }}
-                  src="/icons/cross-small.png"
-                  alt="Close"
-                />
+              <X />
              </button>
              <AddPostComponent/>
            </div>
@@ -209,18 +190,14 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
       {isSidebarOpen && (
         <>
           <div className="fixed inset-0 w-full min-h-screen bg-black/40 z-40" onClick={closeSidebar}></div>
-          <div className="fixed top-0 right-0 bg-white min-h-full w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-[500px] z-50 px-4 sm:px-6 md:px-8 lg:px-10 pb-10 shadow-lg overflow-y-auto">
-            <div className="flex items-center justify-between h-16 border-b border-gray-200 mb-6">
+          <div className="fixed top-0 right-0 bg-white min-h-full w-full md:max-w-md lg:w-[500px] z-50 px-4 sm:px-6 md:px-8 lg:px-10 pb-10 shadow-lg overflow-y-auto">
+            <div className="flex items-center justify-between h-16 mb-6">
                <button
                  onClick={closeSidebar}
                  className="p-2 -ml-2 cursor-pointer hover:bg-gray-100 active:bg-transparent rounded-full"
                  aria-label="Close Menu"
                >
-                 <img
-                   style={{ width: '25px', height: '25px', flexShrink: 0 }}
-                   src="/icons/cross-small.png"
-                   alt="Close"
-                 />
+                <X />
                </button>
                <div className="flex font-[NeueMontreal-Medium] text-sm items-center gap-6">
                  <div className="flex items-center gap-4">
@@ -230,8 +207,8 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                         activeTab === "schedule" ? activeClass : ""
                       }`}
                     >
-                      <span className="hidden sm:inline">SCHEDULE</span>
-                      <span className="inline sm:hidden">SCHED</span>
+                      <span className="hidden min-[425px]:inline">SCHEDULE</span>
+                      <span className="inline min-[425px]:hidden">SCHED</span>
                     </button>
                    <button
                      onClick={() => handleTabClick("explore")}
@@ -239,38 +216,22 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
                        activeTab === "explore" ? activeClass : ""
                      }`}
                    >
-                     <span className="hidden sm:inline">EXPLORE</span>
-                     <span className="inline sm:hidden">EXPLOR</span>
+                     <span className="hidden min-[425px]:inline">EXPLORE</span>
+                     <span className="inline min-[425px]:hidden">EXP</span>
                    </button>
                  </div>
                  <div className="flex items-center gap-6">
-                    <button className="cursor-pointer">
-                     <img
-                       className="relative z-50"
-                       style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                       src="/icons/plus.png"
-                       alt="Plus Icon"
-                       onClick={addPostClick}
-                     />
+                    <button className="cursor-pointer" onClick={addPostClick}>
+                      <Plus size={24} />
                    </button>
                    <button
                      className="cursor-pointer"
                      onClick={handleSearchClick}
                    >
-                     <img
-                       className="relative z-50"
-                       style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                       src="/icons/search.png"
-                       alt="Search Icon"
-                     />
+                      <Search size={22} />
                    </button>
                     <button className="cursor-pointer" onClick={profileClick}>
-                     <img
-                       className="relative z-50"
-                       style={{ width: '17px', height: '17px', flexShrink: 0 }}
-                       src="/icons/user.png"
-                       alt="User Profile Figure Icon"
-                     />
+                      <CircleUserRound size={22} />
                    </button>
                  </div>
                </div>
