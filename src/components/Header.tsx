@@ -5,6 +5,7 @@ import {
 } from "@/utils/DataServices";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 interface HeaderProps {
   searchActive: boolean;
@@ -116,11 +117,7 @@ const Header = ({
                 onClick={() => setSearchActive(false)}
                 className="bg-transparent flex-shrink-0 p-2 sm:p-3 rounded-md"
               >
-                <img
-                  className="w-[20px] sm:w-[25px]"
-                  src="./icons/cross-small-white.png"
-                  alt="Closing x Icon"
-                />
+                <X color="white"/>
               </button>
             </div>
             <p className="font-[NeueMontreal-Medium] text-white text-xs sm:text-sm mt-1">

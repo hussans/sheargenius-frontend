@@ -6,52 +6,79 @@ import { IPostItems, IUserProfileInfo } from "@/utils/Interfaces";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
+import { Star, StarHalf } from "lucide-react";
 
 const ProfileCard = (data: IUserProfileInfo) => {
   const router = useRouter();
-  // const[rating] = useState<number>(data.rating/data.ratingCount.length)
-  const [rating, setRating] = useState<number>(data.rating);
+  const [rating, setRating] = useState<number>(0);
   const [picSRCs, setPicSRCs] = useState<string[]>([]);
 
   useEffect(() => {
     const previewPosts = async () => {
       if (data && data.id) {
-          const posts = await getPostItemsByUserId(data.id);
-          const srcs: string[] = [];
-          posts.map((post: IPostItems) => {
-            srcs.push(post.image);
-          });
-          setPicSRCs(srcs.slice(0, 3));
+        const posts = await getPostItemsByUserId(data.id);
+        const srcs: string[] = [];
+        posts.forEach((post: IPostItems) => {
+          srcs.push(post.image);
+        });
+        setPicSRCs(srcs.slice(0, 3));
       }
     };
     previewPosts();
-    const division_result = data.rating / data.ratingCount.length;
-    setRating(Math.round(division_result * 10) / 10);
-  }, [data.id, data.rating, data.ratingCount.length]);
+
+    if (data && typeof data.rating === 'number' && data.ratingCount && data.ratingCount.length > 0) {
+      const division_result = data.rating / data.ratingCount.length;
+      setRating(Math.round(division_result * 10) / 10);
+    } else {
+      setRating(0);
+    }
+  }, [data]);
 
   const renderStars = (averageRating: number | null | undefined) => {
-    const validRating = typeof averageRating === 'number' ? averageRating : 0;
-    const roundedRating = Math.round(validRating);
+    const validRating = (typeof averageRating === 'number' && !isNaN(averageRating) && isFinite(averageRating))
+      ? averageRating
+      : 0;
+
     const stars = [];
+    const starSize = 20;
 
     for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <img
-          key={i}
-          className="w-[15px] h-[15px]"
-          src={i <= roundedRating ? "/icons/star.png" : "/icons/star-empty.png"}
-          alt={i <= roundedRating ? "Filled Star" : "Empty Star"}
-        />
-      );
+      if (validRating >= i) {
+        stars.push(
+          <Star
+            key={`star-full-${i}`}
+            size={starSize}
+            fill="#FFD700"
+            stroke="#FFD700"
+          />
+        );
+      } else if (validRating >= i - 0.5) {
+        stars.push(
+          <StarHalf
+            key={`star-half-${i}`}
+            size={starSize}
+            fill="#FFD700"
+            stroke="#FFD700"
+          />
+        );
+      } else {
+        stars.push(
+          <Star
+            key={`star-empty-${i}`}
+            size={starSize}
+            stroke="#FFD700"
+            fill="white"
+          />
+        );
+      }
     }
-    return <div className="flex items-center gap-1">{stars}</div>; 
+    return <div className="flex items-center gap-1">{stars}</div>;
   };
 
   const gotoProfile = (username: string) => {
     if (!checkToken()) {
       redirect("/login");
     } else {
-      // setCategory(barber);
       const queryParams = new URLSearchParams({
         u: username,
       }).toString();
@@ -75,14 +102,13 @@ const ProfileCard = (data: IUserProfileInfo) => {
               {data.username || 'Username'}
             </p>
             <p className="font-[NeueMontreal-Medium] text-sm text-[#949DA4]">
-              {(data.city && data.state) ? `${data.city}, ${data.state}` : ''}
+              {(data.city && data.state) ? `${data.city}, ${data.state}` : 'Location not set'}
             </p>
           </div>
         </div>
 
         <div className="flex gap-1">
            {renderStars(rating)}
-
         </div>
       </div>
       <hr className="my-10" />
@@ -98,15 +124,14 @@ const ProfileCard = (data: IUserProfileInfo) => {
                 height={130}
                 className="object-cover w-full h-full rounded-sm"
               />
-            
           </div>)
-        )) : 
+        )) :
           (
-            <h3 className="flex justify-center text-center bg-gray-200 rounded-sm w-full h-[130px] mr-1">No posts yet...</h3>
-
-
-        
-        )}
+            <div className="flex justify-center items-center bg-gray-200 rounded-sm w-full h-[130px] mr-1">
+              <h3 className="text-gray-500">No posts yet...</h3>
+            </div>
+          )
+        }
         </div>
       <div className="mt-5">
         <button
@@ -117,7 +142,6 @@ const ProfileCard = (data: IUserProfileInfo) => {
         </button>
       </div>
     </div>
-    
   );
 };
 
