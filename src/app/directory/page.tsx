@@ -106,7 +106,7 @@ export default function DirectoryPage() {
     };
 
     fetchData();
-  }, []);
+  }, [searchParameters]);
 
   const goToSearch = (cut:string) => {
     const queryParams = new URLSearchParams({

@@ -113,7 +113,7 @@ const Navbar = ({ setSearchActive }: NavbarProps) => {
     if (isSidebarOpen) {
       closeSidebar();
     }
-  }, [path]);
+  }, [path,isSidebarOpen]);
 
   const handleSearch = async (q: string) => {
     console.log("Search..", query);

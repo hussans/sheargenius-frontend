@@ -154,7 +154,7 @@ export default function Home() {
           >
             <img
               className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover"
-              src="./barberessentials.png"
+              src="./barberessentials.webp"
               alt="Barber Essentials Background Image"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
@@ -183,7 +183,7 @@ export default function Home() {
           >
             <img
               className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover"
-              src="./barberetiquette.jpg"
+              src="./barberetiquette.webp"
               alt="Barber Shop Cutting Area Background"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">
@@ -207,7 +207,7 @@ export default function Home() {
           >
             <img
               className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover"
-              src="./barberitems.jpg"
+              src="./barberitems.webp"
               alt="Barber Clippers and Items Background"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center gap-5 sm:gap-7">

@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const SearchResults = () => {
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const [searchSuccess, setSearchSuccess] = useState<boolean>(false);
   const [heading, setHeading] = useState<string>("");
@@ -83,7 +83,7 @@ const page = () => {
     else{
       handleSearch(searchParams.get("s") || "")
     }
-  }, [searchActive]);
+  }, [searchActive,heading,searchParams]);
 
   return (
     <div>
@@ -172,4 +172,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SearchResults;

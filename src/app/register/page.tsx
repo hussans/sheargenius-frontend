@@ -561,7 +561,7 @@ const Register = () => {
       <div className="hidden lg:block lg:w-6/10 lg:h-screen">
         <img
           className="w-full h-full object-cover"
-          src="/loginregister-img.jpg"
+          src="/loginregister-img.webp"
           alt="Decorative background image showing barber tools or shop interior"
         />
       </div>
