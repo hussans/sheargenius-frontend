@@ -259,24 +259,6 @@ export const getUserPosts = async (id: number) => {
   // console.log(data)
   return data;
 };
-// export const getAllPosts = async (token: string) => {
-//   const res = await fetch(`${url}Post/GetAllPosts`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: "Bearer " + token,
-//     },
-//   });
-//   if (!res.ok) {
-//     const errorData = await res.json();
-//     const message = errorData.message;
-//     console.log(message);
-//     return [];
-//   }
-
-//   const data = await res.json();
-//   return data;
-// };
 
 export const getAllBarbers = async () => {
   const res = await fetch(`${url}User/GetAllBarbers`)

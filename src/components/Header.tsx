@@ -32,9 +32,7 @@ const Header = ({
   }, [searchActive]);
 
   const handleSearch = async () => {
-    console.log("Search..", query);
-    setCategory(query);
- 
+    console.log("Search..", query); 
     const result = await fetchHaircut(query);
     if (result !== undefined) {
       const queryParams = new URLSearchParams({

@@ -59,6 +59,7 @@ const FocusPostComponent = (data: IPostItems) => {
       //retireves comment by userID
       setComments(await getCommentsbyId(id));
     };
+
     fetchProfileData(username, postData.id);
   }, [newComment, postData.id, username]);
 

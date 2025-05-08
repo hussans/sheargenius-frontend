@@ -9,7 +9,7 @@ import {
   getPostItemsByCategory,
 } from "@/utils/DataServices";
 import Header from "@/components/Header";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function DirectoryPage() {
   const [haircut, setHaircut] = useState<IHaircutInterface>({
@@ -70,6 +70,7 @@ export default function DirectoryPage() {
   ]);
 
   const [searchActive, setSearchActive] = useState(false);
+  const router = useRouter();
   const searchParameters = useSearchParams()
   useEffect(() => {
     const fetchData = async () => {
@@ -106,6 +107,13 @@ export default function DirectoryPage() {
 
     fetchData();
   }, []);
+
+  const goToSearch = (cut:string) => {
+    const queryParams = new URLSearchParams({
+      s: cut,
+    }).toString();
+    router.push(`/search?${queryParams}`);
+  }
 
   return (
     <Suspense>
@@ -152,9 +160,9 @@ export default function DirectoryPage() {
                      </div>
                    ))}
                  </div>
-                 {posts.length > 3 && (
+                 {posts.length > 1 && (
                     <div className="mt-6">
-                    <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white transition-all duration-75">
+                    <button className="bg-black w-full text-white font-[NeueMontreal-Medium] py-5 rounded-lg hover:bg-gray-200 hover:outline-2 hover:text-black active:bg-black active:text-white transition-all duration-75" onClick={() => goToSearch(haircut.name)}>
                       VIEW ALL POSTS
                     </button>
                   </div>
