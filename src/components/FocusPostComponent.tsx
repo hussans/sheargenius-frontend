@@ -131,8 +131,8 @@ const FocusPostComponent = (data: IPostItems) => {
               </h2>
             </div>
             <Image
-              width={100}
-              height={100}
+              width={300}
+              height={300}
               src={postData.image}
               className="w-full"
               alt={`${postData.publisherName}'s post no.${postData.id}`}

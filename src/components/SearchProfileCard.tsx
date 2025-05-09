@@ -8,6 +8,7 @@ import { IUserProfileInfo } from "@/utils/Interfaces";
 import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import RatingComponent from "./RatingComponent";
+import Image from "next/image";
 
 const SearchProfileCard = (data: IUserProfileInfo) => {
   const [profileData, setProfileData] = useState<IUserProfileInfo>(data);
@@ -81,7 +82,9 @@ const SearchProfileCard = (data: IUserProfileInfo) => {
     >
       <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
         <div className="flex sm:gap-7 gap-3 h-[125px]">
-          <img
+          <Image
+          width={300}
+          height={300}
             src={profileData.pfp}
             alt={`${profileData.username} profile pic`}
             className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
