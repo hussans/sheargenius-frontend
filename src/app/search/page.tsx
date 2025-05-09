@@ -60,7 +60,7 @@ const SearchResults = () => {
       },
     ];
 
-    allPosts.map((post: IPostItems) => {
+    allPosts.reverse().map((post: IPostItems) => {
       if (
         post.category.toLowerCase().includes(i.toLowerCase()) ||
         post.publisherName.toLowerCase().includes(i.toLowerCase())
