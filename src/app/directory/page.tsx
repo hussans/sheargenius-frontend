@@ -10,6 +10,7 @@ import {
 } from "@/utils/DataServices";
 import Header from "@/components/Header";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function DirectoryPage() {
   const [haircut, setHaircut] = useState<IHaircutInterface>({
@@ -133,13 +134,17 @@ export default function DirectoryPage() {
          <div className="container mt-20 px-4 mx-auto">
            <div>
              <div className="flex flex-col md:flex-row gap-12 justify-evenly items-center">
-               <img
+               <Image
+                width={300}
+               height={300}
                  src={haircut.photo1}
                  alt={haircut.name}
                  className="w-full md:w-[500px] h-[400px] md:h-[500px] object-cover rounded-lg shadow-lg"
                />
                <img src="/icons/sheargenius-logo.svg" alt="Shear Genius Logo" className="hidden md:block w-16 h-16" />
-               <img
+               <Image
+               width={300}
+               height={300}
                  src={haircut.photo2}
                  alt={haircut.name}
                  className="w-full md:w-[500px] h-[400px] md:h-[500px] object-cover rounded-lg shadow-lg"
