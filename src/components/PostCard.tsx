@@ -45,8 +45,8 @@ const PostCard = (data: IPostItems) => {
       >
         <div className="bg-gray-300 text-white h-[410px] flex justify-center">
           <Image
-            width={100}
-            height={100}
+            width={300}
+            height={300}
             src={data.image != null ? data.image : "/nofileselected.png"}
             alt={`${data.publisherName}'s post #${data.id}`}
             className="w-full h-full object-cover"

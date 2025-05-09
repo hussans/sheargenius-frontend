@@ -163,20 +163,20 @@ const UserProfileCard = (info: IUserProfileInfo) => {
     router.push(`/user-profile?${queryParams}`);
   };
 
-  const closeMenus = (b:boolean) => {
-    setOpenFollowers(b)
-    setOpenFollowing(b)
-  }
+  const closeMenus = (b: boolean) => {
+    setOpenFollowers(b);
+    setOpenFollowing(b);
+  };
 
   const setFollowers = () => {
-    setOpenFollowers(true)
-    setOpenFollowing(false)
-  }
+    setOpenFollowers(true);
+    setOpenFollowing(false);
+  };
 
   const setFollowing = () => {
-    setOpenFollowers(false)
-    setOpenFollowing(true)
-  }
+    setOpenFollowers(false);
+    setOpenFollowing(true);
+  };
 
   const states = [
     "Alabama",
@@ -234,7 +234,9 @@ const UserProfileCard = (info: IUserProfileInfo) => {
   return (
     <section
       className="font-[NeueMontreal-Medium]"
-      onClick={openFollowers || openFollowing ? () => closeMenus(false) : undefined}
+      onClick={
+        openFollowers || openFollowing ? () => closeMenus(false) : undefined
+      }
     >
       {edit ? (
         <div className="flex flex-col gap-1 bg-[#F5F5F5] rounded-b-sm p-5">
@@ -250,8 +252,8 @@ const UserProfileCard = (info: IUserProfileInfo) => {
           </div>
           <div className="flex relative justify-center">
             <Image
-              width={100}
-              height={100}
+              width={300}
+              height={300}
               src={pfp == pfpPreview ? info.pfp : pfpPreview}
               alt={`${info.username} profile pic`}
               className="w-28 h-28 rounded-[50%]"
@@ -471,7 +473,9 @@ const UserProfileCard = (info: IUserProfileInfo) => {
           {/*div when edit is not selected*/}
           <div className="w-[60%] sm:w-[70%] flex flex-col sm:gap-2 gap-5">
             <div className="flex sm:gap-7 gap-3 h-[125px]">
-              <img
+              <Image
+                width={300}
+                height={300}
                 src={info.pfp != "" ? info.pfp : "/nofileselected.png"}
                 alt={`${info.username} profile pic`}
                 className="sm:w-28 sm:h-28 h-16 w-16 rounded-[50%]"
@@ -508,7 +512,10 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                     >
                       {info.followers.length} Followers
                     </h3>
-                    <div className="absolute top-0 bottom-0 w-full h-full cursor-pointer " onClick={() => setFollowers()}></div>
+                    <div
+                      className="absolute top-0 bottom-0 w-full h-full cursor-pointer "
+                      onClick={() => setFollowers()}
+                    ></div>
                     {openFollowers && info.followers.length !== 0 && (
                       <div className="absolute p-2 rounded-md border-1 bg-white w-60">
                         {info.followers.map((user, index) => (
@@ -525,13 +532,13 @@ const UserProfileCard = (info: IUserProfileInfo) => {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="relative">
-                    <h3
-                    >
-                      {info.following.length} Following
-                    </h3>
-                    <div className="absolute top-0 bottom-0 w-full h-full cursor-pointer " onClick={() => setFollowing()}></div>
+                    <h3>{info.following.length} Following</h3>
+                    <div
+                      className="absolute top-0 bottom-0 w-full h-full cursor-pointer "
+                      onClick={() => setFollowing()}
+                    ></div>
                     {openFollowing && info.following.length !== 0 && (
                       <div className="absolute p-2 rounded-md border-1 bg-white w-60">
                         {info.following.map((user, index) => (

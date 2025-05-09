@@ -115,8 +115,8 @@ const FocusPostComponent = (data: IPostItems) => {
           <div className="w-[50%]">
             <div className="flex p-3 w-full gap-2 bg-[#f5f5f5]">
               <Image
-                width={100}
-                height={100}
+                width={300}
+                height={300}
                 src={userData.pfp != "" ? userData.pfp : "/nofileselected.png"}
                 className="w-6 rounded-full h-6 cursor-pointer"
                 alt={`${postData.publisherName}'s profile pic`}
